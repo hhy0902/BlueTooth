@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bluetoothconnect2.MainActivity2
+import com.example.bluetoothconnect2.MainActivity3
 import com.example.bluetoothconnect2.R
 import com.example.bluetoothconnect2.model.Room
 
@@ -37,7 +38,7 @@ class RoomAdapter(val context: Context, val roomList: MutableList<Room>,
             itemView.setOnClickListener {
 
                 val position : Int = adapterPosition
-                val intent = Intent(itemView.context, MainActivity2::class.java)
+                val intent = Intent(itemView.context, MainActivity3::class.java)
                 intent.putExtra("abcd",roomList.get(position).name)
                 intent.putExtra("roomsize",roomList.size)
                 //itemView.context.startActivity(intent)

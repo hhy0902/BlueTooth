@@ -6,56 +6,123 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.*
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bluetoothconnect2.adapter.RoomAdapter
 import com.example.bluetoothconnect2.databinding.ActivityMain2Binding
+import com.example.bluetoothconnect2.model.Room
 import java.io.IOException
 import java.util.*
 
 class MainActivity2 : AppCompatActivity() {
 
-    private val control_led_on: Button by lazy {
-        findViewById(R.id.control_led_on)
-    }
-
-    private val editText: EditText by lazy {
-        findViewById(R.id.EditTextView)
-    }
-
-    private val control_led_disconnect: Button by lazy {
-        findViewById(R.id.control_led_disconnect)
-    }
-
-    private val connectDeviceName: TextView by lazy {
-        findViewById(R.id.connectDeviceName)
-    }
 
     private val binding by lazy {
         ActivityMain2Binding.inflate(layoutInflater)
     }
 
+    var i = 1
+    lateinit var roomList : MutableList<Room>
+
+    var spinnerData = ""
+    var editData = ""
+    /*
+    {
+  "plugs": [
+    {
+      "node_id": 1234567,
+      "room_id": 1,
+      "unit_id": 1,
+      "use_blaster": true
+    },
+    {
+      "node_id": 1234568,
+      "room_id": 1,
+      "unit_id": 2,
+      "use_blaster": false
+    }
+  ],
+  "blaster": {
+    "1": {
+      "type": 6,
+      "opcode": [
+    {
+      "cmd": "on",
+      "code": 1234545666
+    },
+    {
+      "cmd": "off",
+       "code": 123123123
+    }
+      ]
+    }
+  }
+}
+    */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        roomList = mutableListOf<Room>()
+        roomList.add(Room("room 1"))
+
+
+        val startActivityLauncher : ActivityResultLauncher<Intent> =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                when(it.resultCode) {
+                    RESULT_OK -> {
+                        Log.d("asdf", it.data?.getStringExtra("roomSizeValue").toString())
+                        spinnerData = it.data?.getStringExtra("spinner1").toString()
+                        editData = it.data?.getStringExtra("editdata1").toString()
+                    }
+                }
+            }
+
+        val roomAdapter = RoomAdapter(this,roomList, startActivityLauncher)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = roomAdapter
+
+        binding.btnAdd.setOnClickListener {
+            i = roomList.size + 1
+            roomList.add(Room("room $i"))
+            roomAdapter.notifyDataSetChanged()
+        }
+
+        binding.btnSave.setOnClickListener {
+            Log.d("qwer", roomList.size.toString())
+            binding.dataText.text = spinnerData
+            binding.dataText2.text = editData
+            sendCommand(spinnerData)
+        }
+
+        binding.btnDisconnect.setOnClickListener {
+            disconnect()
+        }
+
         address = intent.getStringExtra("Device_address").toString()
         name = intent.getStringExtra("Device_name").toString()
 
-        connectDeviceName.text = "$name 연결 중"
+        binding.gateWayText.text = "$address \n$name"
+
         ConnectToDevice(this).execute()
 
-        control_led_on.setOnClickListener {
-            sendCommand(editText.text.toString())
-            editText.text = null
-        }
+//        control_led_on.setOnClickListener {
+//            sendCommand(editText.text.toString())
+//            editText.text = null
+//        }
 
-        control_led_disconnect.setOnClickListener {
-            disconnect()
-        }
+//        control_led_disconnect.setOnClickListener {
+//            disconnect()
+//        }
     }
 
     private fun sendCommand(input: String) {

@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+
+    <TextView
+        android:id="@+id/numberText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="room number test"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numberText"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/deviceNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 1"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout" />
+
+            <TextView
+                android:id="@+id/deviceNumber2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 2"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout2" />
+
+            <TextView
+                android:id="@+id/deviceNumber3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 3"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout3" />
+
+            <TextView
+                android:id="@+id/deviceNumber4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 4"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout4" />
+
+            <TextView
+                android:id="@+id/deviceNumber5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 5"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout5" />
+
+            <TextView
+                android:id="@+id/deviceNumber6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 6"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout6" />
+
+            <TextView
+                android:id="@+id/deviceNumber7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 7"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout7" />
+
+            <TextView
+                android:id="@+id/deviceNumber8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 8"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout8" />
+
+            <TextView
+                android:id="@+id/deviceNumber9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 9"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout9" />
+
+            <TextView
+                android:id="@+id/deviceNumber10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 10"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout10" />
+
+            <TextView
+                android:id="@+id/deviceNumber11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 11"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout11"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout11" />
+
+            <TextView
+                android:id="@+id/deviceNumber12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="D. 12"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/deviceLayout12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/deviceLayout12" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber2"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber3"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout2">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText3"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber4"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout3">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText4"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber5"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout4">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText5"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber6"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout5">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText6"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber7"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout6">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText7"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber8"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout7">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText8"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber9"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout8">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText9"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber10"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout9">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText10"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber11"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout10">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText11"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/deviceLayout12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/deviceNumber12"
+                app:layout_constraintTop_toBottomOf="@id/deviceLayout11">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editText12"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="save &amp; quit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_load"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_load"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="clear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_save" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

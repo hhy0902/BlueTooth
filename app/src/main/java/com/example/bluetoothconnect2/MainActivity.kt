@@ -15,17 +15,16 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.bluetoothconnect2.adapter.BlueAdapter
+import com.example.bluetoothconnect2.model.BlueTooth
+import com.example.bluetoothconnect2.model.Room
 
 class MainActivity : AppCompatActivity() {
 
     private val btnPaired: Button by lazy {
         findViewById(R.id.btn_paired)
-    }
-    private val listView: ListView by lazy {
-        findViewById(R.id.listview)
-    }
-    private val listView2: ListView by lazy {
-        findViewById(R.id.listview2)
     }
 
     lateinit var bluetoothManager: BluetoothManager
@@ -34,12 +33,16 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var pairedDevice: Set<BluetoothDevice>
 
+    lateinit var blueToothList : MutableList<BlueTooth>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         requestNotificationPermissions()
+
+        blueToothList = mutableListOf<BlueTooth>()
 
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? -> }
@@ -53,50 +56,25 @@ class MainActivity : AppCompatActivity() {
             startActivityIfNeeded(intent, REQUEST_ENABLE_BT)
         }
 
-
         btnPaired.setOnClickListener {
             pairedDevice = bluetoothAdapter!!.bondedDevices
-            val list: ArrayList<BluetoothDevice> = ArrayList()
-            val list2: ArrayList<String> = ArrayList()
 
             if (!pairedDevice.isEmpty()) {
-                for (device: BluetoothDevice in pairedDevice) {
-                    list.add(device)
-                    list2.add(device.name)
+                pairedDevice.forEach {
+                    blueToothList.add(BlueTooth(it.name, it.address))
                 }
+
             } else {
                 Toast.makeText(this, "페어링된 기기 없음", Toast.LENGTH_SHORT).show()
             }
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
-            val adapter2 = ArrayAdapter(this, android.R.layout.simple_list_item_1, list2)
-            listView.adapter = adapter
-            listView2.adapter = adapter2
 
-            listView.setOnItemClickListener { adapterView, view, position, l ->
-                val device: BluetoothDevice = list[position]
-                val address: String = device.address
-                val name: String = device.name
+            val blueAdapter = BlueAdapter(this,blueToothList)
+            findViewById<RecyclerView>(R.id.mainRecyclerView).layoutManager = LinearLayoutManager(this)
+            findViewById<RecyclerView>(R.id.mainRecyclerView).adapter = blueAdapter
 
-                val intent = Intent(this, MainActivity2::class.java)
-                intent.putExtra("Device_address", address)
-                intent.putExtra("Device_name", name)
-                startActivity(intent)
-            }
-
-            listView2.setOnItemClickListener { adapterView, view, position, l ->
-                val device: BluetoothDevice = list[position]
-                val address: String = device.address
-                val name: String = device.name
-
-                val intent = Intent(this, MainActivity2::class.java)
-                intent.putExtra("Device_address", address)
-                intent.putExtra("Device_name", name)
-                startActivity(intent)
-            }
+            Toast.makeText(this,"${blueToothList.size}",Toast.LENGTH_SHORT).show()
 
         }
-
-
     }
 
     private fun requestNotificationPermissions() {

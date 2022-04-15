@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BluetoothConnect2">
         <activity
+            android:name=".MainActivity3"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity2"
             android:exported="true" />
         <activity
