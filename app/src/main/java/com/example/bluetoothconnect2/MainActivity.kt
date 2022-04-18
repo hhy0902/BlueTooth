@@ -59,7 +59,13 @@ class MainActivity : AppCompatActivity() {
         btnPaired.setOnClickListener {
             pairedDevice = bluetoothAdapter!!.bondedDevices
 
-            if (!pairedDevice.isEmpty()) {
+            val blueAdapter = BlueAdapter(this,blueToothList)
+            findViewById<RecyclerView>(R.id.mainRecyclerView).layoutManager = LinearLayoutManager(this)
+            findViewById<RecyclerView>(R.id.mainRecyclerView).adapter = blueAdapter
+
+            blueAdapter.blueToothList.clear()
+
+            if (!pairedDevice.isEmpty() /*&& blueToothList.size == 0*/) {
                 pairedDevice.forEach {
                     blueToothList.add(BlueTooth(it.name, it.address))
                 }
@@ -67,13 +73,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "페어링된 기기 없음", Toast.LENGTH_SHORT).show()
             }
-
-            val blueAdapter = BlueAdapter(this,blueToothList)
-            findViewById<RecyclerView>(R.id.mainRecyclerView).layoutManager = LinearLayoutManager(this)
-            findViewById<RecyclerView>(R.id.mainRecyclerView).adapter = blueAdapter
-
             Toast.makeText(this,"${blueToothList.size}",Toast.LENGTH_SHORT).show()
-
         }
     }
 

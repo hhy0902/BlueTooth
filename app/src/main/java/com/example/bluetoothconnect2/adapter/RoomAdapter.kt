@@ -36,7 +36,6 @@ class RoomAdapter(val context: Context, val roomList: MutableList<Room>,
             }
 
             itemView.setOnClickListener {
-
                 val position : Int = adapterPosition
                 val intent = Intent(itemView.context, MainActivity3::class.java)
                 intent.putExtra("abcd",roomList.get(position).name)
@@ -45,7 +44,6 @@ class RoomAdapter(val context: Context, val roomList: MutableList<Room>,
                 startActivityLauncher.launch(intent)
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -19,13 +19,14 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/checkLed"
-        android:src="@drawable/ic_baseline_circle_24"
+        android:src="@drawable/ic_baseline_circle_red_24"
         android:layout_margin="10dp"
         app:layout_constraintEnd_toStartOf="@id/btn_disconnect"
         app:layout_constraintTop_toTopOf="@id/btn_disconnect"
         app:layout_constraintBottom_toBottomOf="@id/btn_disconnect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_disconnect"

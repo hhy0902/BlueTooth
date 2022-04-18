@@ -377,9 +377,8 @@ class MainActivity3 : AppCompatActivity() {
         editor.commit()
 
         val intent = Intent(this,MainActivity::class.java)
-        intent.putExtra("spinner1","$spinnerData1, $spinnerData2, $spinnerData3, $spinnerData4, $spinnerData5, $spinnerData6")
-        intent.putExtra("editdata1","$editData1, $editData2, $editData3, $editData4, $editData5, $editData6")
-
+        intent.putExtra("spinner1","$spinnerData1 $spinnerData2 $spinnerData3 $spinnerData4 $spinnerData5 $spinnerData6 $spinnerData7 $spinnerData8 $spinnerData9 $spinnerData10 $spinnerData11 $spinnerData12")
+        intent.putExtra("editdata1","$editData1 $editData2 $editData3 $editData4 $editData5 $editData6 $editData7 $editData8 $editData9 $editData10 $editData11 $editData12")
         setResult(RESULT_OK, intent)
         finish()
 

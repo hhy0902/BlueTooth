@@ -34,13 +34,19 @@ class MainActivity2 : AppCompatActivity() {
 
     var spinnerData = ""
     var editData = ""
+
+    /*
+    {"jsonrpc":"2.0","method":"gz_patch", "params": "op": "replace", "path": "/plugs", "value": {여기에 플러그?}}
+     */
+
     /*
     {
   "plugs": [
     {
       "node_id": 1234567,
       "room_id": 1,
-      "unit_id": 1,
+      "unit_id": 1, = 제품 종류?
+      "value?" : "qwerasdf"
       "use_blaster": true
     },
     {
@@ -75,7 +81,6 @@ class MainActivity2 : AppCompatActivity() {
         roomList = mutableListOf<Room>()
         roomList.add(Room("room 1"))
 
-
         val startActivityLauncher : ActivityResultLauncher<Intent> =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 when(it.resultCode) {
@@ -101,7 +106,13 @@ class MainActivity2 : AppCompatActivity() {
             Log.d("qwer", roomList.size.toString())
             binding.dataText.text = spinnerData
             binding.dataText2.text = editData
-            sendCommand(spinnerData)
+            Log.d("asdf", bluetoothSocket?.isConnected.toString())
+            if (isConnected) {
+                sendCommand(spinnerData + editData)
+            }
+            else {
+                Toast.makeText(this,"연결이 필요합니다",Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.btnDisconnect.setOnClickListener {
@@ -113,16 +124,40 @@ class MainActivity2 : AppCompatActivity() {
 
         binding.gateWayText.text = "$address \n$name"
 
-        ConnectToDevice(this).execute()
+        // ConnectToDevice(this, binding.checkLed).execute()
 
-//        control_led_on.setOnClickListener {
-//            sendCommand(editText.text.toString())
-//            editText.text = null
+//        if(isConnected == false) {
+//            Toast.makeText(applicationContext,"연결 해제",Toast.LENGTH_SHORT).show()
+//            bluetoothSocket!!.close()
 //        }
 
-//        control_led_disconnect.setOnClickListener {
-//            disconnect()
-//        }
+
+        Thread {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+            val device: BluetoothDevice = bluetoothAdapter.getRemoteDevice(address)
+            bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(myUUID)
+            BluetoothAdapter.getDefaultAdapter().cancelDiscovery()
+
+            try {
+                bluetoothSocket?.connect()
+                isConnected = true
+
+                runOnUiThread {
+                    Toast.makeText(this, "연결 성공", Toast.LENGTH_SHORT).show()
+                    binding.checkLed.setImageResource(R.drawable.ic_baseline_circle_24)
+                }
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+                isConnected = false
+                runOnUiThread {
+                    Toast.makeText(this, "연결 실패", Toast.LENGTH_SHORT).show()
+                    binding.checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
+                }
+            }
+        }.start()
+
+
     }
 
     private fun sendCommand(input: String) {
@@ -140,8 +175,9 @@ class MainActivity2 : AppCompatActivity() {
             try {
                 bluetoothSocket!!.close()
                 bluetoothSocket = null
+                if(!isConnected == false)
+                    Toast.makeText(applicationContext,"연결 해제",Toast.LENGTH_SHORT).show()
                 isConnected = false
-                Toast.makeText(applicationContext,"연결 해제",Toast.LENGTH_SHORT).show()
             }catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -149,57 +185,70 @@ class MainActivity2 : AppCompatActivity() {
         finish()
     }
 
-    private class ConnectToDevice(c: Context) : AsyncTask<Void, Void, String>() {
 
-        private var connectSuccess: Boolean = true
-        private val context: Context
-
-        init {
-            this.context = c
-        }
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            progress = ProgressDialog.show(context,"connecting","please wait")
-            Toast.makeText(context,"${name} 연결 성공", Toast.LENGTH_SHORT).show()
-        }
-
-        override fun doInBackground(vararg p0: Void?): String? {
-
-            try {
-                if(bluetoothSocket == null || !isConnected) {
-                    //bluetoothManager = context.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
-                    bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-                    val device : BluetoothDevice = bluetoothAdapter.getRemoteDevice(address)
-                    bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(myUUID)
-                    BluetoothAdapter.getDefaultAdapter().cancelDiscovery()
-                    bluetoothSocket!!.connect()
-                }
-            } catch (e:IOException) {
-                connectSuccess = false
-                e.printStackTrace()
-            }
-            return null
-        }
-
-        override fun onPostExecute(result: String?) {
-            super.onPostExecute(result)
-            if(!connectSuccess) {
-                Log.d("data","couldn't connect")
-            } else {
-                isConnected = true
-            }
-            progress.dismiss()
-        }
-    }
+//    private class ConnectToDevice(c: Context, val checkLed : ImageView) : AsyncTask<Void, Void, String>() {
+//
+//        private var connectSuccess: Boolean = true
+//        private val context: Context
+//
+//        init {
+//            this.context = c
+//        }
+//
+//        override fun onPreExecute() {
+//            super.onPreExecute()
+//            //Toast.makeText(context,"${name} 연결 실패2", Toast.LENGTH_SHORT).show()
+//            progress = ProgressDialog.show(context,"connecting","please wait")
+//            //Toast.makeText(context,"${name} 연결 성공", Toast.LENGTH_SHORT).show()
+//        }
+//
+//        override fun doInBackground(vararg p0: Void?): String? {
+//
+//            try {
+//                if(bluetoothSocket == null || !isConnected) {
+//                    //bluetoothManager = context.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+//                    bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+//                    val device : BluetoothDevice = bluetoothAdapter.getRemoteDevice(address)
+//                    bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(myUUID)
+//                    BluetoothAdapter.getDefaultAdapter().cancelDiscovery()
+//                    bluetoothSocket!!.connect()
+//                } else if(connectSuccess == false) {
+//                    //checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
+//                    Toast.makeText(context,"${name} 연결 해제", Toast.LENGTH_SHORT).show()
+//                }
+//            } catch (e:IOException) {
+//                connectSuccess = false
+//                e.printStackTrace()
+//                //checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
+//                Toast.makeText(context,"${name} 연결 실패3", Toast.LENGTH_SHORT).show()
+//            }
+//            return null
+//        }
+//
+//        override fun onPostExecute(result: String?) {
+//            super.onPostExecute(result)
+//            if(!connectSuccess) {
+//                Log.d("data","couldn't connect")
+//                checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
+//            } else {
+//                isConnected = true
+//            }
+//            progress.dismiss()
+//        }
+//
+//        override fun onCancelled() {
+//            Toast.makeText(context,"${name} 연결 실패4", Toast.LENGTH_SHORT).show()
+//            checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
+//
+//        }
+//    }
+//
 
     companion object {
         var myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
         var bluetoothSocket: BluetoothSocket? = null
         lateinit var progress: ProgressDialog
         lateinit var bluetoothAdapter: BluetoothAdapter
-        lateinit var bluetoothManager: BluetoothManager
-        lateinit var bluetoothDevice: BluetoothDevice
         var isConnected: Boolean = false
         lateinit var address: String
         lateinit var name: String
