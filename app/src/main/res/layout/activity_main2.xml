@@ -2,40 +2,41 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/constraintlayoutMain"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <TextView
-        app:layout_constraintTop_toTopOf="@id/btn_disconnect"
-        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/gateWayText"
-        android:text="G/W &amp; UID"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/btn_disconnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="G/W &amp; UID"
+        app:layout_constraintBottom_toTopOf="@id/btn_save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/checkLed"
-        android:src="@drawable/ic_baseline_circle_red_24"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toStartOf="@id/btn_disconnect"
-        app:layout_constraintTop_toTopOf="@id/btn_disconnect"
-        app:layout_constraintBottom_toBottomOf="@id/btn_disconnect"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_baseline_circle_red_24"
+        app:layout_constraintBottom_toTopOf="@id/btn_connect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_disconnect"
+        android:id="@+id/btn_load"
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_margin="5dp"
-        android:text="out"
+        android:text="load"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintEnd_toStartOf="@id/btn_save"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gateWayText" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_save"
@@ -43,15 +44,26 @@
         android:layout_height="40dp"
         android:layout_margin="5dp"
         android:text="save"
+        app:layout_constraintEnd_toStartOf="@id/btn_connect"
+        app:layout_constraintStart_toEndOf="@id/btn_load"
+        app:layout_constraintTop_toBottomOf="@id/gateWayText" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_connect"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:text="connect"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/btn_save"
+        app:layout_constraintTop_toBottomOf="@id/gateWayText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@id/btn_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,23 +81,24 @@
 
     <TextView
         android:id="@+id/dataText"
-        android:text="save data Value"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dataText2"
-        app:layout_constraintBottom_toBottomOf="@id/btn_add"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="save data Value"
+        app:layout_constraintBottom_toBottomOf="@id/btn_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dataText2" />
 
     <TextView
         android:id="@+id/dataText2"
-        android:text="save data Value"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView"
-        app:layout_constraintBottom_toBottomOf="@id/dataText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="save data Value"
+        app:layout_constraintBottom_toBottomOf="@id/dataText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

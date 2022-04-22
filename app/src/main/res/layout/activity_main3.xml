@@ -143,34 +143,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/deviceLayout10" />
 
-            <TextView
-                android:id="@+id/deviceNumber11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="D. 11"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="@id/deviceLayout11"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/deviceLayout11" />
-
-            <TextView
-                android:id="@+id/deviceNumber12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="D. 12"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="@id/deviceLayout12"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/deviceLayout12" />
-
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/deviceLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -184,11 +164,10 @@
                     android:id="@+id/editText1"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_gravity="start"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />
-
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -197,6 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber2"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout">
@@ -211,7 +191,6 @@
                     android:id="@+id/editText2"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />
@@ -223,6 +202,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber3"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout2">
@@ -237,7 +217,6 @@
                     android:id="@+id/editText3"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />
@@ -249,6 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber4"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout3">
@@ -263,7 +243,6 @@
                     android:id="@+id/editText4"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />
@@ -275,6 +254,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber5"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout4">
@@ -289,7 +269,6 @@
                     android:id="@+id/editText5"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />
@@ -301,6 +280,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber6"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout5">
@@ -315,7 +295,6 @@
                     android:id="@+id/editText6"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />
@@ -326,6 +305,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber7"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout6">
@@ -340,7 +320,6 @@
                     android:id="@+id/editText7"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />
@@ -351,6 +330,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber8"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout7">
@@ -365,7 +345,6 @@
                     android:id="@+id/editText8"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />
@@ -376,6 +355,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber9"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout8">
@@ -390,7 +370,6 @@
                     android:id="@+id/editText9"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />
@@ -401,6 +380,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber10"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout9">
@@ -415,57 +395,6 @@
                     android:id="@+id/editText10"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:selectAllOnFocus="true" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/deviceLayout11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/deviceNumber11"
-                app:layout_constraintTop_toBottomOf="@id/deviceLayout10">
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spinner11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/editText11"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:selectAllOnFocus="true" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/deviceLayout12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/deviceNumber12"
-                app:layout_constraintTop_toBottomOf="@id/deviceLayout11">
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spinner12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/editText12"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true" />

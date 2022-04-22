@@ -34,6 +34,8 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerData11 : String = ""
     var spinnerData12 : String = ""
 
+    var spinnerData2_1 : String = ""
+
 
     //var editData1 = StringBuffer()
     var editData1 : String = ""
@@ -62,6 +64,8 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerSelect11 = 0
     var spinnerSelect12 = 0
 
+    var spinnerSelect2_1 = 0
+
     var i = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,8 +74,9 @@ class MainActivity3 : AppCompatActivity() {
 
 
         val abcd = intent.getStringExtra("abcd")
-        binding2.numberText.text = abcd
-        roomName = abcd.toString()
+        val deviceId = intent.getStringExtra("deviceId")
+        binding2.numberText.text = "$abcd"
+        roomName = "$abcd"
 
         val roomSize = intent.getIntExtra("roomsize",0)
         Toast.makeText(this,"$roomSize",Toast.LENGTH_SHORT).show()
@@ -82,7 +87,7 @@ class MainActivity3 : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData1 = binding2.spinner1.getItemAtPosition(p2).toString()
                 spinnerSelect1 = p2
-                //spinnerData1.append(binding2.spinner1.getItemAtPosition(p2).toString())
+                binding2.spinner1.setSelection(9)
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -179,6 +184,7 @@ class MainActivity3 : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData9 = binding2.spinner9.getItemAtPosition(p2).toString()
                 spinnerSelect9 = p2
+                binding2.spinner9.setSelection(8)
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -191,35 +197,14 @@ class MainActivity3 : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData10 = binding2.spinner10.getItemAtPosition(p2).toString()
                 spinnerSelect10 = p2
+                binding2.spinner10.setSelection(3)
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
         }
 
-        val spinnerAdapter11 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
-        binding2.spinner11.adapter = spinnerAdapter11
-        binding2.spinner11.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                spinnerData11 = binding2.spinner11.getItemAtPosition(p2).toString()
-                spinnerSelect11 = p2
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
-
-        val spinnerAdapter12 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
-        binding2.spinner12.adapter = spinnerAdapter12
-        binding2.spinner12.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                spinnerData12 = binding2.spinner12.getItemAtPosition(p2).toString()
-                spinnerSelect12 = p2
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
+//        binding2.spinner10.setSelection(9, true)
 
         binding2.btnSave.setOnClickListener {
             editData1 = binding2.editText1.text.toString()
@@ -232,10 +217,8 @@ class MainActivity3 : AppCompatActivity() {
             editData8 = binding2.editText8.text.toString()
             editData9 = binding2.editText9.text.toString()
             editData10 = binding2.editText10.text.toString()
-            editData11 = binding2.editText11.text.toString()
-            editData12 = binding2.editText12.text.toString()
 
-            val sharedPreferences = getSharedPreferences(abcd.toString(), Context.MODE_PRIVATE)
+            val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
             val editor : SharedPreferences.Editor = sharedPreferences.edit()
             editor.putInt("spinnerSelect1",spinnerSelect1)
             editor.putString("editdata1",editData1)
@@ -257,15 +240,12 @@ class MainActivity3 : AppCompatActivity() {
             editor.putString("editdata9",editData9)
             editor.putInt("spinnerSelect10",spinnerSelect10)
             editor.putString("editdata10",editData10)
-            editor.putInt("spinnerSelect11",spinnerSelect11)
-            editor.putString("editdata11",editData11)
-            editor.putInt("spinnerSelect12",spinnerSelect12)
-            editor.putString("editdata12",editData12)
+
             editor.commit()
 
             val intent = Intent(this,MainActivity::class.java)
-            intent.putExtra("spinner1","$spinnerData1, $spinnerData2, $spinnerData3, $spinnerData4, $spinnerData5, $spinnerData6")
-            intent.putExtra("editdata1","$editData1, $editData2, $editData3, $editData4, $editData5, $editData6")
+            intent.putExtra("spinner1","$spinnerData1 $spinnerData2 $spinnerData3 $spinnerData4 $spinnerData5 $spinnerData6 $spinnerData7 $spinnerData8 $spinnerData9 $spinnerData10 ")
+            intent.putExtra("editdata1","$editData1 $editData2 $editData3 $editData4 $editData5 $editData6 $editData7 $editData8 $editData9 $editData10")
             intent.putExtra("roomSizeValue",roomSize)
 
             setResult(RESULT_OK, intent)
@@ -273,7 +253,7 @@ class MainActivity3 : AppCompatActivity() {
 
         }
 
-        val sharedPreferences = getSharedPreferences(abcd.toString(), Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
         val spinnerValue = sharedPreferences.getInt("spinnerSelect1", 0)
         val editTextValue = sharedPreferences.getString("editdata1", "")
@@ -295,10 +275,6 @@ class MainActivity3 : AppCompatActivity() {
         val editTextValue9 = sharedPreferences.getString("editdata9", "")
         val spinnerValue10 = sharedPreferences.getInt("spinnerSelect10", 0)
         val editTextValue10 = sharedPreferences.getString("editdata10", "")
-        val spinnerValue11 = sharedPreferences.getInt("spinnerSelect11", 0)
-        val editTextValue11 = sharedPreferences.getString("editdata11", "")
-        val spinnerValue12 = sharedPreferences.getInt("spinnerSelect12", 0)
-        val editTextValue12 = sharedPreferences.getString("editdata12", "")
 
 
         binding2.editText1.setText(editTextValue)
@@ -322,10 +298,7 @@ class MainActivity3 : AppCompatActivity() {
         binding2.spinner9.setSelection(spinnerValue9)
         binding2.editText10.setText(editTextValue10)
         binding2.spinner10.setSelection(spinnerValue10)
-        binding2.editText11.setText(editTextValue11)
-        binding2.spinner11.setSelection(spinnerValue11)
-        binding2.editText12.setText(editTextValue12)
-        binding2.spinner12.setSelection(spinnerValue12)
+
 
         Log.d("asdf share", spinnerValue.toString())
         Log.d("asdf share", editTextValue.toString())
@@ -345,8 +318,7 @@ class MainActivity3 : AppCompatActivity() {
         editData8 = binding2.editText8.text.toString()
         editData9 = binding2.editText9.text.toString()
         editData10 = binding2.editText10.text.toString()
-        editData11 = binding2.editText11.text.toString()
-        editData12 = binding2.editText12.text.toString()
+
 
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
         val editor : SharedPreferences.Editor = sharedPreferences.edit()
@@ -370,15 +342,12 @@ class MainActivity3 : AppCompatActivity() {
         editor.putString("editdata9",editData9)
         editor.putInt("spinnerSelect10",spinnerSelect10)
         editor.putString("editdata10",editData10)
-        editor.putInt("spinnerSelect11",spinnerSelect11)
-        editor.putString("editdata11",editData11)
-        editor.putInt("spinnerSelect12",spinnerSelect12)
-        editor.putString("editdata12",editData12)
+
         editor.commit()
 
         val intent = Intent(this,MainActivity::class.java)
-        intent.putExtra("spinner1","$spinnerData1 $spinnerData2 $spinnerData3 $spinnerData4 $spinnerData5 $spinnerData6 $spinnerData7 $spinnerData8 $spinnerData9 $spinnerData10 $spinnerData11 $spinnerData12")
-        intent.putExtra("editdata1","$editData1 $editData2 $editData3 $editData4 $editData5 $editData6 $editData7 $editData8 $editData9 $editData10 $editData11 $editData12")
+        intent.putExtra("spinner1","$spinnerData1 $spinnerData2 $spinnerData3 $spinnerData4 $spinnerData5 $spinnerData6 $spinnerData7 $spinnerData8 $spinnerData9 $spinnerData10 ")
+        intent.putExtra("editdata1","$editData1 $editData2 $editData3 $editData4 $editData5 $editData6 $editData7 $editData8 $editData9 $editData10")
         setResult(RESULT_OK, intent)
         finish()
 

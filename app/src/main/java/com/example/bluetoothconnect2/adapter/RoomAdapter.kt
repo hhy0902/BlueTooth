@@ -16,7 +16,7 @@ import com.example.bluetoothconnect2.R
 import com.example.bluetoothconnect2.model.Room
 
 class RoomAdapter(val context: Context, val roomList: MutableList<Room>,
-    val startActivityLauncher : ActivityResultLauncher<Intent>) :
+    val startActivityLauncher : ActivityResultLauncher<Intent>, val deviceId : String) :
     RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
@@ -40,6 +40,7 @@ class RoomAdapter(val context: Context, val roomList: MutableList<Room>,
                 val intent = Intent(itemView.context, MainActivity3::class.java)
                 intent.putExtra("abcd",roomList.get(position).name)
                 intent.putExtra("roomsize",roomList.size)
+                intent.putExtra("deviceId", deviceId)
                 //itemView.context.startActivity(intent)
                 startActivityLauncher.launch(intent)
             }

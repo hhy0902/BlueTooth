@@ -10,6 +10,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -22,10 +23,6 @@ import com.example.bluetoothconnect2.model.BlueTooth
 import com.example.bluetoothconnect2.model.Room
 
 class MainActivity : AppCompatActivity() {
-
-    private val btnPaired: Button by lazy {
-        findViewById(R.id.btn_paired)
-    }
 
     lateinit var bluetoothManager: BluetoothManager
     lateinit var bluetoothAdapter: BluetoothAdapter
@@ -56,25 +53,27 @@ class MainActivity : AppCompatActivity() {
             startActivityIfNeeded(intent, REQUEST_ENABLE_BT)
         }
 
-        btnPaired.setOnClickListener {
-            pairedDevice = bluetoothAdapter!!.bondedDevices
+        val testValue = intent.getStringExtra("test123")
+        Log.d("asdf", testValue.toString())
 
-            val blueAdapter = BlueAdapter(this,blueToothList)
-            findViewById<RecyclerView>(R.id.mainRecyclerView).layoutManager = LinearLayoutManager(this)
-            findViewById<RecyclerView>(R.id.mainRecyclerView).adapter = blueAdapter
+        pairedDevice = bluetoothAdapter!!.bondedDevices
 
-            blueAdapter.blueToothList.clear()
+        val blueAdapter = BlueAdapter(this,blueToothList)
+        findViewById<RecyclerView>(R.id.mainRecyclerView).layoutManager = LinearLayoutManager(this)
+        findViewById<RecyclerView>(R.id.mainRecyclerView).adapter = blueAdapter
 
-            if (!pairedDevice.isEmpty() /*&& blueToothList.size == 0*/) {
-                pairedDevice.forEach {
-                    blueToothList.add(BlueTooth(it.name, it.address))
-                }
+        blueAdapter.blueToothList.clear()
 
-            } else {
-                Toast.makeText(this, "페어링된 기기 없음", Toast.LENGTH_SHORT).show()
+        if (!pairedDevice.isEmpty() /*&& blueToothList.size == 0*/) {
+            pairedDevice.forEach {
+                blueToothList.add(BlueTooth(it.name, it.address))
             }
-            Toast.makeText(this,"${blueToothList.size}",Toast.LENGTH_SHORT).show()
+
+        } else {
+            Toast.makeText(this, "페어링된 기기 없음", Toast.LENGTH_SHORT).show()
         }
+        Toast.makeText(this,"${blueToothList.size}",Toast.LENGTH_SHORT).show()
+
     }
 
     private fun requestNotificationPermissions() {

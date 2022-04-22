@@ -7,11 +7,14 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.Intent
+import android.hardware.SensorManager
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,49 +33,24 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     var i = 1
+    var z = 0
     lateinit var roomList : MutableList<Room>
 
     var spinnerData = ""
     var editData = ""
+    val handler = Handler()
+    var isRealConnect = false
+    var address = ""
+    var name = ""
 
-    /*
-    {"jsonrpc":"2.0","method":"gz_patch", "params": "op": "replace", "path": "/plugs", "value": {여기에 플러그?}}
-     */
+    companion object {
+        var myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
+        var bluetoothSocket: BluetoothSocket? = null
+        lateinit var progress: ProgressDialog
+        lateinit var bluetoothAdapter: BluetoothAdapter
+        var isConnected: Boolean = false
 
-    /*
-    {
-  "plugs": [
-    {
-      "node_id": 1234567,
-      "room_id": 1,
-      "unit_id": 1, = 제품 종류?
-      "value?" : "qwerasdf"
-      "use_blaster": true
-    },
-    {
-      "node_id": 1234568,
-      "room_id": 1,
-      "unit_id": 2,
-      "use_blaster": false
     }
-  ],
-  "blaster": {
-    "1": {
-      "type": 6,
-      "opcode": [
-    {
-      "cmd": "on",
-      "code": 1234545666
-    },
-    {
-      "cmd": "off",
-       "code": 123123123
-    }
-      ]
-    }
-  }
-}
-    */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,18 +59,56 @@ class MainActivity2 : AppCompatActivity() {
         roomList = mutableListOf<Room>()
         roomList.add(Room("room 1"))
 
+        binding.gateWayText.text = "$address $name"
+
         val startActivityLauncher : ActivityResultLauncher<Intent> =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 when(it.resultCode) {
                     RESULT_OK -> {
-                        Log.d("asdf", it.data?.getStringExtra("roomSizeValue").toString())
                         spinnerData = it.data?.getStringExtra("spinner1").toString()
                         editData = it.data?.getStringExtra("editdata1").toString()
                     }
                 }
             }
 
-        val roomAdapter = RoomAdapter(this,roomList, startActivityLauncher)
+        val startActivityLauncher2 : ActivityResultLauncher<Intent> =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                when(it.resultCode) {
+                    RESULT_OK -> {
+                        address = it.data?.getStringExtra("Device_address").toString()
+                        name = it.data?.getStringExtra("Device_name").toString()
+                        binding.gateWayText.text = "$name $address"
+
+                        Thread {
+                            try {
+                                bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+                                val device: BluetoothDevice = bluetoothAdapter.getRemoteDevice(address)
+                                bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(myUUID)
+                                BluetoothAdapter.getDefaultAdapter().cancelDiscovery()
+
+
+                                bluetoothSocket?.connect()
+                                isConnected = true
+
+                                runOnUiThread {
+                                    Toast.makeText(this, "${bluetoothSocket?.remoteDevice?.name} 연결 성공", Toast.LENGTH_SHORT).show()
+                                    binding.checkLed.setImageResource(R.drawable.ic_baseline_circle_24)
+                                }
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                                isConnected = false
+                                runOnUiThread {
+                                    Toast.makeText(this, "연결 실패", Toast.LENGTH_SHORT).show()
+                                    binding.checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
+                                }
+                            }
+                        }.start()
+                    }
+                }
+            }
+
+
+        val roomAdapter = RoomAdapter(this,roomList, startActivityLauncher, name)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = roomAdapter
 
@@ -106,8 +122,12 @@ class MainActivity2 : AppCompatActivity() {
             Log.d("qwer", roomList.size.toString())
             binding.dataText.text = spinnerData
             binding.dataText2.text = editData
-            Log.d("asdf", bluetoothSocket?.isConnected.toString())
-            if (isConnected) {
+
+            Log.d("asdf 1", isConnected.toString())
+            Log.d("asdf 2", bluetoothSocket?.isConnected.toString())
+
+            if (bluetoothSocket?.isConnected == true) {
+                sendCommand("{\"jsonrpc\": \"2.0\",\"method\": \"gz_patch\",\"params\": [{\"op\": \"replace\",\"path\": \"/plugs\"}],\"value\": [{\"node_id\": 1234567,\"room_id\": 1,\"unit_id\": 1,\"use_blaster\": true},{\"node_id\": 1234568,\"room_id\": 1,\"unit_id\": 2,\"use_blaster\": false}]}")
                 sendCommand(spinnerData + editData)
             }
             else {
@@ -115,14 +135,21 @@ class MainActivity2 : AppCompatActivity() {
             }
         }
 
-        binding.btnDisconnect.setOnClickListener {
-            disconnect()
+        binding.btnConnect.setOnClickListener {
+            if (bluetoothSocket?.isConnected == true) {
+                bluetoothSocket!!.close()
+                Log.d("asdf 3", "끊기")
+            }
+
+            val intent = Intent(this, MainActivity::class.java)
+            //itemView.context.startActivity(intent)
+            intent.putExtra("test123","hello")
+            startActivityLauncher2.launch(intent)
         }
 
-        address = intent.getStringExtra("Device_address").toString()
-        name = intent.getStringExtra("Device_name").toString()
-
-        binding.gateWayText.text = "$address \n$name"
+        binding.btnLoad.setOnClickListener {
+            //disconnect()
+        }
 
         // ConnectToDevice(this, binding.checkLed).execute()
 
@@ -132,33 +159,39 @@ class MainActivity2 : AppCompatActivity() {
 //        }
 
 
-        Thread {
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-            val device: BluetoothDevice = bluetoothAdapter.getRemoteDevice(address)
-            bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(myUUID)
-            BluetoothAdapter.getDefaultAdapter().cancelDiscovery()
 
-            try {
-                bluetoothSocket?.connect()
-                isConnected = true
-
-                runOnUiThread {
-                    Toast.makeText(this, "연결 성공", Toast.LENGTH_SHORT).show()
-                    binding.checkLed.setImageResource(R.drawable.ic_baseline_circle_24)
-                }
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-                isConnected = false
-                runOnUiThread {
-                    Toast.makeText(this, "연결 실패", Toast.LENGTH_SHORT).show()
-                    binding.checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
-                }
-            }
-        }.start()
+//        val hadlerTask = object : Runnable {
+//            override fun run() {
+//                Log.d("asdf", "-----")
+//                Log.d("asdf", name)
+//                Log.d("asdf", address)
+//                Log.d("asdf", isRealConnect.toString())
+//                binding.gateWayText.text = "$name $address"
+//
+//                handler.postDelayed(this, 2000)
+//            }
+//        }
+//        handler.post(hadlerTask)
 
 
     }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return super.onTouchEvent(event)
+
+    }
+
+    override fun onBackPressed() {
+        if (z == 0)
+            Toast.makeText(this,"한번 더 누르면 종료",Toast.LENGTH_SHORT).show()
+        z++
+        if(z >= 2) {
+            disconnect()
+            super.onBackPressed()
+            z = 0
+        }
+    }
+
 
     private fun sendCommand(input: String) {
         if(bluetoothSocket != null) {
@@ -184,6 +217,7 @@ class MainActivity2 : AppCompatActivity() {
         }
         finish()
     }
+
 
 
 //    private class ConnectToDevice(c: Context, val checkLed : ImageView) : AsyncTask<Void, Void, String>() {
@@ -244,15 +278,6 @@ class MainActivity2 : AppCompatActivity() {
 //    }
 //
 
-    companion object {
-        var myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
-        var bluetoothSocket: BluetoothSocket? = null
-        lateinit var progress: ProgressDialog
-        lateinit var bluetoothAdapter: BluetoothAdapter
-        var isConnected: Boolean = false
-        lateinit var address: String
-        lateinit var name: String
-    }
 }
 
 
