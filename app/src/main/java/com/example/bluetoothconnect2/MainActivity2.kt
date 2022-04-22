@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bluetoothconnect2.adapter.RoomAdapter
 import com.example.bluetoothconnect2.databinding.ActivityMain2Binding
 import com.example.bluetoothconnect2.model.Room
+import org.json.JSONArray
+import org.json.JSONObject
 import java.io.IOException
 import java.util.*
 
@@ -36,8 +38,27 @@ class MainActivity2 : AppCompatActivity() {
     var z = 0
     lateinit var roomList : MutableList<Room>
 
-    var spinnerData = ""
-    var editData = ""
+    var spinnerData1 = ""
+    var editData1 = ""
+    var spinnerData2 = ""
+    var editData2 = ""
+    var spinnerData3 = ""
+    var editData3 = ""
+    var spinnerData4 = ""
+    var editData4 = ""
+    var spinnerData5 = ""
+    var editData5 = ""
+    var spinnerData6 = ""
+    var editData6 = ""
+    var spinnerData7 = ""
+    var editData7 = ""
+    var spinnerData8 = ""
+    var editData8 = ""
+    var spinnerData9 = ""
+    var editData9 = ""
+    var spinnerData10 = ""
+    var editData10 = ""
+
     val handler = Handler()
     var isRealConnect = false
     var address = ""
@@ -59,14 +80,35 @@ class MainActivity2 : AppCompatActivity() {
         roomList = mutableListOf<Room>()
         roomList.add(Room("room 1"))
 
+        var editDataList = mutableListOf<String>()
+        var spinnerDataList = mutableListOf<String>()
+
         binding.gateWayText.text = "$address $name"
 
         val startActivityLauncher : ActivityResultLauncher<Intent> =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 when(it.resultCode) {
                     RESULT_OK -> {
-                        spinnerData = it.data?.getStringExtra("spinner1").toString()
-                        editData = it.data?.getStringExtra("editdata1").toString()
+                        spinnerData1 = it.data?.getStringExtra("spinner1").toString()
+                        editData1 = it.data?.getStringExtra("editdata1").toString()
+                        spinnerData2 = it.data?.getStringExtra("spinner2").toString()
+                        editData2 = it.data?.getStringExtra("editdata2").toString()
+                        spinnerData3 = it.data?.getStringExtra("spinner3").toString()
+                        editData3 = it.data?.getStringExtra("editdata3").toString()
+                        spinnerData4 = it.data?.getStringExtra("spinner4").toString()
+                        editData4 = it.data?.getStringExtra("editdata4").toString()
+                        spinnerData5 = it.data?.getStringExtra("spinner5").toString()
+                        editData5 = it.data?.getStringExtra("editdata5").toString()
+                        spinnerData6 = it.data?.getStringExtra("spinner6").toString()
+                        editData6 = it.data?.getStringExtra("editdata6").toString()
+                        spinnerData7 = it.data?.getStringExtra("spinner7").toString()
+                        editData7 = it.data?.getStringExtra("editdata7").toString()
+                        spinnerData8 = it.data?.getStringExtra("spinner8").toString()
+                        editData8 = it.data?.getStringExtra("editdata8").toString()
+                        spinnerData9 = it.data?.getStringExtra("spinner9").toString()
+                        editData9 = it.data?.getStringExtra("editdata9").toString()
+                        spinnerData10 = it.data?.getStringExtra("spinner10").toString()
+                        editData10 = it.data?.getStringExtra("editdata10").toString()
                     }
                 }
             }
@@ -120,15 +162,78 @@ class MainActivity2 : AppCompatActivity() {
 
         binding.btnSave.setOnClickListener {
             Log.d("qwer", roomList.size.toString())
-            binding.dataText.text = spinnerData
-            binding.dataText2.text = editData
+            binding.dataText.text = spinnerData1 + spinnerData2 + spinnerData3 + spinnerData4 + spinnerData5 + spinnerData6 + spinnerData7 + spinnerData8 + spinnerData9 + spinnerData10
+            binding.dataText2.text = editData1 + editData2 + editData3 + editData4 + editData5 + editData6 + editData7 + editData8 + editData9 + editData10
+
+            spinnerDataList.add(0, spinnerData1)
+            spinnerDataList.add(1, spinnerData2)
+            spinnerDataList.add(2, spinnerData3)
+            spinnerDataList.add(3, spinnerData4)
+            spinnerDataList.add(4, spinnerData5)
+            spinnerDataList.add(5, spinnerData6)
+            spinnerDataList.add(6, spinnerData7)
+            spinnerDataList.add(7, spinnerData8)
+            spinnerDataList.add(8, spinnerData9)
+            spinnerDataList.add(9, spinnerData10)
+
+            editDataList.add(0, editData1)
+            editDataList.add(1, editData2)
+            editDataList.add(2, editData3)
+            editDataList.add(3, editData4)
+            editDataList.add(4, editData5)
+            editDataList.add(5, editData6)
+            editDataList.add(6, editData7)
+            editDataList.add(7, editData8)
+            editDataList.add(8, editData9)
+            editDataList.add(9, editData10)
+
+
 
             Log.d("asdf 1", isConnected.toString())
             Log.d("asdf 2", bluetoothSocket?.isConnected.toString())
 
             if (bluetoothSocket?.isConnected == true) {
-                sendCommand("{\"jsonrpc\": \"2.0\",\"method\": \"gz_patch\",\"params\": [{\"op\": \"replace\",\"path\": \"/plugs\"}],\"value\": [{\"node_id\": 1234567,\"room_id\": 1,\"unit_id\": 1,\"use_blaster\": true},{\"node_id\": 1234568,\"room_id\": 1,\"unit_id\": 2,\"use_blaster\": false}]}")
-                sendCommand(spinnerData + editData)
+
+                val json = "{\"jsonrpc\": \"2.0\",\"method\": " +
+                        "\"gz_patch\",\"params\": " + "[{\"op\": \"replace\",\"path\": \"/plugs\"}],\"value\": [{\"node_id\": 1234567,\"room_id\": 1,\"unit_id\": 1,\"use_blaster\": true},{\"node_id\": 1234568,\"room_id\": 1,\"unit_id\": 2,\"use_blaster\": false}]}"
+
+                val jsonObject = JSONObject()
+                val jsonObjectList = JSONArray()
+                val jsonObjectList2 = JSONArray()
+                for (i in 0..9) {
+                    val tempJsonObject = JSONObject()
+                    tempJsonObject.put("node_id", editDataList[i])
+                    tempJsonObject.put("room_id", i+1)
+                    tempJsonObject.put("unit_id", spinnerDataList[i])
+                    tempJsonObject.put("use_blaster", true)
+                    jsonObjectList.put(tempJsonObject)
+                }
+                jsonObject.put("jsonrpc", "2.0")
+                jsonObject.put("method", "gz_patch")
+
+                val jsonObjectParams = JSONObject()
+                jsonObjectParams.put("op","replace")
+                jsonObjectParams.put("path","/plugs")
+                jsonObjectList2.put(jsonObjectParams)
+
+                jsonObject.put("params", jsonObjectList2)
+                jsonObject.put("value",jsonObjectList)
+                Log.d("asdf jsonobject", jsonObject.toString())
+                Log.d("asdf jsonobject", json)
+
+
+                sendCommand(jsonObject.toString())
+                //sendCommand(json)
+                /*sendCommand(spinnerData1 + editData1 + spinnerData2 + editData2 + spinnerData3 + editData3 +
+                        spinnerData4 + editData4 + spinnerData5 + editData5 + spinnerData6 + editData6 +
+                        spinnerData7 + editData7 + spinnerData8 + editData8 + spinnerData9 + editData9 +
+                        spinnerData10 + editData10)
+
+                 */
+
+                editDataList.clear()
+                spinnerDataList.clear()
+
             }
             else {
                 Toast.makeText(this,"연결이 필요합니다",Toast.LENGTH_SHORT).show()
@@ -197,6 +302,7 @@ class MainActivity2 : AppCompatActivity() {
         if(bluetoothSocket != null) {
             try {
                 bluetoothSocket!!.outputStream.write(input.toByteArray())
+
             } catch (e: IOException) {
                 e.printStackTrace()
             }
