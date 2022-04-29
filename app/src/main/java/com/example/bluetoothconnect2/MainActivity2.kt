@@ -24,7 +24,11 @@ import com.example.bluetoothconnect2.databinding.ActivityMain2Binding
 import com.example.bluetoothconnect2.model.Room
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.ByteArrayInputStream
 import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.nio.Buffer
 import java.util.*
 
 class MainActivity2 : AppCompatActivity() {
@@ -37,6 +41,7 @@ class MainActivity2 : AppCompatActivity() {
     var i = 1
     var z = 0
     lateinit var roomList : MutableList<Room>
+    var stringBuffer = StringBuffer()
 
     var spinnerData1 = ""
     var editData1 = ""
@@ -60,9 +65,10 @@ class MainActivity2 : AppCompatActivity() {
     var editData10 = ""
 
     val handler = Handler()
-    var isRealConnect = false
+
     var address = ""
     var name = ""
+    var roomName = ""
 
     companion object {
         var myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
@@ -109,6 +115,9 @@ class MainActivity2 : AppCompatActivity() {
                         editData9 = it.data?.getStringExtra("editdata9").toString()
                         spinnerData10 = it.data?.getStringExtra("spinner10").toString()
                         editData10 = it.data?.getStringExtra("editdata10").toString()
+
+                        roomName = it.data?.getStringExtra("roomName").toString()
+
                     }
                 }
             }
@@ -149,7 +158,6 @@ class MainActivity2 : AppCompatActivity() {
                 }
             }
 
-
         val roomAdapter = RoomAdapter(this,roomList, startActivityLauncher, name)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = roomAdapter
@@ -187,8 +195,6 @@ class MainActivity2 : AppCompatActivity() {
             editDataList.add(8, editData9)
             editDataList.add(9, editData10)
 
-
-
             Log.d("asdf 1", isConnected.toString())
             Log.d("asdf 2", bluetoothSocket?.isConnected.toString())
 
@@ -203,7 +209,8 @@ class MainActivity2 : AppCompatActivity() {
                 for (i in 0..9) {
                     val tempJsonObject = JSONObject()
                     tempJsonObject.put("node_id", editDataList[i])
-                    tempJsonObject.put("room_id", i+1)
+                    //tempJsonObject.put("room_id", i+1)
+                    tempJsonObject.put("room_id", roomName)
                     tempJsonObject.put("unit_id", spinnerDataList[i])
                     tempJsonObject.put("use_blaster", true)
                     jsonObjectList.put(tempJsonObject)
@@ -218,18 +225,13 @@ class MainActivity2 : AppCompatActivity() {
 
                 jsonObject.put("params", jsonObjectList2)
                 jsonObject.put("value",jsonObjectList)
+
                 Log.d("asdf jsonobject", jsonObject.toString())
                 Log.d("asdf jsonobject", json)
 
-
                 sendCommand(jsonObject.toString())
-                //sendCommand(json)
-                /*sendCommand(spinnerData1 + editData1 + spinnerData2 + editData2 + spinnerData3 + editData3 +
-                        spinnerData4 + editData4 + spinnerData5 + editData5 + spinnerData6 + editData6 +
-                        spinnerData7 + editData7 + spinnerData8 + editData8 + spinnerData9 + editData9 +
-                        spinnerData10 + editData10)
 
-                 */
+                Log.d("asdf jsonobject length", jsonObject.toString().length.toString())
 
                 editDataList.clear()
                 spinnerDataList.clear()
@@ -253,7 +255,13 @@ class MainActivity2 : AppCompatActivity() {
         }
 
         binding.btnLoad.setOnClickListener {
-            //disconnect()
+
+            if (bluetoothSocket?.isConnected == true) {
+                receiveData()
+            }
+            else {
+                Toast.makeText(this,"연결이 필요합니다",Toast.LENGTH_SHORT).show()
+            }
         }
 
         // ConnectToDevice(this, binding.checkLed).execute()
@@ -297,6 +305,37 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
+    private fun receiveData() {
+        Thread {
+            try {
+                val byteAvailable = bluetoothSocket!!.inputStream.available()
+
+                if(byteAvailable > 0) {
+
+                    var byte = bluetoothSocket!!.inputStream.read()
+
+                    //val readColor = ByteArray(832)
+                    val readColor = ByteArray(byteAvailable-2)
+
+                    bluetoothSocket!!.inputStream.read(readColor)
+
+                    val string = String(readColor)
+                    val test = string.length
+
+                    Log.d("asdf receiveData2", "${byteAvailable}")
+                    Log.d("asdf receiveData3", "${bluetoothSocket!!.inputStream.read()}")
+                    Log.d("asdf receiveData4", "${byte}")
+                    Log.d("asdf receiveData7", "${string}")
+                    Log.d("asdf receiveData8", "${test}")
+
+                }
+            } catch (e : IOException) {
+                e.printStackTrace()
+                Log.d("asdf receiveData", "No receiveData")
+            }
+
+        }.start()
+    }
 
     private fun sendCommand(input: String) {
         if(bluetoothSocket != null) {

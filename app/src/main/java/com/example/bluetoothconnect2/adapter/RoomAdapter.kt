@@ -38,7 +38,8 @@ class RoomAdapter(val context: Context, val roomList: MutableList<Room>,
             itemView.setOnClickListener {
                 val position : Int = adapterPosition
                 val intent = Intent(itemView.context, MainActivity3::class.java)
-                intent.putExtra("abcd",roomList.get(position).name)
+                //intent.putExtra("abcd",roomList.get(position).name)
+                intent.putExtra("abcd",(position+1).toString())
                 intent.putExtra("roomsize",roomList.size)
                 intent.putExtra("deviceId", deviceId)
                 //itemView.context.startActivity(intent)

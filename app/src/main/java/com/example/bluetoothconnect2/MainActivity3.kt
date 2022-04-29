@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.get
 import com.example.bluetoothconnect2.databinding.ActivityMain3Binding
 
 class MainActivity3 : AppCompatActivity() {
@@ -17,7 +18,6 @@ class MainActivity3 : AppCompatActivity() {
     private val binding2 by lazy {
         ActivityMain3Binding.inflate(layoutInflater)
     }
-
 
     var roomName = ""
 
@@ -31,11 +31,6 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerData8 : String = ""
     var spinnerData9 : String = ""
     var spinnerData10 : String = ""
-    var spinnerData11 : String = ""
-    var spinnerData12 : String = ""
-
-    var spinnerData2_1 : String = ""
-
 
     //var editData1 = StringBuffer()
     var editData1 : String = ""
@@ -48,8 +43,6 @@ class MainActivity3 : AppCompatActivity() {
     var editData8 : String = ""
     var editData9 : String = ""
     var editData10 : String = ""
-    var editData11 : String = ""
-    var editData12 : String = ""
 
     var spinnerSelect1 = 0
     var spinnerSelect2 = 0
@@ -61,25 +54,41 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerSelect8 = 0
     var spinnerSelect9 = 0
     var spinnerSelect10 = 0
-    var spinnerSelect11 = 0
-    var spinnerSelect12 = 0
-
-    var spinnerSelect2_1 = 0
-
-    var i = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding2.root)
 
-
         val abcd = intent.getStringExtra("abcd")
         val deviceId = intent.getStringExtra("deviceId")
-        binding2.numberText.text = "$abcd"
+        binding2.numberText.text = "room $abcd"
         roomName = "$abcd"
 
         val roomSize = intent.getIntExtra("roomsize",0)
         Toast.makeText(this,"$roomSize",Toast.LENGTH_SHORT).show()
+
+//        binding2.spinner1.setSelection(9, true)
+//        binding2.spinner9.setSelection(8)
+//        binding2.spinner10.setSelection(3)
+
+//        if (spinnerSelect1 == 0) {
+//            binding2.spinner1.setSelection(9, true)
+//        }
+//        if (spinnerSelect9 == 0) {
+//            binding2.spinner9.setSelection(8, true)
+//        }
+//        if (spinnerSelect10 == 0) {
+//            binding2.spinner10.setSelection(3, true)
+//        }
+
+        Thread {
+            runOnUiThread {
+                binding2.spinner1.setSelection(9)
+                binding2.spinner9.setSelection(8)
+                binding2.spinner10.setSelection(3)
+            }
+        }.start()
+
 
         val spinnerAdapter1 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
         binding2.spinner1.adapter = spinnerAdapter1
@@ -87,12 +96,13 @@ class MainActivity3 : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData1 = binding2.spinner1.getItemAtPosition(p2).toString()
                 spinnerSelect1 = p2
-                binding2.spinner1.setSelection(9)
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
         }
+
+
 
         val spinnerAdapter2 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
         binding2.spinner2.adapter = spinnerAdapter2
@@ -184,7 +194,7 @@ class MainActivity3 : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData9 = binding2.spinner9.getItemAtPosition(p2).toString()
                 spinnerSelect9 = p2
-                binding2.spinner9.setSelection(8)
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -197,14 +207,36 @@ class MainActivity3 : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData10 = binding2.spinner10.getItemAtPosition(p2).toString()
                 spinnerSelect10 = p2
-                binding2.spinner10.setSelection(3)
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
         }
 
-//        binding2.spinner10.setSelection(9, true)
+        binding2.btnClear.setOnClickListener {
+            binding2.editText1.text = null
+            binding2.editText2.text = null
+            binding2.editText3.text = null
+            binding2.editText4.text = null
+            binding2.editText5.text = null
+            binding2.editText6.text = null
+            binding2.editText7.text = null
+            binding2.editText8.text = null
+            binding2.editText9.text = null
+            binding2.editText10.text = null
+
+//            binding2.spinner1.setSelection(0)
+//            binding2.spinner2.setSelection(0)
+//            binding2.spinner3.setSelection(0)
+//            binding2.spinner4.setSelection(0)
+//            binding2.spinner5.setSelection(0)
+//            binding2.spinner6.setSelection(0)
+//            binding2.spinner7.setSelection(0)
+//            binding2.spinner8.setSelection(0)
+//            binding2.spinner9.setSelection(0)
+//            binding2.spinner10.setSelection(0)
+        }
 
         binding2.btnSave.setOnClickListener {
             editData1 = binding2.editText1.text.toString()
@@ -265,6 +297,8 @@ class MainActivity3 : AppCompatActivity() {
             intent.putExtra("spinner10","$spinnerData10")
             intent.putExtra("editdata10","$editData10")
 
+            intent.putExtra("roomName", roomName)
+
 
             setResult(RESULT_OK, intent)
             finish()
@@ -317,9 +351,9 @@ class MainActivity3 : AppCompatActivity() {
         binding2.editText10.setText(editTextValue10)
         binding2.spinner10.setSelection(spinnerValue10)
 
-
         Log.d("asdf share", spinnerValue.toString())
         Log.d("asdf share", editTextValue.toString())
+
 
 
     }
@@ -384,6 +418,8 @@ class MainActivity3 : AppCompatActivity() {
         intent.putExtra("editdata9","$editData9")
         intent.putExtra("spinner10","$spinnerData10")
         intent.putExtra("editdata10","$editData10")
+
+        intent.putExtra("roomName", roomName)
 
         setResult(RESULT_OK, intent)
         finish()
