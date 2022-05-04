@@ -6,7 +6,9 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.SensorManager
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,7 @@ import android.view.MotionEvent
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bluetoothconnect2.adapter.RoomAdapter
 import com.example.bluetoothconnect2.databinding.ActivityMain2Binding
@@ -33,7 +36,6 @@ import java.util.*
 
 class MainActivity2 : AppCompatActivity() {
 
-
     private val binding by lazy {
         ActivityMain2Binding.inflate(layoutInflater)
     }
@@ -41,7 +43,6 @@ class MainActivity2 : AppCompatActivity() {
     var i = 1
     var z = 0
     lateinit var roomList : MutableList<Room>
-    var stringBuffer = StringBuffer()
 
     var spinnerData1 = ""
     var editData1 = ""
@@ -64,11 +65,11 @@ class MainActivity2 : AppCompatActivity() {
     var spinnerData10 = ""
     var editData10 = ""
 
-    val handler = Handler()
-
     var address = ""
     var name = ""
     var roomName = ""
+
+    lateinit var sharedPreferences : SharedPreferences
 
     companion object {
         var myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
@@ -117,6 +118,7 @@ class MainActivity2 : AppCompatActivity() {
                         editData10 = it.data?.getStringExtra("editdata10").toString()
 
                         roomName = it.data?.getStringExtra("roomName").toString()
+                        Log.d("asdf roomname","$roomName")
 
                     }
                 }
@@ -168,6 +170,28 @@ class MainActivity2 : AppCompatActivity() {
             roomAdapter.notifyDataSetChanged()
         }
 
+        binding.btnDelete.setOnClickListener {
+            roomList.removeAt(roomList.size-1)
+            roomAdapter.notifyDataSetChanged()
+        }
+
+        binding.btnClearData.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("clear button")
+            builder.setMessage("clear button click")
+            builder.setPositiveButton("확인",DialogInterface.OnClickListener { dialog, which ->
+                roomAllClear()
+                Log.d("asdf dialog cancle", "clear")
+            })
+            builder.setNegativeButton("취소",DialogInterface.OnClickListener { dialog, which ->
+                dialog.cancel()
+                Log.d("asdf dialog cancle", "cancel")
+            })
+            builder.show()
+
+
+        }
+
         binding.btnSave.setOnClickListener {
             Log.d("qwer", roomList.size.toString())
             binding.dataText.text = spinnerData1 + spinnerData2 + spinnerData3 + spinnerData4 + spinnerData5 + spinnerData6 + spinnerData7 + spinnerData8 + spinnerData9 + spinnerData10
@@ -199,22 +223,44 @@ class MainActivity2 : AppCompatActivity() {
             Log.d("asdf 2", bluetoothSocket?.isConnected.toString())
 
             if (bluetoothSocket?.isConnected == true) {
-
                 val json = "{\"jsonrpc\": \"2.0\",\"method\": " +
                         "\"gz_patch\",\"params\": " + "[{\"op\": \"replace\",\"path\": \"/plugs\"}],\"value\": [{\"node_id\": 1234567,\"room_id\": 1,\"unit_id\": 1,\"use_blaster\": true},{\"node_id\": 1234568,\"room_id\": 1,\"unit_id\": 2,\"use_blaster\": false}]}"
 
                 val jsonObject = JSONObject()
                 val jsonObjectList = JSONArray()
                 val jsonObjectList2 = JSONArray()
-                for (i in 0..9) {
-                    val tempJsonObject = JSONObject()
-                    tempJsonObject.put("node_id", editDataList[i])
-                    //tempJsonObject.put("room_id", i+1)
-                    tempJsonObject.put("room_id", roomName)
-                    tempJsonObject.put("unit_id", spinnerDataList[i])
-                    tempJsonObject.put("use_blaster", true)
-                    jsonObjectList.put(tempJsonObject)
+
+                //sharedPreferences = getSharedPreferences("1",Context.MODE_PRIVATE)
+
+//                for (i in 0..9) {
+//                    val tempJsonObject = JSONObject()
+//                    tempJsonObject.put("node_id", editDataList[i])
+//                    //tempJsonObject.put("room_id", i+1)
+//                    tempJsonObject.put("room_id", roomName)
+//                    tempJsonObject.put("unit_id", spinnerDataList[i])
+//                    tempJsonObject.put("use_blaster", true)
+//                    jsonObjectList.put(tempJsonObject)
+//                }
+
+                for(a in 1..roomList.size) {
+                    Log.d("asdf list","$a")
+
                 }
+
+                for(a in 1..roomList.size) {
+                    sharedPreferences = getSharedPreferences("$a",Context.MODE_PRIVATE)
+                    for (i in 1..10) {
+                        Log.d("asdf share2", "${sharedPreferences.all.get("editdata$i")}")
+                        val tempJsonObject = JSONObject()
+                        tempJsonObject.put("node_id", sharedPreferences.all.get("editdata$i"))
+                        //tempJsonObject.put("room_id", i+1)
+                        tempJsonObject.put("room_id", a)
+                        tempJsonObject.put("unit_id", sharedPreferences.all.get("spinnerSelect$i"))
+                        tempJsonObject.put("use_blaster", false)
+                        jsonObjectList.put(tempJsonObject)
+                    }
+                }
+
                 jsonObject.put("jsonrpc", "2.0")
                 jsonObject.put("method", "gz_patch")
 
@@ -227,7 +273,6 @@ class MainActivity2 : AppCompatActivity() {
                 jsonObject.put("value",jsonObjectList)
 
                 Log.d("asdf jsonobject", jsonObject.toString())
-                Log.d("asdf jsonobject", json)
 
                 sendCommand(jsonObject.toString())
 
@@ -263,35 +308,6 @@ class MainActivity2 : AppCompatActivity() {
                 Toast.makeText(this,"연결이 필요합니다",Toast.LENGTH_SHORT).show()
             }
         }
-
-        // ConnectToDevice(this, binding.checkLed).execute()
-
-//        if(isConnected == false) {
-//            Toast.makeText(applicationContext,"연결 해제",Toast.LENGTH_SHORT).show()
-//            bluetoothSocket!!.close()
-//        }
-
-
-
-//        val hadlerTask = object : Runnable {
-//            override fun run() {
-//                Log.d("asdf", "-----")
-//                Log.d("asdf", name)
-//                Log.d("asdf", address)
-//                Log.d("asdf", isRealConnect.toString())
-//                binding.gateWayText.text = "$name $address"
-//
-//                handler.postDelayed(this, 2000)
-//            }
-//        }
-//        handler.post(hadlerTask)
-
-
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return super.onTouchEvent(event)
-
     }
 
     override fun onBackPressed() {
@@ -309,25 +325,18 @@ class MainActivity2 : AppCompatActivity() {
         Thread {
             try {
                 val byteAvailable = bluetoothSocket!!.inputStream.available()
-
                 if(byteAvailable > 0) {
-
                     var byte = bluetoothSocket!!.inputStream.read()
-
                     //val readColor = ByteArray(832)
                     val readColor = ByteArray(byteAvailable-2)
-
                     bluetoothSocket!!.inputStream.read(readColor)
-
                     val string = String(readColor)
                     val test = string.length
-
                     Log.d("asdf receiveData2", "${byteAvailable}")
                     Log.d("asdf receiveData3", "${bluetoothSocket!!.inputStream.read()}")
                     Log.d("asdf receiveData4", "${byte}")
                     Log.d("asdf receiveData7", "${string}")
                     Log.d("asdf receiveData8", "${test}")
-
                 }
             } catch (e : IOException) {
                 e.printStackTrace()
@@ -363,66 +372,73 @@ class MainActivity2 : AppCompatActivity() {
         finish()
     }
 
+    private fun roomAllClear() {
+        val sharedPreferences = getSharedPreferences("1",Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
 
+        val sharedPreferences2 = getSharedPreferences("2",Context.MODE_PRIVATE)
+        val editor2 : SharedPreferences.Editor = sharedPreferences2.edit()
 
-//    private class ConnectToDevice(c: Context, val checkLed : ImageView) : AsyncTask<Void, Void, String>() {
-//
-//        private var connectSuccess: Boolean = true
-//        private val context: Context
-//
-//        init {
-//            this.context = c
-//        }
-//
-//        override fun onPreExecute() {
-//            super.onPreExecute()
-//            //Toast.makeText(context,"${name} 연결 실패2", Toast.LENGTH_SHORT).show()
-//            progress = ProgressDialog.show(context,"connecting","please wait")
-//            //Toast.makeText(context,"${name} 연결 성공", Toast.LENGTH_SHORT).show()
-//        }
-//
-//        override fun doInBackground(vararg p0: Void?): String? {
-//
-//            try {
-//                if(bluetoothSocket == null || !isConnected) {
-//                    //bluetoothManager = context.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
-//                    bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-//                    val device : BluetoothDevice = bluetoothAdapter.getRemoteDevice(address)
-//                    bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(myUUID)
-//                    BluetoothAdapter.getDefaultAdapter().cancelDiscovery()
-//                    bluetoothSocket!!.connect()
-//                } else if(connectSuccess == false) {
-//                    //checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
-//                    Toast.makeText(context,"${name} 연결 해제", Toast.LENGTH_SHORT).show()
-//                }
-//            } catch (e:IOException) {
-//                connectSuccess = false
-//                e.printStackTrace()
-//                //checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
-//                Toast.makeText(context,"${name} 연결 실패3", Toast.LENGTH_SHORT).show()
-//            }
-//            return null
-//        }
-//
-//        override fun onPostExecute(result: String?) {
-//            super.onPostExecute(result)
-//            if(!connectSuccess) {
-//                Log.d("data","couldn't connect")
-//                checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
-//            } else {
-//                isConnected = true
-//            }
-//            progress.dismiss()
-//        }
-//
-//        override fun onCancelled() {
-//            Toast.makeText(context,"${name} 연결 실패4", Toast.LENGTH_SHORT).show()
-//            checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
-//
-//        }
-//    }
-//
+        val sharedPreferences3 = getSharedPreferences("3",Context.MODE_PRIVATE)
+        val editor3 : SharedPreferences.Editor = sharedPreferences3.edit()
 
+        val sharedPreferences4 = getSharedPreferences("4",Context.MODE_PRIVATE)
+        val editor4 : SharedPreferences.Editor = sharedPreferences4.edit()
+
+        val sharedPreferences5 = getSharedPreferences("5",Context.MODE_PRIVATE)
+        val editor5 : SharedPreferences.Editor = sharedPreferences5.edit()
+
+        val sharedPreferences6 = getSharedPreferences("6",Context.MODE_PRIVATE)
+        val editor6 : SharedPreferences.Editor = sharedPreferences6.edit()
+
+        val sharedPreferences7 = getSharedPreferences("7",Context.MODE_PRIVATE)
+        val editor7 : SharedPreferences.Editor = sharedPreferences7.edit()
+
+        val sharedPreferences8 = getSharedPreferences("8",Context.MODE_PRIVATE)
+        val editor8 : SharedPreferences.Editor = sharedPreferences8.edit()
+
+        val sharedPreferences9 = getSharedPreferences("9",Context.MODE_PRIVATE)
+        val editor9 : SharedPreferences.Editor = sharedPreferences9.edit()
+
+        val sharedPreferences10 = getSharedPreferences("10",Context.MODE_PRIVATE)
+        val editor10 : SharedPreferences.Editor = sharedPreferences10.edit()
+
+        val sharedPreferences11 = getSharedPreferences("11",Context.MODE_PRIVATE)
+        val editor11 : SharedPreferences.Editor = sharedPreferences11.edit()
+
+        val sharedPreferences12 = getSharedPreferences("12",Context.MODE_PRIVATE)
+        val editor12 : SharedPreferences.Editor = sharedPreferences12.edit()
+
+        val sharedPreferences13 = getSharedPreferences("13",Context.MODE_PRIVATE)
+        val editor13 : SharedPreferences.Editor = sharedPreferences13.edit()
+
+        editor.clear()
+        editor.commit()
+        editor2.clear()
+        editor2.commit()
+        editor3.clear()
+        editor3.commit()
+        editor4.clear()
+        editor4.commit()
+        editor5.clear()
+        editor5.commit()
+        editor6.clear()
+        editor6.commit()
+        editor7.clear()
+        editor7.commit()
+        editor8.clear()
+        editor8.commit()
+        editor9.clear()
+        editor9.commit()
+        editor10.clear()
+        editor10.commit()
+        editor11.clear()
+        editor11.commit()
+        editor12.clear()
+        editor12.commit()
+        editor13.clear()
+        editor13.commit()
+    }
 }
 
 

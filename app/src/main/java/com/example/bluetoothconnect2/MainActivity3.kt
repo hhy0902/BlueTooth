@@ -19,6 +19,8 @@ class MainActivity3 : AppCompatActivity() {
         ActivityMain3Binding.inflate(layoutInflater)
     }
 
+    var z = 0
+
     var roomName = ""
 
     var spinnerData1 : String = ""
@@ -65,21 +67,6 @@ class MainActivity3 : AppCompatActivity() {
         roomName = "$abcd"
 
         val roomSize = intent.getIntExtra("roomsize",0)
-        Toast.makeText(this,"$roomSize",Toast.LENGTH_SHORT).show()
-
-//        binding2.spinner1.setSelection(9, true)
-//        binding2.spinner9.setSelection(8)
-//        binding2.spinner10.setSelection(3)
-
-//        if (spinnerSelect1 == 0) {
-//            binding2.spinner1.setSelection(9, true)
-//        }
-//        if (spinnerSelect9 == 0) {
-//            binding2.spinner9.setSelection(8, true)
-//        }
-//        if (spinnerSelect10 == 0) {
-//            binding2.spinner10.setSelection(3, true)
-//        }
 
         Thread {
             runOnUiThread {
@@ -88,7 +75,6 @@ class MainActivity3 : AppCompatActivity() {
                 binding2.spinner10.setSelection(3)
             }
         }.start()
-
 
         val spinnerAdapter1 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
         binding2.spinner1.adapter = spinnerAdapter1
@@ -101,8 +87,6 @@ class MainActivity3 : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         }
-
-
 
         val spinnerAdapter2 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
         binding2.spinner2.adapter = spinnerAdapter2
@@ -194,7 +178,6 @@ class MainActivity3 : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData9 = binding2.spinner9.getItemAtPosition(p2).toString()
                 spinnerSelect9 = p2
-
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -207,7 +190,6 @@ class MainActivity3 : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData10 = binding2.spinner10.getItemAtPosition(p2).toString()
                 spinnerSelect10 = p2
-
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -226,16 +208,6 @@ class MainActivity3 : AppCompatActivity() {
             binding2.editText9.text = null
             binding2.editText10.text = null
 
-//            binding2.spinner1.setSelection(0)
-//            binding2.spinner2.setSelection(0)
-//            binding2.spinner3.setSelection(0)
-//            binding2.spinner4.setSelection(0)
-//            binding2.spinner5.setSelection(0)
-//            binding2.spinner6.setSelection(0)
-//            binding2.spinner7.setSelection(0)
-//            binding2.spinner8.setSelection(0)
-//            binding2.spinner9.setSelection(0)
-//            binding2.spinner10.setSelection(0)
         }
 
         binding2.btnSave.setOnClickListener {
@@ -299,9 +271,12 @@ class MainActivity3 : AppCompatActivity() {
 
             intent.putExtra("roomName", roomName)
 
-
             setResult(RESULT_OK, intent)
-            finish()
+            //finish()
+            Toast.makeText(this,"save",Toast.LENGTH_SHORT).show()
+            Log.d("asdf saveroomname", "$roomName")
+            val editTextValue = sharedPreferences.getString("editdata1", "")
+            Log.d("asdf value", "${editTextValue}")
 
         }
 
@@ -328,7 +303,6 @@ class MainActivity3 : AppCompatActivity() {
         val spinnerValue10 = sharedPreferences.getInt("spinnerSelect10", 0)
         val editTextValue10 = sharedPreferences.getString("editdata10", "")
 
-
         binding2.editText1.setText(editTextValue)
         binding2.spinner1.setSelection(spinnerValue)
         binding2.editText2.setText(editTextValue2)
@@ -351,81 +325,26 @@ class MainActivity3 : AppCompatActivity() {
         binding2.editText10.setText(editTextValue10)
         binding2.spinner10.setSelection(spinnerValue10)
 
-        Log.d("asdf share", spinnerValue.toString())
-        Log.d("asdf share", editTextValue.toString())
-
-
-
     }
 
     override fun onBackPressed() {
-
-        editData1 = binding2.editText1.text.toString()
-        editData2 = binding2.editText2.text.toString()
-        editData3 = binding2.editText3.text.toString()
-        editData4 = binding2.editText4.text.toString()
-        editData5 = binding2.editText5.text.toString()
-        editData6 = binding2.editText6.text.toString()
-        editData7 = binding2.editText7.text.toString()
-        editData8 = binding2.editText8.text.toString()
-        editData9 = binding2.editText9.text.toString()
-        editData10 = binding2.editText10.text.toString()
-
-
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
-        val editor : SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putInt("spinnerSelect1",spinnerSelect1)
-        editor.putString("editdata1",editData1)
-        editor.putInt("spinnerSelect2",spinnerSelect2)
-        editor.putString("editdata2",editData2)
-        editor.putInt("spinnerSelect3",spinnerSelect3)
-        editor.putString("editdata3",editData3)
-        editor.putInt("spinnerSelect4",spinnerSelect4)
-        editor.putString("editdata4",editData4)
-        editor.putInt("spinnerSelect5",spinnerSelect5)
-        editor.putString("editdata5",editData5)
-        editor.putInt("spinnerSelect6",spinnerSelect6)
-        editor.putString("editdata6",editData6)
-        editor.putInt("spinnerSelect7",spinnerSelect7)
-        editor.putString("editdata7",editData7)
-        editor.putInt("spinnerSelect8",spinnerSelect8)
-        editor.putString("editdata8",editData8)
-        editor.putInt("spinnerSelect9",spinnerSelect9)
-        editor.putString("editdata9",editData9)
-        editor.putInt("spinnerSelect10",spinnerSelect10)
-        editor.putString("editdata10",editData10)
 
-        editor.commit()
-
-        val intent = Intent(this,MainActivity::class.java)
-        intent.putExtra("spinner1","$spinnerData1")
-        intent.putExtra("editdata1","$editData1")
-        intent.putExtra("spinner2","$spinnerData2")
-        intent.putExtra("editdata2","$editData2")
-        intent.putExtra("spinner3","$spinnerData3")
-        intent.putExtra("editdata3","$editData3")
-        intent.putExtra("spinner4","$spinnerData4")
-        intent.putExtra("editdata4","$editData4")
-        intent.putExtra("spinner5","$spinnerData5")
-        intent.putExtra("editdata5","$editData5")
-        intent.putExtra("spinner6","$spinnerData6")
-        intent.putExtra("editdata6","$editData6")
-        intent.putExtra("spinner7","$spinnerData7")
-        intent.putExtra("editdata7","$editData7")
-        intent.putExtra("spinner8","$spinnerData8")
-        intent.putExtra("editdata8","$editData8")
-        intent.putExtra("spinner9","$spinnerData9")
-        intent.putExtra("editdata9","$editData9")
-        intent.putExtra("spinner10","$spinnerData10")
-        intent.putExtra("editdata10","$editData10")
-
-        intent.putExtra("roomName", roomName)
-
-        setResult(RESULT_OK, intent)
-        finish()
-
-        Toast.makeText(this,"save",Toast.LENGTH_SHORT).show()
-        super.onBackPressed()
+//        if (z == 0)
+//            Toast.makeText(this,"저장하시겠습니까?",Toast.LENGTH_SHORT).show()
+//        z++
+//        if(z >= 2) {
+//            super.onBackPressed()
+//            z = 0
+//        }
+        if(sharedPreferences.all.get("editdata1").toString() == binding2.editText1.text.toString()) {
+            Log.d("asdf save","같음")
+            super.onBackPressed()
+        } else {
+            Log.d("asdf save2","다름")
+            Toast.makeText(this,"quit",Toast.LENGTH_SHORT).show()
+            super.onBackPressed()
+        }
     }
 }
 
