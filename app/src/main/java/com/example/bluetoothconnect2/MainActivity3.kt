@@ -1,6 +1,7 @@
 package com.example.bluetoothconnect2
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.get
 import com.example.bluetoothconnect2.databinding.ActivityMain3Binding
 
@@ -19,7 +21,7 @@ class MainActivity3 : AppCompatActivity() {
         ActivityMain3Binding.inflate(layoutInflater)
     }
 
-    var z = 0
+    var isSave = 0
 
     var roomName = ""
 
@@ -63,7 +65,7 @@ class MainActivity3 : AppCompatActivity() {
 
         val abcd = intent.getStringExtra("abcd")
         val deviceId = intent.getStringExtra("deviceId")
-        binding2.numberText.text = "room $abcd"
+        binding2.numberText.text = "Room $abcd"
         roomName = "$abcd"
 
         val roomSize = intent.getIntExtra("roomsize",0)
@@ -207,77 +209,11 @@ class MainActivity3 : AppCompatActivity() {
             binding2.editText8.text = null
             binding2.editText9.text = null
             binding2.editText10.text = null
-
         }
 
         binding2.btnSave.setOnClickListener {
-            editData1 = binding2.editText1.text.toString()
-            editData2 = binding2.editText2.text.toString()
-            editData3 = binding2.editText3.text.toString()
-            editData4 = binding2.editText4.text.toString()
-            editData5 = binding2.editText5.text.toString()
-            editData6 = binding2.editText6.text.toString()
-            editData7 = binding2.editText7.text.toString()
-            editData8 = binding2.editText8.text.toString()
-            editData9 = binding2.editText9.text.toString()
-            editData10 = binding2.editText10.text.toString()
-
-            val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
-            val editor : SharedPreferences.Editor = sharedPreferences.edit()
-            editor.putInt("spinnerSelect1",spinnerSelect1)
-            editor.putString("editdata1",editData1)
-            editor.putInt("spinnerSelect2",spinnerSelect2)
-            editor.putString("editdata2",editData2)
-            editor.putInt("spinnerSelect3",spinnerSelect3)
-            editor.putString("editdata3",editData3)
-            editor.putInt("spinnerSelect4",spinnerSelect4)
-            editor.putString("editdata4",editData4)
-            editor.putInt("spinnerSelect5",spinnerSelect5)
-            editor.putString("editdata5",editData5)
-            editor.putInt("spinnerSelect6",spinnerSelect6)
-            editor.putString("editdata6",editData6)
-            editor.putInt("spinnerSelect7",spinnerSelect7)
-            editor.putString("editdata7",editData7)
-            editor.putInt("spinnerSelect8",spinnerSelect8)
-            editor.putString("editdata8",editData8)
-            editor.putInt("spinnerSelect9",spinnerSelect9)
-            editor.putString("editdata9",editData9)
-            editor.putInt("spinnerSelect10",spinnerSelect10)
-            editor.putString("editdata10",editData10)
-
-            editor.commit()
-
-            val intent = Intent(this,MainActivity::class.java)
-            intent.putExtra("spinner1","$spinnerData1")
-            intent.putExtra("editdata1","$editData1")
-            intent.putExtra("spinner2","$spinnerData2")
-            intent.putExtra("editdata2","$editData2")
-            intent.putExtra("spinner3","$spinnerData3")
-            intent.putExtra("editdata3","$editData3")
-            intent.putExtra("spinner4","$spinnerData4")
-            intent.putExtra("editdata4","$editData4")
-            intent.putExtra("spinner5","$spinnerData5")
-            intent.putExtra("editdata5","$editData5")
-            intent.putExtra("spinner6","$spinnerData6")
-            intent.putExtra("editdata6","$editData6")
-            intent.putExtra("spinner7","$spinnerData7")
-            intent.putExtra("editdata7","$editData7")
-            intent.putExtra("spinner8","$spinnerData8")
-            intent.putExtra("editdata8","$editData8")
-            intent.putExtra("spinner9","$spinnerData9")
-            intent.putExtra("editdata9","$editData9")
-            intent.putExtra("spinner10","$spinnerData10")
-            intent.putExtra("editdata10","$editData10")
-
-            intent.putExtra("roomName", roomName)
-
-            setResult(RESULT_OK, intent)
-            //finish()
-            Toast.makeText(this,"save",Toast.LENGTH_SHORT).show()
-            Log.d("asdf saveroomname", "$roomName")
-            val editTextValue = sharedPreferences.getString("editdata1", "")
-            Log.d("asdf value", "${editTextValue}")
-
+            isSave++
+            save()
         }
 
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
@@ -327,24 +263,110 @@ class MainActivity3 : AppCompatActivity() {
 
     }
 
+    fun save() {
+        editData1 = binding2.editText1.text.toString()
+        editData2 = binding2.editText2.text.toString()
+        editData3 = binding2.editText3.text.toString()
+        editData4 = binding2.editText4.text.toString()
+        editData5 = binding2.editText5.text.toString()
+        editData6 = binding2.editText6.text.toString()
+        editData7 = binding2.editText7.text.toString()
+        editData8 = binding2.editText8.text.toString()
+        editData9 = binding2.editText9.text.toString()
+        editData10 = binding2.editText10.text.toString()
+
+        val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putInt("spinnerSelect1",spinnerSelect1)
+        editor.putString("editdata1",editData1)
+        editor.putInt("spinnerSelect2",spinnerSelect2)
+        editor.putString("editdata2",editData2)
+        editor.putInt("spinnerSelect3",spinnerSelect3)
+        editor.putString("editdata3",editData3)
+        editor.putInt("spinnerSelect4",spinnerSelect4)
+        editor.putString("editdata4",editData4)
+        editor.putInt("spinnerSelect5",spinnerSelect5)
+        editor.putString("editdata5",editData5)
+        editor.putInt("spinnerSelect6",spinnerSelect6)
+        editor.putString("editdata6",editData6)
+        editor.putInt("spinnerSelect7",spinnerSelect7)
+        editor.putString("editdata7",editData7)
+        editor.putInt("spinnerSelect8",spinnerSelect8)
+        editor.putString("editdata8",editData8)
+        editor.putInt("spinnerSelect9",spinnerSelect9)
+        editor.putString("editdata9",editData9)
+        editor.putInt("spinnerSelect10",spinnerSelect10)
+        editor.putString("editdata10",editData10)
+
+        editor.commit()
+
+        val intent = Intent(this,MainActivity::class.java)
+        intent.putExtra("spinner1","$spinnerData1")
+        intent.putExtra("editdata1","$editData1")
+        intent.putExtra("spinner2","$spinnerData2")
+        intent.putExtra("editdata2","$editData2")
+        intent.putExtra("spinner3","$spinnerData3")
+        intent.putExtra("editdata3","$editData3")
+        intent.putExtra("spinner4","$spinnerData4")
+        intent.putExtra("editdata4","$editData4")
+        intent.putExtra("spinner5","$spinnerData5")
+        intent.putExtra("editdata5","$editData5")
+        intent.putExtra("spinner6","$spinnerData6")
+        intent.putExtra("editdata6","$editData6")
+        intent.putExtra("spinner7","$spinnerData7")
+        intent.putExtra("editdata7","$editData7")
+        intent.putExtra("spinner8","$spinnerData8")
+        intent.putExtra("editdata8","$editData8")
+        intent.putExtra("spinner9","$spinnerData9")
+        intent.putExtra("editdata9","$editData9")
+        intent.putExtra("spinner10","$spinnerData10")
+        intent.putExtra("editdata10","$editData10")
+
+        intent.putExtra("roomName", roomName)
+
+        setResult(RESULT_OK, intent)
+        //finish()
+        Toast.makeText(this,"save",Toast.LENGTH_SHORT).show()
+        Log.d("asdf saveroomname", "$roomName")
+        val editTextValue = sharedPreferences.getString("editdata1", "")
+        Log.d("asdf value", "${editTextValue}")
+    }
+
     override fun onBackPressed() {
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
-//        if (z == 0)
-//            Toast.makeText(this,"저장하시겠습니까?",Toast.LENGTH_SHORT).show()
-//        z++
-//        if(z >= 2) {
-//            super.onBackPressed()
-//            z = 0
-//        }
-        if(sharedPreferences.all.get("editdata1").toString() == binding2.editText1.text.toString()) {
-            Log.d("asdf save","같음")
+        if(sharedPreferences.all.get("editdata1").toString() == binding2.editText1.text.toString() &&
+            sharedPreferences.all.get("editdata2").toString() == binding2.editText2.text.toString() &&
+            sharedPreferences.all.get("editdata3").toString() == binding2.editText3.text.toString() &&
+            sharedPreferences.all.get("editdata4").toString() == binding2.editText4.text.toString() &&
+            sharedPreferences.all.get("editdata5").toString() == binding2.editText5.text.toString() &&
+            sharedPreferences.all.get("editdata6").toString() == binding2.editText6.text.toString() &&
+            sharedPreferences.all.get("editdata7").toString() == binding2.editText7.text.toString() &&
+            sharedPreferences.all.get("editdata8").toString() == binding2.editText8.text.toString() &&
+            sharedPreferences.all.get("editdata9").toString() == binding2.editText9.text.toString() &&
+            sharedPreferences.all.get("editdata10").toString() == binding2.editText10.text.toString()) {
+            Log.d("asdf save","최근 저장 & 값 변화 없음")
             super.onBackPressed()
         } else {
-            Log.d("asdf save2","다름")
-            Toast.makeText(this,"quit",Toast.LENGTH_SHORT).show()
-            super.onBackPressed()
+            Log.d("asdf save2","값 변화 생김")
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("notice")
+            builder.setMessage("저장하시겠습니까?")
+            builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                save()
+                Log.d("asdf save dialog cancle", "save")
+            })
+            builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
+                dialog.cancel()
+                Log.d("asdf save dialog cancle", "cancel")
+                super.onBackPressed()
+                //isSave = 0
+            })
+            builder.show()
+//            Toast.makeText(this,"quit",Toast.LENGTH_SHORT).show()
+//            super.onBackPressed()
         }
+
     }
 }
 

@@ -31,6 +31,7 @@ import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.lang.reflect.InvocationTargetException
 import java.nio.Buffer
 import java.util.*
 
@@ -68,6 +69,7 @@ class MainActivity2 : AppCompatActivity() {
     var address = ""
     var name = ""
     var roomName = ""
+    val random = Random().nextInt(20)+1
 
     lateinit var sharedPreferences : SharedPreferences
 
@@ -178,7 +180,7 @@ class MainActivity2 : AppCompatActivity() {
         binding.btnClearData.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("clear button")
-            builder.setMessage("clear button click")
+            builder.setMessage("모든 데이터를 삭제하시겠습니까?")
             builder.setPositiveButton("확인",DialogInterface.OnClickListener { dialog, which ->
                 roomAllClear()
                 Log.d("asdf dialog cancle", "clear")
@@ -188,8 +190,6 @@ class MainActivity2 : AppCompatActivity() {
                 Log.d("asdf dialog cancle", "cancel")
             })
             builder.show()
-
-
         }
 
         binding.btnSave.setOnClickListener {
@@ -229,6 +229,11 @@ class MainActivity2 : AppCompatActivity() {
                 val jsonObject = JSONObject()
                 val jsonObjectList = JSONArray()
                 val jsonObjectList2 = JSONArray()
+                val jsonObjectList3 = JSONArray()
+
+                val jsonObject2 = JSONObject()
+                val jsonObject3 = JSONObject()
+
 
                 //sharedPreferences = getSharedPreferences("1",Context.MODE_PRIVATE)
 
@@ -242,42 +247,167 @@ class MainActivity2 : AppCompatActivity() {
 //                    jsonObjectList.put(tempJsonObject)
 //                }
 
-                for(a in 1..roomList.size) {
-                    Log.d("asdf list","$a")
+//                for(a in 1..roomList.size) {
+//                    sharedPreferences = getSharedPreferences("$a",Context.MODE_PRIVATE)
+//                    for (i in 1..10) {
+//                        //Log.d("asdf share2", "${sharedPreferences.all.get("editdata$i")}")
+//                        val tempJsonObject = JSONObject()
+//                        tempJsonObject.put("node_id", sharedPreferences.all.get("editdata$i"))
+//                        //tempJsonObject.put("room_id", i+1)
+//                        tempJsonObject.put("room_id", a)
+//                        tempJsonObject.put("unit_id", sharedPreferences.all.get("spinnerSelect$i"))
+//                        tempJsonObject.put("use_blaster", false)
+//                        jsonObjectList.put(tempJsonObject)
+//
+//                    }
+//                    Log.d("asdf list2 ", "${jsonObjectList.length()}")
+//                }
 
-                }
-
-                for(a in 1..roomList.size) {
-                    sharedPreferences = getSharedPreferences("$a",Context.MODE_PRIVATE)
-                    for (i in 1..10) {
-                        Log.d("asdf share2", "${sharedPreferences.all.get("editdata$i")}")
-                        val tempJsonObject = JSONObject()
-                        tempJsonObject.put("node_id", sharedPreferences.all.get("editdata$i"))
-                        //tempJsonObject.put("room_id", i+1)
-                        tempJsonObject.put("room_id", a)
-                        tempJsonObject.put("unit_id", sharedPreferences.all.get("spinnerSelect$i"))
-                        tempJsonObject.put("use_blaster", false)
-                        jsonObjectList.put(tempJsonObject)
-                    }
-                }
 
                 jsonObject.put("jsonrpc", "2.0")
-                jsonObject.put("method", "gz_patch")
-
+                jsonObject.put("method", "patch_gz")
                 val jsonObjectParams = JSONObject()
                 jsonObjectParams.put("op","replace")
-                jsonObjectParams.put("path","/plugs")
+                //jsonObjectParams.put("path","/plugs")
                 jsonObjectList2.put(jsonObjectParams)
-
                 jsonObject.put("params", jsonObjectList2)
-                jsonObject.put("value",jsonObjectList)
 
-                Log.d("asdf jsonobject", jsonObject.toString())
+//                jsonObject.put("value",jsonObjectList)
+//                Log.d("asdf jsonobject", jsonObject.toString())
 
-                sendCommand(jsonObject.toString())
+
+
+
+
+
+//                for(a in 1..roomList.size) {
+//                    sharedPreferences = getSharedPreferences("$a",Context.MODE_PRIVATE)
+//                    for (i in 1..10) {
+//                        val tempJsonObject = JSONObject()
+//
+//                        tempJsonObject.put("node_id", sharedPreferences.all.get("editdata$i"))
+//                        tempJsonObject.put("room_id", a)
+//                        tempJsonObject.put("unit_id", sharedPreferences.all.get("spinnerSelect$i"))
+//
+//                        Log.d("asdf tempjsonobject", tempJsonObject.toString())
+//                        jsonObjectList.put(tempJsonObject)
+//                        jsonObject2.put("device $i", jsonObjectList.get(i-1))
+//                        //jsonObject2.put("device $i", tempJsonObject)
+//                        Log.d("asdf jsonobject2", jsonObject2.toString())
+//                        jsonObject3.put("room_$a", jsonObject2)
+//                    }
+//                    Log.d("asdf jsonobject3", jsonObject3.toString())
+//                    jsonObject.put("plugs",jsonObject3)
+//
+//                    jsonObject.put("id","qwerasdf$random")
+//                }
+//
+//                Log.d("asdf jsonobject3-2", jsonObject3.toString())
+//                Log.d("asdf jsonobject4", jsonObject.toString())
+//                Log.d("asdf listsize", "${jsonObjectList.length()}")
+
+                //sendCommand(jsonObject.toString())
+
+
+
+
+                val qwer = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": room_1\"\"}, \"id\": \"0o8hyx24\"}"
+                val zxcv = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"\"}, \"id\": \"looj2y8v\"}"
+
+                val jsonrpcObject = JSONObject()
+                val jsonrpcArray = JSONArray()
+                val jsonrpcArray2 = JSONArray()
+                jsonrpcObject.put("jsonrpc","2.0")
+                jsonrpcObject.put("method","patch_gz")
+
+
+                val jsonrpcObjectParams = JSONObject()
+                val jsonrpcObjectParams2 = JSONObject()
+                val jsonrpcObjectParams3 = JSONObject()
+                val jsonrpcObjectParams4 = JSONObject()
+                val jsonrpcObjectParams5 = JSONObject()
+                //val jsonrpcObjectParams6 = JSONObject()
+
+
+
+//                for(a in 1..roomList.size) {
+//                    sharedPreferences = getSharedPreferences("$a",Context.MODE_PRIVATE)
+//                    for (i in 1..10) {
+//                        //Log.d("asdf share2", "${sharedPreferences.all.get("editdata$i")}")
+//                        val tempJsonObject = JSONObject()
+//                        tempJsonObject.put("node_id", sharedPreferences.all.get("editdata$i"))
+//                        //tempJsonObject.put("room_id", i+1)
+//                        tempJsonObject.put("room_id", a)
+//                        tempJsonObject.put("unit_id", sharedPreferences.all.get("spinnerSelect$i"))
+//                        tempJsonObject.put("use_blaster", false)
+//                        jsonObjectList.put(tempJsonObject)
+//
+//                    }
+//                    Log.d("asdf list2 ", "${jsonObjectList.length()}")
+//                }
+
+                jsonrpcObjectParams.put("op","replace")
+                jsonrpcObjectParams.put("path","")
+
+                sharedPreferences = getSharedPreferences("1", Context.MODE_PRIVATE)
+
+//                for (a in 1..10) {
+//                    jsonrpcObjectParams6.put("node_id", sharedPreferences.all.get("editdata$a"))
+//                    jsonrpcObjectParams6.put("use_switch", "false")
+//                    jsonrpcObjectParams6.put("remote_id", "projector/maxell/mp-eu5002")
+//                    jsonrpcArray2.put(jsonrpcObjectParams6)
+//                    Log.d("asdf sharedPreferences", "${sharedPreferences.all.get("editdata$a")}")
+//                }
+//
+//                for(b in 1..10) {
+//                    jsonrpcObjectParams5.put("$b", jsonrpcArray2.get(b-1))
+//                    Log.d("asdf jsonrpcObjectParams5", "${jsonrpcArray2.get(b-1)}")
+//                }
+
+
+//                jsonrpcObjectParams6.put("node_id",sharedPreferences.all.get("editdata2"))
+//                jsonrpcObjectParams6.put("use_switch","true")
+//                jsonrpcObjectParams6.put("remote_key","/projector/maxell/mp-eu5002")
+//
+//                jsonrpcObjectParams5.put("1",jsonrpcObjectParams6)
+
+
+                for(i in 0..9) {
+                    val jsonrpcObjectParams6 = JSONObject()
+                    jsonrpcObjectParams6.put("node_id",sharedPreferences.all.get("editdata${i+1}"))
+                    jsonrpcObjectParams6.put("use_switch","false")
+                    jsonrpcObjectParams6.put("remote_id","projector/maxell/mp-eu5002")
+
+                    Log.d("asdf jsonrpcObjectParams6", "${jsonrpcObjectParams6}")
+                    jsonrpcArray2.put(jsonrpcObjectParams6)
+
+                    jsonrpcObjectParams5.put("${i+1}",jsonrpcArray2.get(i))
+
+                }
+
+                Log.d("asdf jsonrpcArray2", "${jsonrpcArray2}")
+                Log.d("asdf sharedPreferences", "${sharedPreferences.all.get("editdata10")}")
+                Log.d("asdf jsonrpcArray9", "${jsonrpcArray2.get(9)}")
+
+                jsonrpcObjectParams4.put("node_id",300002)
+                jsonrpcObjectParams3.put("blaster",jsonrpcObjectParams4)
+                jsonrpcObjectParams3.put("plugs",jsonrpcObjectParams5)
+
+                jsonrpcObjectParams2.put("room_1",jsonrpcObjectParams3)
+
+                jsonrpcObjectParams.put("value",jsonrpcObjectParams2)
+
+                jsonrpcArray.put(jsonrpcObjectParams)
+                jsonrpcObject.put("params", jsonrpcArray)
+                jsonrpcObject.put("id","qwerasdf$random")
+
+                sendCommand(jsonrpcObject.toString())
+                Log.d("asdf jsonobject6", jsonrpcObject.toString())
+
+                val asdf = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"replace\", \"path\":\"\", \"value\": \"{room_1qwerasdf}\"}],\"id\":\"qwerasdf$random\"}"
+                //sendCommand(asdf)
 
                 Log.d("asdf jsonobject length", jsonObject.toString().length.toString())
-
                 editDataList.clear()
                 spinnerDataList.clear()
 
