@@ -69,7 +69,9 @@ class MainActivity2 : AppCompatActivity() {
     var address = ""
     var name = ""
     var roomName = ""
-    val random = Random().nextInt(20)+1
+    val random = Random().nextInt(9)+1
+
+    var testNumber = 1
 
     lateinit var sharedPreferences : SharedPreferences
 
@@ -149,6 +151,7 @@ class MainActivity2 : AppCompatActivity() {
                                     Toast.makeText(this, "${bluetoothSocket?.remoteDevice?.name} 연결 성공", Toast.LENGTH_SHORT).show()
                                     binding.checkLed.setImageResource(R.drawable.ic_baseline_circle_24)
                                 }
+
                             } catch (e: IOException) {
                                 e.printStackTrace()
                                 isConnected = false
@@ -277,9 +280,6 @@ class MainActivity2 : AppCompatActivity() {
 
 
 
-
-
-
 //                for(a in 1..roomList.size) {
 //                    sharedPreferences = getSharedPreferences("$a",Context.MODE_PRIVATE)
 //                    for (i in 1..10) {
@@ -309,8 +309,6 @@ class MainActivity2 : AppCompatActivity() {
                 //sendCommand(jsonObject.toString())
 
 
-
-
                 val qwer = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": room_1\"\"}, \"id\": \"0o8hyx24\"}"
                 val zxcv = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"\"}, \"id\": \"looj2y8v\"}"
 
@@ -326,7 +324,7 @@ class MainActivity2 : AppCompatActivity() {
                 val jsonrpcObjectParams3 = JSONObject()
                 val jsonrpcObjectParams4 = JSONObject()
                 val jsonrpcObjectParams5 = JSONObject()
-                //val jsonrpcObjectParams6 = JSONObject()
+                val jsonrpcObjectParams6 = JSONObject()
 
 
 
@@ -349,62 +347,278 @@ class MainActivity2 : AppCompatActivity() {
                 jsonrpcObjectParams.put("op","replace")
                 jsonrpcObjectParams.put("path","")
 
-                sharedPreferences = getSharedPreferences("1", Context.MODE_PRIVATE)
-
-//                for (a in 1..10) {
-//                    jsonrpcObjectParams6.put("node_id", sharedPreferences.all.get("editdata$a"))
-//                    jsonrpcObjectParams6.put("use_switch", "false")
-//                    jsonrpcObjectParams6.put("remote_id", "projector/maxell/mp-eu5002")
-//                    jsonrpcArray2.put(jsonrpcObjectParams6)
-//                    Log.d("asdf sharedPreferences", "${sharedPreferences.all.get("editdata$a")}")
-//                }
-//
-//                for(b in 1..10) {
-//                    jsonrpcObjectParams5.put("$b", jsonrpcArray2.get(b-1))
-//                    Log.d("asdf jsonrpcObjectParams5", "${jsonrpcArray2.get(b-1)}")
-//                }
 
 
 //                jsonrpcObjectParams6.put("node_id",sharedPreferences.all.get("editdata2"))
 //                jsonrpcObjectParams6.put("use_switch","true")
 //                jsonrpcObjectParams6.put("remote_key","/projector/maxell/mp-eu5002")
-//
 //                jsonrpcObjectParams5.put("1",jsonrpcObjectParams6)
 
+//                for(i in 0..9) {
+//                    val jsonrpcObjectParams6 = JSONObject()
+//                    jsonrpcObjectParams6.put("node_id",sharedPreferences.all.get("editdata${i+1}"))
+//                    jsonrpcObjectParams6.put("use_switch","false")
+//                    jsonrpcObjectParams6.put("remote_id","projector")
+//
+//                    //Log.d("asdf jsonrpcObjectParams6", "${jsonrpcObjectParams6}")
+//                    jsonrpcArray2.put(jsonrpcObjectParams6)
+//
+//                    jsonrpcObjectParams5.put("${i+1}",jsonrpcArray2.get(i))
+//
+//                }
+//                Log.d("asdf jsonrpcArray2", "${jsonrpcArray2}")
+//                Log.d("asdf sharedPreferences", "${sharedPreferences.all.get("editdata10")}")
+//                Log.d("asdf jsonrpcArray9", "${jsonrpcArray2.get(9)}")
+//
+//                jsonrpcObjectParams4.put("node_id",300002)
+//                jsonrpcObjectParams3.put("blaster",jsonrpcObjectParams4)
+//                jsonrpcObjectParams3.put("plugs",jsonrpcObjectParams5)
+//
+//                jsonrpcObjectParams2.put("room_1",jsonrpcObjectParams3)
+//
+//                jsonrpcObjectParams.put("value",jsonrpcObjectParams2)
+//
+//                jsonrpcArray.put(jsonrpcObjectParams)
+//                jsonrpcObject.put("params", jsonrpcArray)
+//                jsonrpcObject.put("id","qwerasdf$random")
 
-                for(i in 0..9) {
-                    val jsonrpcObjectParams6 = JSONObject()
-                    jsonrpcObjectParams6.put("node_id",sharedPreferences.all.get("editdata${i+1}"))
-                    jsonrpcObjectParams6.put("use_switch","false")
-                    jsonrpcObjectParams6.put("remote_id","projector/maxell/mp-eu5002")
+                val test = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/plugs/11\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
 
-                    Log.d("asdf jsonrpcObjectParams6", "${jsonrpcObjectParams6}")
-                    jsonrpcArray2.put(jsonrpcObjectParams6)
-
-                    jsonrpcObjectParams5.put("${i+1}",jsonrpcArray2.get(i))
-
+                for (p in 1..roomList.size) {
+                    val testDelete3 =
+                        "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
+                    sendCommand(testDelete3)
+                    Thread.sleep(500)
                 }
 
-                Log.d("asdf jsonrpcArray2", "${jsonrpcArray2}")
-                Log.d("asdf sharedPreferences", "${sharedPreferences.all.get("editdata10")}")
-                Log.d("asdf jsonrpcArray9", "${jsonrpcArray2.get(9)}")
+                val testDelete4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"room_2\"}],\"id\":\"qwerasdf$random\"}"
+                sendCommand(testDelete4)
+                Thread.sleep(50)
 
-                jsonrpcObjectParams4.put("node_id",300002)
-                jsonrpcObjectParams3.put("blaster",jsonrpcObjectParams4)
-                jsonrpcObjectParams3.put("plugs",jsonrpcObjectParams5)
+                val testDelete5 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_3\"}],\"id\":\"qwerasdf$random\"}"
+                sendCommand(testDelete5)
+                Thread.sleep(50)
 
-                jsonrpcObjectParams2.put("room_1",jsonrpcObjectParams3)
+                val testDelete6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_4\"}],\"id\":\"qwerasdf$random\"}"
+                sendCommand(testDelete6)
+                Thread.sleep(50)
 
-                jsonrpcObjectParams.put("value",jsonrpcObjectParams2)
+                val testDelete7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_5\"}],\"id\":\"qwerasdf$random\"}"
+                sendCommand(testDelete7)
+                Thread.sleep(50)
 
-                jsonrpcArray.put(jsonrpcObjectParams)
-                jsonrpcObject.put("params", jsonrpcArray)
-                jsonrpcObject.put("id","qwerasdf$random")
+                val testDelete8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_6\"}],\"id\":\"qwerasdf$random\"}"
+                sendCommand(testDelete8)
+                Thread.sleep(50)
 
-                sendCommand(jsonrpcObject.toString())
-                Log.d("asdf jsonobject6", jsonrpcObject.toString())
+                Log.d("asdf roomlistsize", "${roomList.size}")
 
-                val asdf = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"replace\", \"path\":\"\", \"value\": \"{room_1qwerasdf}\"}],\"id\":\"qwerasdf$random\"}"
+//                val testBodys = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBodys)
+//                Thread.sleep(1000)
+
+//                val testBody = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody)
+//                Thread.sleep(1000)
+
+                val testBody2 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+                val testBody3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/blaster\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+                val testBody4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/blaster/node_id\",\"value\":300002}],\"id\":\"qwerasdf$random\"}"
+                val testBody5 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/plugs\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+
+                val testBody6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_2\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+                val testBody7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_2/blaster\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+                val testBody8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_2/blaster/node_id\",\"value\":300002}],\"id\":\"qwerasdf$random\"}"
+                val testBody9 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_2/plugs\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+
+                val testBody10 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+                val testBody11 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/blaster\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+                val testBody12 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/blaster/node_id\",\"value\":300002}],\"id\":\"qwerasdf$random\"}"
+                val testBody13 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+
+                sharedPreferences = getSharedPreferences("1", Context.MODE_PRIVATE)
+//
+//                sendCommand(testBody2)
+//                Thread.sleep(1000)
+//                sendCommand(testBody3)
+//                Thread.sleep(1000)
+//                sendCommand(testBody4)
+//                Thread.sleep(1000)
+//                sendCommand(testBody5)
+//                Thread.sleep(1000)
+//
+//                for (w in 1..10) {
+//                    val testBody6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/plugs/$w\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody6)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody6", testBody6)
+//
+//                    val testBody7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/plugs/$w/node_id\",\"value\":${sharedPreferences.all.get("editdata${w}")}}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody7)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody7", testBody7)
+//
+//                    val testBody8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/plugs/$w/use_switch\",\"value\":\"true\"}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody8)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody8", testBody8)
+//
+//                    val testBody9 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/plugs/$w/remote_id\",\"value\":\"projector/maxell/mp-eu5002\"}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody9)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody9", testBody9)
+//                }
+//
+//                sendCommand(testBody6)
+//                Thread.sleep(1000)
+//                sendCommand(testBody7)
+//                Thread.sleep(1000)
+//                sendCommand(testBody8)
+//                Thread.sleep(1000)
+//                sendCommand(testBody9)
+//                Thread.sleep(1000)
+//
+//                for (w in 1..10) {
+//                    val testBody6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_2/plugs/$w\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody6)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody6_2", testBody6)
+//
+//                    val testBody7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_2/plugs/$w/node_id\",\"value\":${sharedPreferences.all.get("editdata${w}")}}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody7)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody7_2", testBody7)
+//
+//                    val testBody8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_2/plugs/$w/use_switch\",\"value\":\"true\"}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody8)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody8_2", testBody8)
+//
+//                    val testBody9 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_2/plugs/$w/remote_id\",\"value\":\"projector/maxell/mp-eu5002\"}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody9)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody9_2", testBody9)
+//                }
+//
+//                sendCommand(testBody10)
+//                Thread.sleep(1000)
+//                sendCommand(testBody11)
+//                Thread.sleep(1000)
+//                sendCommand(testBody12)
+//                Thread.sleep(1000)
+//                sendCommand(testBody13)
+//                Thread.sleep(1000)
+
+//                val testBody6_3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/1\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_3)
+//                Thread.sleep(1000)
+//
+//                val testBody6_4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/2\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_4)
+//                Thread.sleep(1000)
+//
+//                val testBody6_5 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/3\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_5)
+//                Thread.sleep(1000)
+//
+//                val testBody6_6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/4\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_6)
+//                Thread.sleep(1000)
+//
+//                val testBody6_7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/5\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_7)
+//                Thread.sleep(1000)
+//
+//                val testBody6_8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/6\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_8)
+//                Thread.sleep(1000)
+//
+//                val testBody6_9 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/7\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_9)
+//                Thread.sleep(1000)
+//
+//                val testBody6_10 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/8\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_10)
+//                Thread.sleep(1000)
+//
+//                val testBody6_11 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/9\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_11)
+//                Thread.sleep(1000)
+//
+//                val testBody6_12 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/10\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                sendCommand(testBody6_12)
+//                Thread.sleep(1000)
+//
+//
+//                for (w in 1..10) {
+//                    val testBody6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/$w\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody6)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody6_3", testBody6)
+//
+//                    val testBody7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/$w/node_id\",\"value\":${sharedPreferences.all.get("editdata${w}")}}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody7)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody7_3", testBody7)
+//
+//                    val testBody8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/$w/use_switch\",\"value\":\"true\"}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody8)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody8_3", testBody8)
+//
+//                    val testBody9 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_3/plugs/$w/remote_id\",\"value\":\"projector/maxell/mp-eu5002\"}],\"id\":\"qwerasdf$random\"}"
+//                    sendCommand(testBody9)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf testBody9_3", testBody9)
+//                }
+
+                for(e in 1..roomList.size) {
+                    sharedPreferences = getSharedPreferences("$e", Context.MODE_PRIVATE)
+
+                    val testBody2 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+                    val testBody3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/blaster\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+                    val testBody4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/blaster/node_id\",\"value\":300002}],\"id\":\"qwerasd$random\"}"
+                    val testBody5 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+
+                    Thread.sleep(100)
+                    sendCommand(testBody2)
+
+                    Thread.sleep(100)
+                    sendCommand(testBody3)
+
+                    Thread.sleep(100)
+                    sendCommand(testBody4)
+
+                    Thread.sleep(100)
+                    sendCommand(testBody5)
+                    Thread.sleep(100)
+
+                    for (w in 1..10) {
+                        val testBody6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+                        sendCommand(testBody6)
+                        Thread.sleep(100)
+                        Log.d("asdf testBody6_${e}_$w", testBody6)
+
+                        val testBody7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/node_id\",\"value\":${sharedPreferences.all.get("editdata${w}")}}],\"id\":\"qwerasd$random\"}"
+                        sendCommand(testBody7)
+                        Thread.sleep(100)
+                        Log.d("asdf testBody7_${e}_$w", testBody7)
+
+                        val testBody8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/use_switch\",\"value\":\"false\"}],\"id\":\"qwerasd$random\"}"
+                        sendCommand(testBody8)
+                        Thread.sleep(100)
+                        Log.d("asdf testBody8_${e}_$w", testBody8)
+
+                        val testBody9 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/remote_key\",\"value\":\"projector/maxell/mp-eu5002\"}],\"id\":\"qwerasd$random\"}"
+                        sendCommand(testBody9)
+                        Thread.sleep(100)
+                        Log.d("asdf testBody9_${e}_$w", testBody9)
+                    }
+                    receiveData()
+                }
+
+                //sendCommand(jsonrpcObject.toString())
+                //val asdf = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"replace\", \"path\":\"\", \"value\": \"{room_1qwerasdf}\"}],\"id\":\"qwerasdf$random\"}"
                 //sendCommand(asdf)
 
                 Log.d("asdf jsonobject length", jsonObject.toString().length.toString())
@@ -433,6 +647,26 @@ class MainActivity2 : AppCompatActivity() {
 
             if (bluetoothSocket?.isConnected == true) {
                 receiveData()
+
+//                // 임시로 나중에 지워야
+//                for (p in 1..roomList.size) {
+//                    val testDelete3 =
+//                        "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
+//                    sendCommand(testDelete3)
+//                    Thread.sleep(1000)
+//                    Log.d("asdf delete","clear")
+//                }
+//
+//                val testBodys =
+//                    "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"replace\",\"path\":\"\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+//                sendCommand(testBodys)
+//                Thread.sleep(1000)
+//
+//                val testBody =
+//                    "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+//                sendCommand(testBody)
+//                Thread.sleep(1000)
+
             }
             else {
                 Toast.makeText(this,"연결이 필요합니다",Toast.LENGTH_SHORT).show()
@@ -452,28 +686,26 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     private fun receiveData() {
-        Thread {
-            try {
-                val byteAvailable = bluetoothSocket!!.inputStream.available()
-                if(byteAvailable > 0) {
-                    var byte = bluetoothSocket!!.inputStream.read()
-                    //val readColor = ByteArray(832)
-                    val readColor = ByteArray(byteAvailable-2)
-                    bluetoothSocket!!.inputStream.read(readColor)
-                    val string = String(readColor)
-                    val test = string.length
-                    Log.d("asdf receiveData2", "${byteAvailable}")
-                    Log.d("asdf receiveData3", "${bluetoothSocket!!.inputStream.read()}")
-                    Log.d("asdf receiveData4", "${byte}")
-                    Log.d("asdf receiveData7", "${string}")
-                    Log.d("asdf receiveData8", "${test}")
-                }
-            } catch (e : IOException) {
-                e.printStackTrace()
-                Log.d("asdf receiveData", "No receiveData")
+        try {
+            val byteAvailable = bluetoothSocket!!.inputStream.available()
+            if (byteAvailable > 0) {
+                var byte = bluetoothSocket!!.inputStream.read()
+                //val readColor = ByteArray(832)
+                val readColor = ByteArray(byteAvailable - 2)
+                bluetoothSocket!!.inputStream.read(readColor)
+                val string = String(readColor)
+                val test = string.length
+//                    Log.d("asdf receiveData2", "${byteAvailable}")
+//                    Log.d("asdf receiveData3", "${bluetoothSocket!!.inputStream.read()}")
+//                    Log.d("asdf receiveData4", "${byte}")
+                Log.d("asdf receiveData7", "${string}")
+                //Log.d("asdf receiveData8", "${test}")
             }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Log.d("asdf receiveData", "No receiveData")
+        }
 
-        }.start()
     }
 
     private fun sendCommand(input: String) {
