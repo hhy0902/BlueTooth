@@ -309,15 +309,19 @@ class MainActivity2 : AppCompatActivity() {
                 //sendCommand(jsonObject.toString())
 
 
-                val qwer = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": room_1\"\"}, \"id\": \"0o8hyx24\"}"
-                val zxcv = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"\"}, \"id\": \"looj2y8v\"}"
+                for (p in 1..10) {
+                    val testDelete3 =
+                        "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
+                    sendCommand(testDelete3)
+                    Thread.sleep(200)
+                }
 
+                sharedPreferences = getSharedPreferences("1", Context.MODE_PRIVATE)
                 val jsonrpcObject = JSONObject()
                 val jsonrpcArray = JSONArray()
                 val jsonrpcArray2 = JSONArray()
                 jsonrpcObject.put("jsonrpc","2.0")
                 jsonrpcObject.put("method","patch_gz")
-
 
                 val jsonrpcObjectParams = JSONObject()
                 val jsonrpcObjectParams2 = JSONObject()
@@ -325,7 +329,6 @@ class MainActivity2 : AppCompatActivity() {
                 val jsonrpcObjectParams4 = JSONObject()
                 val jsonrpcObjectParams5 = JSONObject()
                 val jsonrpcObjectParams6 = JSONObject()
-
 
 
 //                for(a in 1..roomList.size) {
@@ -344,16 +347,14 @@ class MainActivity2 : AppCompatActivity() {
 //                    Log.d("asdf list2 ", "${jsonObjectList.length()}")
 //                }
 
-                jsonrpcObjectParams.put("op","replace")
-                jsonrpcObjectParams.put("path","")
-
-
-
+//                jsonrpcObjectParams.put("op","replace")
+//                jsonrpcObjectParams.put("path","")
+//
 //                jsonrpcObjectParams6.put("node_id",sharedPreferences.all.get("editdata2"))
 //                jsonrpcObjectParams6.put("use_switch","true")
 //                jsonrpcObjectParams6.put("remote_key","/projector/maxell/mp-eu5002")
 //                jsonrpcObjectParams5.put("1",jsonrpcObjectParams6)
-
+//
 //                for(i in 0..9) {
 //                    val jsonrpcObjectParams6 = JSONObject()
 //                    jsonrpcObjectParams6.put("node_id",sharedPreferences.all.get("editdata${i+1}"))
@@ -381,35 +382,11 @@ class MainActivity2 : AppCompatActivity() {
 //                jsonrpcArray.put(jsonrpcObjectParams)
 //                jsonrpcObject.put("params", jsonrpcArray)
 //                jsonrpcObject.put("id","qwerasdf$random")
-
-                val test = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/plugs/11\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
-
-                for (p in 1..10) {
-                    val testDelete3 =
-                        "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
-                    sendCommand(testDelete3)
-                    Thread.sleep(200)
-                }
+//
+//
+//                sendCommand(jsonObject.toString())
 
                 Log.d("asdf roomlistsize", "${roomList.size}")
-
-                val testBody2 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
-                val testBody3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/blaster\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
-                val testBody4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/blaster/node_id\",\"value\":300002}],\"id\":\"qwerasdf$random\"}"
-                val testBody5 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_1/plugs\",\"value\":{}}],\"id\":\"qwerasdf$random\"}"
-
-//                sharedPreferences = getSharedPreferences("1", Context.MODE_PRIVATE)
-//
-//                sendCommand(testBody2)
-//                Thread.sleep(1000)
-//                sendCommand(testBody3)
-//                Thread.sleep(1000)
-//                sendCommand(testBody4)
-//                Thread.sleep(1000)
-//                sendCommand(testBody5)
-//                Thread.sleep(1000)
-//
-
 
                 for(e in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$e", Context.MODE_PRIVATE)
@@ -455,10 +432,6 @@ class MainActivity2 : AppCompatActivity() {
                     }
                     receiveData()
                 }
-
-                //sendCommand(jsonrpcObject.toString())
-                //val asdf = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"replace\", \"path\":\"\", \"value\": \"{room_1qwerasdf}\"}],\"id\":\"qwerasdf$random\"}"
-                //sendCommand(asdf)
 
                 Log.d("asdf jsonobject length", jsonObject.toString().length.toString())
                 editDataList.clear()
