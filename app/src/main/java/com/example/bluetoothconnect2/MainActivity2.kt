@@ -226,89 +226,6 @@ class MainActivity2 : AppCompatActivity() {
             Log.d("asdf 2", bluetoothSocket?.isConnected.toString())
 
             if (bluetoothSocket?.isConnected == true) {
-                val json = "{\"jsonrpc\": \"2.0\",\"method\": " +
-                        "\"gz_patch\",\"params\": " + "[{\"op\": \"replace\",\"path\": \"/plugs\"}],\"value\": [{\"node_id\": 1234567,\"room_id\": 1,\"unit_id\": 1,\"use_blaster\": true},{\"node_id\": 1234568,\"room_id\": 1,\"unit_id\": 2,\"use_blaster\": false}]}"
-
-                val jsonObject = JSONObject()
-                val jsonObjectList = JSONArray()
-                val jsonObjectList2 = JSONArray()
-                val jsonObjectList3 = JSONArray()
-
-                val jsonObject2 = JSONObject()
-                val jsonObject3 = JSONObject()
-
-
-                //sharedPreferences = getSharedPreferences("1",Context.MODE_PRIVATE)
-
-//                for (i in 0..9) {
-//                    val tempJsonObject = JSONObject()
-//                    tempJsonObject.put("node_id", editDataList[i])
-//                    //tempJsonObject.put("room_id", i+1)
-//                    tempJsonObject.put("room_id", roomName)
-//                    tempJsonObject.put("unit_id", spinnerDataList[i])
-//                    tempJsonObject.put("use_blaster", true)
-//                    jsonObjectList.put(tempJsonObject)
-//                }
-
-//                for(a in 1..roomList.size) {
-//                    sharedPreferences = getSharedPreferences("$a",Context.MODE_PRIVATE)
-//                    for (i in 1..10) {
-//                        //Log.d("asdf share2", "${sharedPreferences.all.get("editdata$i")}")
-//                        val tempJsonObject = JSONObject()
-//                        tempJsonObject.put("node_id", sharedPreferences.all.get("editdata$i"))
-//                        //tempJsonObject.put("room_id", i+1)
-//                        tempJsonObject.put("room_id", a)
-//                        tempJsonObject.put("unit_id", sharedPreferences.all.get("spinnerSelect$i"))
-//                        tempJsonObject.put("use_blaster", false)
-//                        jsonObjectList.put(tempJsonObject)
-//
-//                    }
-//                    Log.d("asdf list2 ", "${jsonObjectList.length()}")
-//                }
-
-
-                jsonObject.put("jsonrpc", "2.0")
-                jsonObject.put("method", "patch_gz")
-                val jsonObjectParams = JSONObject()
-                jsonObjectParams.put("op","replace")
-                //jsonObjectParams.put("path","/plugs")
-                jsonObjectList2.put(jsonObjectParams)
-                jsonObject.put("params", jsonObjectList2)
-
-//                jsonObject.put("value",jsonObjectList)
-//                Log.d("asdf jsonobject", jsonObject.toString())
-
-
-
-//                for(a in 1..roomList.size) {
-//                    sharedPreferences = getSharedPreferences("$a",Context.MODE_PRIVATE)
-//                    for (i in 1..10) {
-//                        val tempJsonObject = JSONObject()
-//
-//                        tempJsonObject.put("node_id", sharedPreferences.all.get("editdata$i"))
-//                        tempJsonObject.put("room_id", a)
-//                        tempJsonObject.put("unit_id", sharedPreferences.all.get("spinnerSelect$i"))
-//
-//                        Log.d("asdf tempjsonobject", tempJsonObject.toString())
-//                        jsonObjectList.put(tempJsonObject)
-//                        jsonObject2.put("device $i", jsonObjectList.get(i-1))
-//                        //jsonObject2.put("device $i", tempJsonObject)
-//                        Log.d("asdf jsonobject2", jsonObject2.toString())
-//                        jsonObject3.put("room_$a", jsonObject2)
-//                    }
-//                    Log.d("asdf jsonobject3", jsonObject3.toString())
-//                    jsonObject.put("plugs",jsonObject3)
-//
-//                    jsonObject.put("id","qwerasdf$random")
-//                }
-//
-//                Log.d("asdf jsonobject3-2", jsonObject3.toString())
-//                Log.d("asdf jsonobject4", jsonObject.toString())
-//                Log.d("asdf listsize", "${jsonObjectList.length()}")
-
-                //sendCommand(jsonObject.toString())
-
-
                 for (p in 1..10) {
                     val testDelete3 =
                         "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
@@ -316,126 +233,150 @@ class MainActivity2 : AppCompatActivity() {
                     Thread.sleep(200)
                 }
 
-                sharedPreferences = getSharedPreferences("1", Context.MODE_PRIVATE)
-                val jsonrpcObject = JSONObject()
-                val jsonrpcArray = JSONArray()
-                val jsonrpcArray2 = JSONArray()
-                jsonrpcObject.put("jsonrpc","2.0")
-                jsonrpcObject.put("method","patch_gz")
+                for(i in 1..roomList.size) {
+                    val jsonrpcObject = JSONObject()
+                    val jsonrpcArray = JSONArray()
+                    val jsonrpcArrayObject = JSONObject()
+                    val jsonrpcValue = JSONObject()
+                    val jsonrpcValue2 = JSONObject()
+                    val jsonrpcPlugsValue = JSONObject()
+                    val jsonrpcPlugsValue2 = JSONObject()
 
-                val jsonrpcObjectParams = JSONObject()
-                val jsonrpcObjectParams2 = JSONObject()
-                val jsonrpcObjectParams3 = JSONObject()
-                val jsonrpcObjectParams4 = JSONObject()
-                val jsonrpcObjectParams5 = JSONObject()
-                val jsonrpcObjectParams6 = JSONObject()
+                    jsonrpcObject.put("jsonrpc","2.0")
+                    jsonrpcObject.put("method","patch_gz")
+                    jsonrpcArrayObject.put("op","add")
+                    jsonrpcArrayObject.put("path","/room_$i")
+                    jsonrpcValue2.put("node_id",300002)
+                    jsonrpcValue.put("blaster",jsonrpcValue2)
 
+                    for(z in 1..10) {
+                        jsonrpcPlugsValue.put("$z", jsonrpcPlugsValue2)
+                    }
 
-//                for(a in 1..roomList.size) {
-//                    sharedPreferences = getSharedPreferences("$a",Context.MODE_PRIVATE)
-//                    for (i in 1..10) {
-//                        //Log.d("asdf share2", "${sharedPreferences.all.get("editdata$i")}")
-//                        val tempJsonObject = JSONObject()
-//                        tempJsonObject.put("node_id", sharedPreferences.all.get("editdata$i"))
-//                        //tempJsonObject.put("room_id", i+1)
-//                        tempJsonObject.put("room_id", a)
-//                        tempJsonObject.put("unit_id", sharedPreferences.all.get("spinnerSelect$i"))
-//                        tempJsonObject.put("use_blaster", false)
-//                        jsonObjectList.put(tempJsonObject)
-//
-//                    }
-//                    Log.d("asdf list2 ", "${jsonObjectList.length()}")
-//                }
+                    jsonrpcValue.put("plugs", jsonrpcPlugsValue)
+                    jsonrpcArrayObject.put("value",jsonrpcValue)
+                    jsonrpcArray.put(jsonrpcArrayObject)
+                    jsonrpcObject.put("params",jsonrpcArray)
+                    jsonrpcObject.put("id","qwerasd$random")
 
-//                jsonrpcObjectParams.put("op","replace")
-//                jsonrpcObjectParams.put("path","")
-//
-//                jsonrpcObjectParams6.put("node_id",sharedPreferences.all.get("editdata2"))
-//                jsonrpcObjectParams6.put("use_switch","true")
-//                jsonrpcObjectParams6.put("remote_key","/projector/maxell/mp-eu5002")
-//                jsonrpcObjectParams5.put("1",jsonrpcObjectParams6)
-//
-//                for(i in 0..9) {
-//                    val jsonrpcObjectParams6 = JSONObject()
-//                    jsonrpcObjectParams6.put("node_id",sharedPreferences.all.get("editdata${i+1}"))
-//                    jsonrpcObjectParams6.put("use_switch","false")
-//                    jsonrpcObjectParams6.put("remote_id","projector")
-//
-//                    //Log.d("asdf jsonrpcObjectParams6", "${jsonrpcObjectParams6}")
-//                    jsonrpcArray2.put(jsonrpcObjectParams6)
-//
-//                    jsonrpcObjectParams5.put("${i+1}",jsonrpcArray2.get(i))
-//
-//                }
-//                Log.d("asdf jsonrpcArray2", "${jsonrpcArray2}")
-//                Log.d("asdf sharedPreferences", "${sharedPreferences.all.get("editdata10")}")
-//                Log.d("asdf jsonrpcArray9", "${jsonrpcArray2.get(9)}")
-//
-//                jsonrpcObjectParams4.put("node_id",300002)
-//                jsonrpcObjectParams3.put("blaster",jsonrpcObjectParams4)
-//                jsonrpcObjectParams3.put("plugs",jsonrpcObjectParams5)
-//
-//                jsonrpcObjectParams2.put("room_1",jsonrpcObjectParams3)
-//
-//                jsonrpcObjectParams.put("value",jsonrpcObjectParams2)
-//
-//                jsonrpcArray.put(jsonrpcObjectParams)
-//                jsonrpcObject.put("params", jsonrpcArray)
-//                jsonrpcObject.put("id","qwerasdf$random")
-//
-//
-//                sendCommand(jsonObject.toString())
+                    sendCommand(jsonrpcObject.toString())
+                    Log.d("asdf jsonrpcobject", jsonrpcObject.toString())
+                    Thread.sleep(200)
+                }
+
+                for(q in 1..roomList.size) {
+                    sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
+                    for (i in 1..10) {
+                        val jsonrpcObject_2 = JSONObject()
+                        val jsonrpcArray_2 = JSONArray()
+                        val jsonrpcArrayObject_2 = JSONObject()
+
+                        jsonrpcObject_2.put("jsonrpc", "2.0")
+                        jsonrpcObject_2.put("method", "patch_gz")
+                        jsonrpcArrayObject_2.put("op", "add")
+                        jsonrpcArrayObject_2.put("path", "/room_$q/plugs/$i/node_id")
+                        jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i}"))
+                        jsonrpcArray_2.put(jsonrpcArrayObject_2)
+                        jsonrpcObject_2.put("params", jsonrpcArray_2)
+                        jsonrpcObject_2.put("id", "qwerasd$random")
+                        sendCommand(jsonrpcObject_2.toString())
+                        Thread.sleep(100)
+                        Log.d("asdf jsonrpcobject_node_id_${q}_$i", jsonrpcObject_2.toString())
+                    }
+                }
+
+                for(q in 1..roomList.size) {
+                    for (i in 1..10) {
+                        val jsonrpcObject_2 = JSONObject()
+                        val jsonrpcArray_2 = JSONArray()
+                        val jsonrpcArrayObject_2 = JSONObject()
+
+                        jsonrpcObject_2.put("jsonrpc", "2.0")
+                        jsonrpcObject_2.put("method", "patch_gz")
+                        jsonrpcArrayObject_2.put("op", "add")
+                        jsonrpcArrayObject_2.put("path", "/room_$q/plugs/$i/use_switch")
+                        jsonrpcArrayObject_2.put("value", false)
+                        jsonrpcArray_2.put(jsonrpcArrayObject_2)
+                        jsonrpcObject_2.put("params", jsonrpcArray_2)
+                        jsonrpcObject_2.put("id", "qwerasd$random")
+                        sendCommand(jsonrpcObject_2.toString())
+                        Thread.sleep(100)
+                        Log.d("asdf jsonrpcobject_use_switch_${q}_$i", jsonrpcObject_2.toString())
+                    }
+                }
+
+                for(q in 1..roomList.size) {
+                    for (i in 1..10) {
+                        val jsonrpcObject_2 = JSONObject()
+                        val jsonrpcArray_2 = JSONArray()
+                        val jsonrpcArrayObject_2 = JSONObject()
+
+                        jsonrpcObject_2.put("jsonrpc", "2.0")
+                        jsonrpcObject_2.put("method", "patch_gz")
+                        jsonrpcArrayObject_2.put("op", "add")
+                        jsonrpcArrayObject_2.put("path", "/room_$q/plugs/$i/remote_id")
+                        jsonrpcArrayObject_2.put("value", "projector/maxell/mp-eu5002")
+                        jsonrpcArray_2.put(jsonrpcArrayObject_2)
+                        jsonrpcObject_2.put("params", jsonrpcArray_2)
+                        jsonrpcObject_2.put("id", "qwerasd$random")
+                        sendCommand(jsonrpcObject_2.toString())
+                        Thread.sleep(100)
+                        Log.d("asdf jsonrpcobject_remote_id_${q}_$i", jsonrpcObject_2.toString())
+                    }
+                }
+
 
                 Log.d("asdf roomlistsize", "${roomList.size}")
 
-                for(e in 1..roomList.size) {
-                    sharedPreferences = getSharedPreferences("$e", Context.MODE_PRIVATE)
+//                for(e in 1..roomList.size) {
+//                    sharedPreferences = getSharedPreferences("$e", Context.MODE_PRIVATE)
+//
+//                    val testBody2 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+//                    val testBody3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/blaster\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+//                    val testBody4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/blaster/node_id\",\"value\":300002}],\"id\":\"qwerasd$random\"}"
+//                    val testBody5 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+//
+//                    Thread.sleep(100)
+//                    sendCommand(testBody2)
+//
+//                    Thread.sleep(100)
+//                    sendCommand(testBody3)
+//
+//                    Thread.sleep(100)
+//                    sendCommand(testBody4)
+//
+//                    Thread.sleep(100)
+//                    sendCommand(testBody5)
+//                    Thread.sleep(100)
+//
+//                    for (w in 1..10) {
+//                        val testBody6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
+//                        sendCommand(testBody6)
+//                        Thread.sleep(100)
+//                        Log.d("asdf testBody6_${e}_$w", testBody6)
+//
+//                        val testBody7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/node_id\",\"value\":${sharedPreferences.all.get("editdata${w}")}}],\"id\":\"qwerasd$random\"}"
+//                        sendCommand(testBody7)
+//                        Thread.sleep(100)
+//                        Log.d("asdf testBody7_${e}_$w", testBody7)
+//
+//                        val testBody8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/use_switch\",\"value\":\"false\"}],\"id\":\"qwerasd$random\"}"
+//                        sendCommand(testBody8)
+//                        Thread.sleep(100)
+//                        Log.d("asdf testBody8_${e}_$w", testBody8)
+//
+//                        val testBody9 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/remote_key\",\"value\":\"projector/maxell/mp-eu5002\"}],\"id\":\"qwerasd$random\"}"
+//                        sendCommand(testBody9)
+//                        Thread.sleep(100)
+//                        Log.d("asdf testBody9_${e}_$w", testBody9)
+//                    }
+//                    receiveData()
+//                }
 
-                    val testBody2 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-                    val testBody3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/blaster\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-                    val testBody4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/blaster/node_id\",\"value\":300002}],\"id\":\"qwerasd$random\"}"
-                    val testBody5 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-
-                    Thread.sleep(100)
-                    sendCommand(testBody2)
-
-                    Thread.sleep(100)
-                    sendCommand(testBody3)
-
-                    Thread.sleep(100)
-                    sendCommand(testBody4)
-
-                    Thread.sleep(100)
-                    sendCommand(testBody5)
-                    Thread.sleep(100)
-
-                    for (w in 1..10) {
-                        val testBody6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-                        sendCommand(testBody6)
-                        Thread.sleep(100)
-                        Log.d("asdf testBody6_${e}_$w", testBody6)
-
-                        val testBody7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/node_id\",\"value\":${sharedPreferences.all.get("editdata${w}")}}],\"id\":\"qwerasd$random\"}"
-                        sendCommand(testBody7)
-                        Thread.sleep(100)
-                        Log.d("asdf testBody7_${e}_$w", testBody7)
-
-                        val testBody8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/use_switch\",\"value\":\"false\"}],\"id\":\"qwerasd$random\"}"
-                        sendCommand(testBody8)
-                        Thread.sleep(100)
-                        Log.d("asdf testBody8_${e}_$w", testBody8)
-
-                        val testBody9 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/remote_key\",\"value\":\"projector/maxell/mp-eu5002\"}],\"id\":\"qwerasd$random\"}"
-                        sendCommand(testBody9)
-                        Thread.sleep(100)
-                        Log.d("asdf testBody9_${e}_$w", testBody9)
-                    }
-                    receiveData()
-                }
-
-                Log.d("asdf jsonobject length", jsonObject.toString().length.toString())
                 editDataList.clear()
                 spinnerDataList.clear()
+
+                Toast.makeText(this,"전송 완료",Toast.LENGTH_SHORT).show()
 
             }
             else {
