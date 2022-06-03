@@ -239,8 +239,7 @@ class MainActivity2 : AppCompatActivity() {
                     val jsonrpcArrayObject = JSONObject()
                     val jsonrpcValue = JSONObject()
                     val jsonrpcValue2 = JSONObject()
-                    val jsonrpcPlugsValue = JSONObject()
-                    val jsonrpcPlugsValue2 = JSONObject()
+                    val jsonrpcUnitsValue = JSONObject()
 
                     jsonrpcObject.put("jsonrpc","2.0")
                     jsonrpcObject.put("method","patch_gz")
@@ -250,16 +249,28 @@ class MainActivity2 : AppCompatActivity() {
                     jsonrpcValue.put("blaster",jsonrpcValue2)
 
                     for(z in 1..10) {
-                        jsonrpcPlugsValue.put("$z", jsonrpcPlugsValue2)
+                        var jsonrpcUnitsValue2 = JSONObject()
+                        var jsonrpcPlugValue = JSONObject()
+                        if(z == 10) {
+                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+                        } else if(z % 2 != 0) {
+                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+                        } else if(z % 2 == 0) {
+                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+                        }
+                        jsonrpcUnitsValue.put("$z", jsonrpcUnitsValue2)
                     }
 
-                    jsonrpcValue.put("plugs", jsonrpcPlugsValue)
+                    jsonrpcValue.put("units", jsonrpcUnitsValue)
                     jsonrpcArrayObject.put("value",jsonrpcValue)
                     jsonrpcArray.put(jsonrpcArrayObject)
                     jsonrpcObject.put("params",jsonrpcArray)
                     jsonrpcObject.put("id","qwerasd$random")
 
                     sendCommand(jsonrpcObject.toString())
+
+                    //receiveData()
                     Log.d("asdf jsonrpcobject", jsonrpcObject.toString())
                     Thread.sleep(200)
                 }
@@ -274,12 +285,13 @@ class MainActivity2 : AppCompatActivity() {
                         jsonrpcObject_2.put("jsonrpc", "2.0")
                         jsonrpcObject_2.put("method", "patch_gz")
                         jsonrpcArrayObject_2.put("op", "add")
-                        jsonrpcArrayObject_2.put("path", "/room_$q/plugs/$i/node_id")
+                        jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/plug/nid")
                         jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i}"))
                         jsonrpcArray_2.put(jsonrpcArrayObject_2)
                         jsonrpcObject_2.put("params", jsonrpcArray_2)
                         jsonrpcObject_2.put("id", "qwerasd$random")
                         sendCommand(jsonrpcObject_2.toString())
+                        //receiveData()
                         Thread.sleep(100)
                         Log.d("asdf jsonrpcobject_node_id_${q}_$i", jsonrpcObject_2.toString())
                     }
@@ -294,12 +306,13 @@ class MainActivity2 : AppCompatActivity() {
                         jsonrpcObject_2.put("jsonrpc", "2.0")
                         jsonrpcObject_2.put("method", "patch_gz")
                         jsonrpcArrayObject_2.put("op", "add")
-                        jsonrpcArrayObject_2.put("path", "/room_$q/plugs/$i/use_switch")
+                        jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/plug/use_switch")
                         jsonrpcArrayObject_2.put("value", false)
                         jsonrpcArray_2.put(jsonrpcArrayObject_2)
                         jsonrpcObject_2.put("params", jsonrpcArray_2)
                         jsonrpcObject_2.put("id", "qwerasd$random")
                         sendCommand(jsonrpcObject_2.toString())
+                        //receiveData()
                         Thread.sleep(100)
                         Log.d("asdf jsonrpcobject_use_switch_${q}_$i", jsonrpcObject_2.toString())
                     }
@@ -314,18 +327,19 @@ class MainActivity2 : AppCompatActivity() {
                         jsonrpcObject_2.put("jsonrpc", "2.0")
                         jsonrpcObject_2.put("method", "patch_gz")
                         jsonrpcArrayObject_2.put("op", "add")
-                        jsonrpcArrayObject_2.put("path", "/room_$q/plugs/$i/remote_id")
+                        jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/blaster/ir_key")
                         jsonrpcArrayObject_2.put("value", "projector/maxell/mp-eu5002")
                         jsonrpcArray_2.put(jsonrpcArrayObject_2)
                         jsonrpcObject_2.put("params", jsonrpcArray_2)
                         jsonrpcObject_2.put("id", "qwerasd$random")
                         sendCommand(jsonrpcObject_2.toString())
+                        //receiveData()
                         Thread.sleep(100)
-                        Log.d("asdf jsonrpcobject_remote_id_${q}_$i", jsonrpcObject_2.toString())
+                        Log.d("asdf jsonrpcobject_ir_key_${q}_$i", jsonrpcObject_2.toString())
                     }
                 }
 
-
+                receiveData()
                 Log.d("asdf roomlistsize", "${roomList.size}")
 
 //                for(e in 1..roomList.size) {
