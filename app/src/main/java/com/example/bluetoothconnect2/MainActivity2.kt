@@ -123,7 +123,6 @@ class MainActivity2 : AppCompatActivity() {
 
                         roomName = it.data?.getStringExtra("roomName").toString()
                         Log.d("asdf roomname","$roomName")
-
                     }
                 }
             }
@@ -142,7 +141,6 @@ class MainActivity2 : AppCompatActivity() {
                                 val device: BluetoothDevice = bluetoothAdapter.getRemoteDevice(address)
                                 bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(myUUID)
                                 BluetoothAdapter.getDefaultAdapter().cancelDiscovery()
-
 
                                 bluetoothSocket?.connect()
                                 isConnected = true
@@ -234,6 +232,11 @@ class MainActivity2 : AppCompatActivity() {
                 }
 
                 for(i in 1..roomList.size) {
+                    sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
+
+                    Log.d("asdf spinnerData5_2", "${sharedPreferences.all.get("spinnerData5_Device")}")
+                    Log.d("asdf spinnerData5_3", "${sharedPreferences.all.get("spinnerData5_Company")}")
+                    Log.d("asdf spinnerData5_4", "${sharedPreferences.all.get("spinnerData5_Model")}")
                     val jsonrpcObject = JSONObject()
                     val jsonrpcArray = JSONArray()
                     val jsonrpcArrayObject = JSONObject()
@@ -245,20 +248,32 @@ class MainActivity2 : AppCompatActivity() {
                     jsonrpcObject.put("method","patch_gz")
                     jsonrpcArrayObject.put("op","add")
                     jsonrpcArrayObject.put("path","/room_$i")
-                    jsonrpcValue2.put("node_id",300002)
+                    jsonrpcValue2.put("node_id",sharedPreferences.all.get("editdata1"))
                     jsonrpcValue.put("blaster",jsonrpcValue2)
 
-                    for(z in 1..10) {
+                    for(z in 1..9) {
                         var jsonrpcUnitsValue2 = JSONObject()
                         var jsonrpcPlugValue = JSONObject()
-                        if(z == 10) {
+
+/*
+        1 = pc, 2= 모니터, 3= 스피커, 4= 프로젝터1, 5= 프로젝터2, 6= 공기청정기, 7=에어컨, 8=조명, 9=좌타모니터
+*/
+                        if(z == 4 || z == 5) {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
                             jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-                        } else if(z % 2 != 0) {
-                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-                        } else if(z % 2 == 0) {
+                        } else if(z == 1 || z == 2 || z == 3 || z == 6 || z == 9) {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+                        } else if(z == 7 || z == 8) {
+                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
                         }
+//                        if(sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 5 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 6) {
+//                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+//                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+//                        } else if(sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 1 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 2 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 3 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 4 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 7) {
+//                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+//                        } else if(sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 10 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 8) {
+//                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+//                        }
                         jsonrpcUnitsValue.put("$z", jsonrpcUnitsValue2)
                     }
 
@@ -277,7 +292,7 @@ class MainActivity2 : AppCompatActivity() {
 
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
-                    for (i in 1..10) {
+                    for (i in 1..9) {
                         val jsonrpcObject_2 = JSONObject()
                         val jsonrpcArray_2 = JSONArray()
                         val jsonrpcArrayObject_2 = JSONObject()
@@ -286,7 +301,7 @@ class MainActivity2 : AppCompatActivity() {
                         jsonrpcObject_2.put("method", "patch_gz")
                         jsonrpcArrayObject_2.put("op", "add")
                         jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/plug/nid")
-                        jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i}"))
+                        jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i+1}"))
                         jsonrpcArray_2.put(jsonrpcArrayObject_2)
                         jsonrpcObject_2.put("params", jsonrpcArray_2)
                         jsonrpcObject_2.put("id", "qwerasd$random")
@@ -298,7 +313,8 @@ class MainActivity2 : AppCompatActivity() {
                 }
 
                 for(q in 1..roomList.size) {
-                    for (i in 1..10) {
+                    sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
+                    for (i in 1..9) {
                         val jsonrpcObject_2 = JSONObject()
                         val jsonrpcArray_2 = JSONArray()
                         val jsonrpcArrayObject_2 = JSONObject()
@@ -307,7 +323,13 @@ class MainActivity2 : AppCompatActivity() {
                         jsonrpcObject_2.put("method", "patch_gz")
                         jsonrpcArrayObject_2.put("op", "add")
                         jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/plug/use_switch")
-                        jsonrpcArrayObject_2.put("value", false)
+
+                        if(sharedPreferences.all.get("spinnerSelect${i+1}").toString().toInt() == 1) {
+                            jsonrpcArrayObject_2.put("value", true)
+                        } else
+                            jsonrpcArrayObject_2.put("value", false)
+
+                        //jsonrpcArrayObject_2.put("value", false)
                         jsonrpcArray_2.put(jsonrpcArrayObject_2)
                         jsonrpcObject_2.put("params", jsonrpcArray_2)
                         jsonrpcObject_2.put("id", "qwerasd$random")
@@ -315,11 +337,13 @@ class MainActivity2 : AppCompatActivity() {
                         //receiveData()
                         Thread.sleep(100)
                         Log.d("asdf jsonrpcobject_use_switch_${q}_$i", jsonrpcObject_2.toString())
+                        Log.d("asdf jsonrpcobject_spinnerSelect${q}_$i", sharedPreferences.all.get("spinnerSelect${i}").toString())
+                        Log.d("asdf jsonrpcobject_editdata${q}_$i", sharedPreferences.all.get("editdata${i}").toString())
                     }
                 }
 
                 for(q in 1..roomList.size) {
-                    for (i in 1..10) {
+                    for (i in 1..9) {
                         val jsonrpcObject_2 = JSONObject()
                         val jsonrpcArray_2 = JSONArray()
                         val jsonrpcArrayObject_2 = JSONObject()
@@ -328,7 +352,8 @@ class MainActivity2 : AppCompatActivity() {
                         jsonrpcObject_2.put("method", "patch_gz")
                         jsonrpcArrayObject_2.put("op", "add")
                         jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/blaster/ir_key")
-                        jsonrpcArrayObject_2.put("value", "projector/maxell/mp-eu5002")
+                        jsonrpcArrayObject_2.put("value", "${sharedPreferences.all.get("spinnerData${i+1}_Device")}/${sharedPreferences.all.get("spinnerData${i+1}_Company")}/${sharedPreferences.all.get("spinnerData${i+1}_Model")}")
+                        //jsonrpcArrayObject_2.put("value", "projector/maxell/mp-eu5002")
                         jsonrpcArray_2.put(jsonrpcArrayObject_2)
                         jsonrpcObject_2.put("params", jsonrpcArray_2)
                         jsonrpcObject_2.put("id", "qwerasd$random")

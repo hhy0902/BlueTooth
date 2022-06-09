@@ -12,7 +12,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.get
 import com.example.bluetoothconnect2.databinding.ActivityMain3Binding
 
 class MainActivity3 : AppCompatActivity() {
@@ -36,6 +35,22 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerData9 : String = ""
     var spinnerData10 : String = ""
 
+    var spinnerData5_Device : String = ""
+    var spinnerData5_Company : String = ""
+    var spinnerData5_Model : String = ""
+
+    var spinnerData6_Device : String = ""
+    var spinnerData6_Company : String = ""
+    var spinnerData6_Model : String = ""
+
+    var spinnerData8_Device : String = ""
+    var spinnerData8_Company : String = ""
+    var spinnerData8_Model : String = ""
+
+    var spinnerData9_Device : String = ""
+    var spinnerData9_Company : String = ""
+    var spinnerData9_Model : String = ""
+
     //var editData1 = StringBuffer()
     var editData1 : String = ""
     var editData2 : String = ""
@@ -58,6 +73,22 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerSelect8 = 0
     var spinnerSelect9 = 0
     var spinnerSelect10 = 0
+
+    var spinnerSelect5_Device = 0
+    var spinnerSelect5_Company = 0
+    var spinnerSelect5_Model = 0
+
+    var spinnerSelect6_Device = 0
+    var spinnerSelect6_Company = 0
+    var spinnerSelect6_Model = 0
+
+    var spinnerSelect8_Device = 0
+    var spinnerSelect8_Company = 0
+    var spinnerSelect8_Model = 0
+
+    var spinnerSelect9_Device = 0
+    var spinnerSelect9_Company = 0
+    var spinnerSelect9_Model = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,7 +162,49 @@ class MainActivity3 : AppCompatActivity() {
         binding2.spinner5.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData5 = binding2.spinner5.getItemAtPosition(p2).toString()
+                Log.d("asdf spinner5","$spinnerData5")
+                Log.d("asdf spinner p0","$p0")
+                Log.d("asdf spinner p1","$p1")
+                Log.d("asdf spinner p2","$p2")
+                Log.d("asdf spinner p3","$p3")
                 spinnerSelect5 = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter5_2 = ArrayAdapter.createFromResource(this,R.array.device,android.R.layout.simple_spinner_item)
+        binding2.spinner52.adapter = spinnerAdapter5_2
+        binding2.spinner52.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData5_Device = binding2.spinner52.getItemAtPosition(p2).toString()
+                Log.d("asdf spinnerData5_2","$spinnerData5_Device")
+                spinnerSelect5_Device = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter5_3 = ArrayAdapter.createFromResource(this,R.array.company,android.R.layout.simple_spinner_item)
+        binding2.spinner53.adapter = spinnerAdapter5_3
+        binding2.spinner53.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData5_Company = binding2.spinner53.getItemAtPosition(p2).toString()
+                spinnerSelect5_Company = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter5_4 = ArrayAdapter.createFromResource(this,R.array.model,android.R.layout.simple_spinner_item)
+        binding2.spinner54.adapter = spinnerAdapter5_4
+        binding2.spinner54.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData5_Model = binding2.spinner54.getItemAtPosition(p2).toString()
+                spinnerSelect5_Model = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -144,6 +217,42 @@ class MainActivity3 : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData6 = binding2.spinner6.getItemAtPosition(p2).toString()
                 spinnerSelect6 = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter6_2 = ArrayAdapter.createFromResource(this,R.array.device,android.R.layout.simple_spinner_item)
+        binding2.spinner62.adapter = spinnerAdapter6_2
+        binding2.spinner62.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData6_Device = binding2.spinner62.getItemAtPosition(p2).toString()
+                spinnerSelect6_Device = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter6_3 = ArrayAdapter.createFromResource(this,R.array.company,android.R.layout.simple_spinner_item)
+        binding2.spinner63.adapter = spinnerAdapter6_3
+        binding2.spinner63.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData6_Company = binding2.spinner63.getItemAtPosition(p2).toString()
+                spinnerSelect6_Company = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter6_4 = ArrayAdapter.createFromResource(this,R.array.model,android.R.layout.simple_spinner_item)
+        binding2.spinner64.adapter = spinnerAdapter6_4
+        binding2.spinner64.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData6_Model = binding2.spinner64.getItemAtPosition(p2).toString()
+                spinnerSelect6_Model = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -174,12 +283,84 @@ class MainActivity3 : AppCompatActivity() {
             }
         }
 
+        val spinnerAdapter8_2 = ArrayAdapter.createFromResource(this,R.array.device,android.R.layout.simple_spinner_item)
+        binding2.spinner82.adapter = spinnerAdapter8_2
+        binding2.spinner82.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData8_Device = binding2.spinner82.getItemAtPosition(p2).toString()
+                spinnerSelect8_Device = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter8_3 = ArrayAdapter.createFromResource(this,R.array.company,android.R.layout.simple_spinner_item)
+        binding2.spinner83.adapter = spinnerAdapter8_3
+        binding2.spinner83.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData8_Company = binding2.spinner83.getItemAtPosition(p2).toString()
+                spinnerSelect8_Company = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter8_4 = ArrayAdapter.createFromResource(this,R.array.model,android.R.layout.simple_spinner_item)
+        binding2.spinner84.adapter = spinnerAdapter8_4
+        binding2.spinner84.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData8_Model = binding2.spinner84.getItemAtPosition(p2).toString()
+                spinnerSelect8_Model = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
         val spinnerAdapter9 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
         binding2.spinner9.adapter = spinnerAdapter9
         binding2.spinner9.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData9 = binding2.spinner9.getItemAtPosition(p2).toString()
                 spinnerSelect9 = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter9_2 = ArrayAdapter.createFromResource(this,R.array.device,android.R.layout.simple_spinner_item)
+        binding2.spinner92.adapter = spinnerAdapter9_2
+        binding2.spinner92.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData9_Device = binding2.spinner92.getItemAtPosition(p2).toString()
+                spinnerSelect9_Device = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter9_3 = ArrayAdapter.createFromResource(this,R.array.company,android.R.layout.simple_spinner_item)
+        binding2.spinner93.adapter = spinnerAdapter9_3
+        binding2.spinner93.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData9_Company = binding2.spinner93.getItemAtPosition(p2).toString()
+                spinnerSelect9_Company = p2
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinnerAdapter9_4 = ArrayAdapter.createFromResource(this,R.array.model,android.R.layout.simple_spinner_item)
+        binding2.spinner94.adapter = spinnerAdapter9_4
+        binding2.spinner94.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerData9_Model = binding2.spinner94.getItemAtPosition(p2).toString()
+                spinnerSelect9_Model = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -239,6 +420,22 @@ class MainActivity3 : AppCompatActivity() {
         val spinnerValue10 = sharedPreferences.getInt("spinnerSelect10", 0)
         val editTextValue10 = sharedPreferences.getString("editdata10", "")
 
+        val spinnerValue5_2 = sharedPreferences.getInt("spinnerSelect5_Device", 0)
+        val spinnerValue5_3 = sharedPreferences.getInt("spinnerSelect5_Company", 0)
+        val spinnerValue5_4 = sharedPreferences.getInt("spinnerSelect5_Model", 0)
+
+        val spinnerValue6_2 = sharedPreferences.getInt("spinnerSelect6_Device", 0)
+        val spinnerValue6_3 = sharedPreferences.getInt("spinnerSelect6_Company", 0)
+        val spinnerValue6_4 = sharedPreferences.getInt("spinnerSelect6_Model", 0)
+
+        val spinnerValue8_2 = sharedPreferences.getInt("spinnerSelect8_Device", 0)
+        val spinnerValue8_3 = sharedPreferences.getInt("spinnerSelect8_Company", 0)
+        val spinnerValue8_4 = sharedPreferences.getInt("spinnerSelect8_Model", 0)
+
+        val spinnerValue9_2 = sharedPreferences.getInt("spinnerSelect9_Device", 0)
+        val spinnerValue9_3 = sharedPreferences.getInt("spinnerSelect9_Company", 0)
+        val spinnerValue9_4 = sharedPreferences.getInt("spinnerSelect9_Model", 0)
+
         binding2.editText1.setText(editTextValue)
         binding2.spinner1.setSelection(spinnerValue)
         binding2.editText2.setText(editTextValue2)
@@ -260,6 +457,22 @@ class MainActivity3 : AppCompatActivity() {
         binding2.spinner9.setSelection(spinnerValue9)
         binding2.editText10.setText(editTextValue10)
         binding2.spinner10.setSelection(spinnerValue10)
+
+        binding2.spinner52.setSelection(spinnerValue5_2)
+        binding2.spinner53.setSelection(spinnerValue5_3)
+        binding2.spinner54.setSelection(spinnerValue5_4)
+
+        binding2.spinner62.setSelection(spinnerValue6_2)
+        binding2.spinner63.setSelection(spinnerValue6_3)
+        binding2.spinner64.setSelection(spinnerValue6_4)
+
+        binding2.spinner82.setSelection(spinnerValue8_2)
+        binding2.spinner83.setSelection(spinnerValue8_3)
+        binding2.spinner84.setSelection(spinnerValue8_4)
+
+        binding2.spinner92.setSelection(spinnerValue9_2)
+        binding2.spinner93.setSelection(spinnerValue9_3)
+        binding2.spinner94.setSelection(spinnerValue9_4)
 
     }
 
@@ -297,6 +510,35 @@ class MainActivity3 : AppCompatActivity() {
         editor.putString("editdata9",editData9)
         editor.putInt("spinnerSelect10",spinnerSelect10)
         editor.putString("editdata10",editData10)
+
+        editor.putInt("spinnerSelect5_Device",spinnerSelect5_Device)
+        editor.putString("spinnerData5_Device", spinnerData5_Device)
+        editor.putInt("spinnerSelect5_Company",spinnerSelect5_Company)
+        editor.putString("spinnerData5_Company", spinnerData5_Company)
+        editor.putInt("spinnerSelect5_Model",spinnerSelect5_Model)
+        editor.putString("spinnerData5_Model", spinnerData5_Model)
+
+        editor.putInt("spinnerSelect6_Device",spinnerSelect6_Device)
+        editor.putString("spinnerData6_Device", spinnerData6_Device)
+        editor.putInt("spinnerSelect6_Company",spinnerSelect6_Company)
+        editor.putString("spinnerData6_Company", spinnerData6_Company)
+        editor.putInt("spinnerSelect6_Model",spinnerSelect6_Model)
+        editor.putString("spinnerData6_Model", spinnerData6_Model)
+
+        editor.putInt("spinnerSelect8_Device",spinnerSelect8_Device)
+        editor.putString("spinnerData8_Device", spinnerData8_Device)
+        editor.putInt("spinnerSelect8_Company",spinnerSelect8_Company)
+        editor.putString("spinnerData8_Company", spinnerData8_Company)
+        editor.putInt("spinnerSelect8_Model",spinnerSelect8_Model)
+        editor.putString("spinnerData8_Model", spinnerData8_Model)
+
+        editor.putInt("spinnerSelect9_Device",spinnerSelect9_Device)
+        editor.putString("spinnerData9_Device", spinnerData9_Device)
+        editor.putInt("spinnerSelect9_Company",spinnerSelect9_Company)
+        editor.putString("spinnerData9_Company", spinnerData9_Company)
+        editor.putInt("spinnerSelect9_Model",spinnerSelect9_Model)
+        editor.putString("spinnerData9_Model", spinnerData9_Model)
+
 
         editor.commit()
 

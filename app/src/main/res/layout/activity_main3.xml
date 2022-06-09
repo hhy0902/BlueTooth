@@ -32,7 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <TextView
                 android:id="@+id/deviceNumber"
                 android:layout_width="wrap_content"
@@ -149,6 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber"
@@ -168,7 +168,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="ir블래스터" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -177,6 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber2"
@@ -195,7 +197,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="pc" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -204,6 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber3"
@@ -222,7 +226,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="모니터" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -231,6 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber4"
@@ -249,7 +255,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="스피" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -258,16 +265,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber5"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout4">
 
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spinner5"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner5_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner5_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner5_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText5"
@@ -276,7 +309,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="프로젝터1 use blaster" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -285,16 +319,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber6"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout5">
 
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spinner6"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner6_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner6_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner6_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText6"
@@ -303,7 +363,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="프로젝터2 use blaster" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -311,6 +372,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber7"
@@ -329,7 +391,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="공기청정" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -337,16 +400,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber8"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout7">
 
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spinner8"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner8_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner8_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner8_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText8"
@@ -355,7 +444,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="에어컨 use blaster" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -363,16 +453,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber9"
                 app:layout_constraintTop_toBottomOf="@id/deviceLayout8">
 
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spinner9"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner9_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner9_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner9_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText9"
@@ -381,7 +497,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="조명 use blaster" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -389,6 +506,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/device_background"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/deviceNumber10"
@@ -407,7 +525,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
-                    android:selectAllOnFocus="true" />
+                    android:selectAllOnFocus="true"
+                    tools:text="좌타모니터" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
