@@ -52,16 +52,16 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerData9_Model : String = ""
 
     //var editData1 = StringBuffer()
-    var editData1 : String = ""
-    var editData2 : String = ""
-    var editData3 : String = ""
-    var editData4 : String = ""
-    var editData5 : String = ""
-    var editData6 : String = ""
-    var editData7 : String = ""
-    var editData8 : String = ""
-    var editData9 : String = ""
-    var editData10 : String = ""
+    var editData1 = ""
+    var editData2 = ""
+    var editData3 = ""
+    var editData4 = ""
+    var editData5 = ""
+    var editData6 = ""
+    var editData7 = ""
+    var editData8 = ""
+    var editData9 = ""
+    var editData10 = ""
 
     var spinnerSelect1 = 0
     var spinnerSelect2 = 0
@@ -99,11 +99,16 @@ class MainActivity3 : AppCompatActivity() {
         binding2.numberText.text = "Room $abcd"
         roomName = "$abcd"
 
-        val roomSize = intent.getIntExtra("roomsize",0)
-
         Thread {
             runOnUiThread {
                 binding2.spinner1.setSelection(9)
+//                binding2.spinner2.setSelection(1)
+//                binding2.spinner3.setSelection(2)
+//                binding2.spinner4.setSelection(4)
+//                binding2.spinner5.setSelection(5)
+//                binding2.spinner6.setSelection(6)
+//                binding2.spinner7.setSelection(7)
+//                binding2.spinner8.setSelection(10)
                 binding2.spinner9.setSelection(8)
                 binding2.spinner10.setSelection(3)
             }
@@ -436,26 +441,26 @@ class MainActivity3 : AppCompatActivity() {
         val spinnerValue9_3 = sharedPreferences.getInt("spinnerSelect9_Company", 0)
         val spinnerValue9_4 = sharedPreferences.getInt("spinnerSelect9_Model", 0)
 
-        binding2.editText1.setText(editTextValue)
+        binding2.editText1.setText(editTextValue.toString())
         binding2.spinner1.setSelection(spinnerValue)
-        binding2.editText2.setText(editTextValue2)
+        binding2.editText2.setText(editTextValue2.toString())
         binding2.spinner2.setSelection(spinnerValue2)
-        binding2.editText3.setText(editTextValue3)
+        binding2.editText3.setText(editTextValue3.toString())
         binding2.spinner3.setSelection(spinnerValue3)
-        binding2.editText4.setText(editTextValue4)
+        binding2.editText4.setText(editTextValue4.toString())
         binding2.spinner4.setSelection(spinnerValue4)
-        binding2.editText5.setText(editTextValue5)
+        binding2.editText5.setText(editTextValue5.toString())
         binding2.spinner5.setSelection(spinnerValue5)
-        binding2.editText6.setText(editTextValue6)
+        binding2.editText6.setText(editTextValue6.toString())
         binding2.spinner6.setSelection(spinnerValue6)
 
-        binding2.editText7.setText(editTextValue7)
+        binding2.editText7.setText(editTextValue7.toString())
         binding2.spinner7.setSelection(spinnerValue7)
-        binding2.editText8.setText(editTextValue8)
+        binding2.editText8.setText(editTextValue8.toString())
         binding2.spinner8.setSelection(spinnerValue8)
-        binding2.editText9.setText(editTextValue9)
+        binding2.editText9.setText(editTextValue9.toString())
         binding2.spinner9.setSelection(spinnerValue9)
-        binding2.editText10.setText(editTextValue10)
+        binding2.editText10.setText(editTextValue10.toString())
         binding2.spinner10.setSelection(spinnerValue10)
 
         binding2.spinner52.setSelection(spinnerValue5_2)
@@ -570,8 +575,8 @@ class MainActivity3 : AppCompatActivity() {
         //finish()
         Toast.makeText(this,"save",Toast.LENGTH_SHORT).show()
         Log.d("asdf saveroomname", "$roomName")
-        val editTextValue = sharedPreferences.getString("editdata1", "")
-        Log.d("asdf value", "${editTextValue}")
+//        val editTextValue = sharedPreferences.getString("editdata1", "")
+//        Log.d("asdf value", "${editTextValue}")
     }
 
     override fun onBackPressed() {

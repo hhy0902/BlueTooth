@@ -248,7 +248,7 @@ class MainActivity2 : AppCompatActivity() {
                     jsonrpcObject.put("method","patch_gz")
                     jsonrpcArrayObject.put("op","add")
                     jsonrpcArrayObject.put("path","/room_$i")
-                    jsonrpcValue2.put("node_id",sharedPreferences.all.get("editdata1"))
+                    jsonrpcValue2.put("node_id",sharedPreferences.all.get("editdata1").toString().toInt())
                     jsonrpcValue.put("blaster",jsonrpcValue2)
 
                     for(z in 1..9) {
@@ -285,10 +285,11 @@ class MainActivity2 : AppCompatActivity() {
 
                     sendCommand(jsonrpcObject.toString())
 
-                    //receiveData()
                     Log.d("asdf jsonrpcobject", jsonrpcObject.toString())
                     Thread.sleep(200)
                 }
+
+                //receiveData()
 
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
@@ -301,16 +302,18 @@ class MainActivity2 : AppCompatActivity() {
                         jsonrpcObject_2.put("method", "patch_gz")
                         jsonrpcArrayObject_2.put("op", "add")
                         jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/plug/nid")
-                        jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i+1}"))
+                        jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i+1}").toString().toInt())
                         jsonrpcArray_2.put(jsonrpcArrayObject_2)
                         jsonrpcObject_2.put("params", jsonrpcArray_2)
                         jsonrpcObject_2.put("id", "qwerasd$random")
                         sendCommand(jsonrpcObject_2.toString())
-                        //receiveData()
+
                         Thread.sleep(100)
                         Log.d("asdf jsonrpcobject_node_id_${q}_$i", jsonrpcObject_2.toString())
                     }
                 }
+
+                //receiveData()
 
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
@@ -334,7 +337,7 @@ class MainActivity2 : AppCompatActivity() {
                         jsonrpcObject_2.put("params", jsonrpcArray_2)
                         jsonrpcObject_2.put("id", "qwerasd$random")
                         sendCommand(jsonrpcObject_2.toString())
-                        //receiveData()
+
                         Thread.sleep(100)
                         Log.d("asdf jsonrpcobject_use_switch_${q}_$i", jsonrpcObject_2.toString())
                         Log.d("asdf jsonrpcobject_spinnerSelect${q}_$i", sharedPreferences.all.get("spinnerSelect${i}").toString())
@@ -342,7 +345,10 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
+                //receiveData()
+
                 for(q in 1..roomList.size) {
+                    sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
                     for (i in 1..9) {
                         val jsonrpcObject_2 = JSONObject()
                         val jsonrpcArray_2 = JSONArray()
@@ -358,13 +364,13 @@ class MainActivity2 : AppCompatActivity() {
                         jsonrpcObject_2.put("params", jsonrpcArray_2)
                         jsonrpcObject_2.put("id", "qwerasd$random")
                         sendCommand(jsonrpcObject_2.toString())
-                        //receiveData()
+
                         Thread.sleep(100)
                         Log.d("asdf jsonrpcobject_ir_key_${q}_$i", jsonrpcObject_2.toString())
                     }
                 }
 
-                receiveData()
+                //receiveData()
                 Log.d("asdf roomlistsize", "${roomList.size}")
 
 //                for(e in 1..roomList.size) {
