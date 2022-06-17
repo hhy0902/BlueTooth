@@ -3,20 +3,14 @@ package com.example.bluetoothconnect2
 import android.app.ProgressDialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import android.hardware.SensorManager
-import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import android.view.KeyEvent
-import android.view.MotionEvent
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,12 +21,7 @@ import com.example.bluetoothconnect2.databinding.ActivityMain2Binding
 import com.example.bluetoothconnect2.model.Room
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.ByteArrayInputStream
 import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.lang.reflect.InvocationTargetException
-import java.nio.Buffer
 import java.util.*
 
 class MainActivity2 : AppCompatActivity() {
@@ -71,7 +60,10 @@ class MainActivity2 : AppCompatActivity() {
     var roomName = ""
     val random = Random().nextInt(9)+1
 
-    var testNumber = 1
+    var loadJsonString = ""
+    var loadJsonStringCount = 0
+
+    lateinit var readMessage : String
 
     lateinit var sharedPreferences : SharedPreferences
 
@@ -223,6 +215,10 @@ class MainActivity2 : AppCompatActivity() {
             Log.d("asdf 1", isConnected.toString())
             Log.d("asdf 2", bluetoothSocket?.isConnected.toString())
 
+//            val Delete3 =
+//                "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"\"}],\"id\":\"qwerasd$random\"}"
+//            sendCommand(Delete3)
+
             if (bluetoothSocket?.isConnected == true) {
                 for (p in 1..10) {
                     val testDelete3 =
@@ -230,6 +226,7 @@ class MainActivity2 : AppCompatActivity() {
                     sendCommand(testDelete3)
                     Thread.sleep(200)
                 }
+
 
                 for(i in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
@@ -290,7 +287,6 @@ class MainActivity2 : AppCompatActivity() {
                 }
 
                 //receiveData()
-
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
                     for (i in 1..9) {
@@ -314,7 +310,6 @@ class MainActivity2 : AppCompatActivity() {
                 }
 
                 //receiveData()
-
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
                     for (i in 1..9) {
@@ -344,7 +339,6 @@ class MainActivity2 : AppCompatActivity() {
                         Log.d("asdf jsonrpcobject_editdata${q}_$i", sharedPreferences.all.get("editdata${i}").toString())
                     }
                 }
-
                 //receiveData()
 
                 for(q in 1..roomList.size) {
@@ -370,7 +364,6 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
-                //receiveData()
                 Log.d("asdf roomlistsize", "${roomList.size}")
 
 //                for(e in 1..roomList.size) {
@@ -444,26 +437,82 @@ class MainActivity2 : AppCompatActivity() {
         binding.btnLoad.setOnClickListener {
 
             if (bluetoothSocket?.isConnected == true) {
-                receiveData()
+                Toast.makeText(this, "load",Toast.LENGTH_SHORT).show()
+                //val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_1/units/1\"}, \"id\": \"ro33b7sz\"}"
 
-//                // 임시로 나중에 지워야
-//                for (p in 1..roomList.size) {
-//                    val testDelete3 =
-//                        "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
-//                    sendCommand(testDelete3)
-//                    Thread.sleep(1000)
-//                    Log.d("asdf delete","clear")
-//                }
-//
-//                val testBodys =
-//                    "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"replace\",\"path\":\"\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-//                sendCommand(testBodys)
-//                Thread.sleep(1000)
-//
-//                val testBody =
-//                    "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-//                sendCommand(testBody)
-//                Thread.sleep(1000)
+                for(i in 1..roomList.size) {
+                    val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/blaster/node_id\"}, \"id\": \"qwerasd$random\"}"
+                    sendCommand(loadJson)
+                    receiveData()
+                    val jsonObject = JSONObject(readMessage)
+                    //Log.d("asdf jsonobject", "${jsonObject}")
+                    val result = jsonObject.get("result")
+                    Log.d("asdf room${i}_blaster", result.toString())
+
+                    val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
+                    val editor : SharedPreferences.Editor = sharedPreferences.edit()
+                    editor.putString("load_blaster_$i",result.toString())
+
+                    editor.commit()
+                }
+
+                for (i in 1..roomList.size) {
+                    for (z in 1..9) {
+                        if(z != 7 && z!= 8) {
+                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/plug/nid\"}, \"id\": \"qwerasd$random\"}"
+                            sendCommand(loadJson)
+
+                            receiveData()
+                            val jsonObject = JSONObject(readMessage)
+                            //Log.d("asdf jsonobject", "${jsonObject}")
+                            val result = jsonObject.get("result")
+                            Log.d("asdf room${i}_nid$z", result.toString())
+
+                            val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
+                            val editor : SharedPreferences.Editor = sharedPreferences.edit()
+                            editor.putString("load_nid_$z",result.toString())
+
+                            editor.commit()
+
+                        }
+                    }
+                }
+
+                for (i in 1..roomList.size) {
+                    for (z in 1..9) {
+                        if(z != 7 && z!= 8) {
+                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/plug/use_switch\"}, \"id\": \"qwerasd$random\"}"
+                            sendCommand(loadJson)
+                            receiveData()
+                            val jsonObject = JSONObject(readMessage)
+                            //Log.d("asdf jsonobject2", "${jsonObject2}")
+                            val result = jsonObject.get("result")
+                            Log.d("asdf room${i}_use_switch$z", result.toString())
+
+                        }
+                    }
+                }
+
+                for (i in 1..roomList.size) {
+                    for (z in 1..9) {
+                        if(z == 7 || z == 8 || z == 4 || z == 5) {
+                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/blaster/ir_key\"}, \"id\": \"qwerasd$random\"}"
+                            sendCommand(loadJson)
+                            receiveData()
+                            val jsonObject = JSONObject(readMessage)
+                            //Log.d("asdf jsonobject2", "${jsonObject2}")
+                            val result = jsonObject.get("result")
+                            Log.d("asdf room${i}_ir_key$z", result.toString())
+
+                            val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
+                            val editor : SharedPreferences.Editor = sharedPreferences.edit()
+                            editor.putString("load_ir_key_$z",result.toString())
+
+                            editor.commit()
+
+                        }
+                    }
+                }
 
             }
             else {
@@ -485,20 +534,23 @@ class MainActivity2 : AppCompatActivity() {
 
     private fun receiveData() {
         try {
-            val byteAvailable = bluetoothSocket!!.inputStream.available()
-            if (byteAvailable > 0) {
-                var byte = bluetoothSocket!!.inputStream.read()
-                //val readColor = ByteArray(832)
-                val readColor = ByteArray(byteAvailable - 2)
-                bluetoothSocket!!.inputStream.read(readColor)
-                val string = String(readColor)
-                val test = string.length
-//                    Log.d("asdf receiveData2", "${byteAvailable}")
-//                    Log.d("asdf receiveData3", "${bluetoothSocket!!.inputStream.read()}")
-//                    Log.d("asdf receiveData4", "${byte}")
-                Log.d("asdf receiveData7", "${string}")
-                //Log.d("asdf receiveData8", "${test}")
-            }
+
+//            val byteAvailable = bluetoothSocket!!.inputStream.available()
+//            //val readColor = ByteArray(832)
+//            val readColor = ByteArray(byteAvailable)
+//            bluetoothSocket!!.inputStream.read(readColor)
+//            val string = String(readColor)
+//            Log.d("asdf receiveData", "${string}")
+
+
+            val buffer = ByteArray(1024)
+            var bytes = bluetoothSocket!!.inputStream.read(buffer)
+            readMessage = String(buffer, 0, bytes)
+            //loadJsonString = loadJsonString + readMessage
+            Log.d("asdf receiveData", "${readMessage}")
+
+            loadJsonStringCount++
+
         } catch (e: IOException) {
             e.printStackTrace()
             Log.d("asdf receiveData", "No receiveData")

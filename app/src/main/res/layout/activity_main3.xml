@@ -302,15 +302,47 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/editText5"
-                    android:layout_width="100dp"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:selectAllOnFocus="true"
-                    tools:text="프로젝터1 use blaster" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editText5"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:selectAllOnFocus="true"
+                        tools:text="프로젝터1 use blaster" />
+
+                    <TextView
+                        android:id="@+id/ir_key1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/ir_key2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key2"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/ir_key3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key3"
+                        android:textSize="18dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -356,15 +388,48 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/editText6"
-                    android:layout_width="100dp"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:selectAllOnFocus="true"
-                    tools:text="프로젝터2 use blaster" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editText6"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:selectAllOnFocus="true"
+                        tools:text="프로젝터1 use blaster" />
+
+                    <TextView
+                        android:id="@+id/ir_key4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key4"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/ir_key5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key5"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/ir_key6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key6"
+                        android:textSize="18dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -437,15 +502,50 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/editText8"
-                    android:layout_width="100dp"
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:selectAllOnFocus="true"
-                    tools:text="에어컨 use blaster" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editText8"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:selectAllOnFocus="true"
+                        tools:text="에어컨 use blaster" />
+
+                    <TextView
+                        android:id="@+id/ir_key7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key4"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/ir_key8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key5"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/ir_key9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key6"
+                        android:textSize="18dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -490,15 +590,49 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/editText9"
-                    android:layout_width="100dp"
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:selectAllOnFocus="true"
-                    tools:text="조명 use blaster" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editText9"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:selectAllOnFocus="true"
+                        tools:text="조명 use blaster" />
+
+                    <TextView
+                        android:id="@+id/ir_key10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key4"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/ir_key11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key5"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/ir_key12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="ir_key6"
+                        android:textSize="18dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -541,8 +675,18 @@
         android:layout_margin="5dp"
         android:text="save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_clear"
+        app:layout_constraintEnd_toStartOf="@id/btn_load"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_load"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="load"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_clear"
+        app:layout_constraintStart_toEndOf="@id/btn_save" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_clear"
@@ -552,7 +696,7 @@
         android:text="clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_save" />
+        app:layout_constraintStart_toEndOf="@id/btn_load" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
