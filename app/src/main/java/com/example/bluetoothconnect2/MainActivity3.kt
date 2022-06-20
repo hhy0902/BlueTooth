@@ -402,128 +402,140 @@ class MainActivity3 : AppCompatActivity() {
             save()
         }
 
-        val sharedPreferences = getSharedPreferences("load$roomName", Context.MODE_PRIVATE)
+        load()
 
-        val editTextValue1 = sharedPreferences.getString("load_blaster_$roomName", "")
-        binding2.editText1.setText(editTextValue1.toString())
+        val sharedPreferences2 = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
+        val LoadToF = sharedPreferences2.getBoolean("btnLoadClick", false)
 
-        val editTextValue2 = sharedPreferences.getString("load_nid_1", "")
-        binding2.editText2.setText(editTextValue2.toString())
-        val editTextValue3 = sharedPreferences.getString("load_nid_2", "")
-        binding2.editText3.setText(editTextValue3.toString())
-        val editTextValue4 = sharedPreferences.getString("load_nid_3", "")
-        binding2.editText4.setText(editTextValue4.toString())
-        val editTextValue5 = sharedPreferences.getString("load_nid_4", "")
-        binding2.editText5.setText(editTextValue5.toString())
-        val editTextValue6 = sharedPreferences.getString("load_nid_5", "")
-        binding2.editText6.setText(editTextValue6.toString())
-        val editTextValue7 = sharedPreferences.getString("load_nid_6", "")
-        binding2.editText7.setText(editTextValue7.toString())
-        val editTextValue10 = sharedPreferences.getString("load_nid_9", "")
-        binding2.editText10.setText(editTextValue10.toString())
+        if (LoadToF) {
+            val sharedPreferences = getSharedPreferences("load$roomName", Context.MODE_PRIVATE)
 
-        val irkeyValue = sharedPreferences.getString("load_ir_key_4","")
-        binding2.irKey1.setText(irkeyValue?.split("/")?.get(0))
-        binding2.irKey2.setText(irkeyValue?.split("/")?.get(1))
-        binding2.irKey3.setText(irkeyValue?.split("/")?.get(2))
+            val editTextValue1 = sharedPreferences.getString("load_blaster_$roomName", "")
+            binding2.editText1.setText(editTextValue1.toString())
 
-        val irkeyValue2 = sharedPreferences.getString("load_ir_key_5","")
-        binding2.irKey4.setText(irkeyValue2?.split("/")?.get(0))
-        binding2.irKey5.setText(irkeyValue2?.split("/")?.get(1))
-        binding2.irKey6.setText(irkeyValue2?.split("/")?.get(2))
-
-        val irkeyValue3 = sharedPreferences.getString("load_ir_key_7","")
-        binding2.irKey7.setText(irkeyValue3?.split("/")?.get(0))
-        binding2.irKey8.setText(irkeyValue3?.split("/")?.get(1))
-        binding2.irKey9.setText(irkeyValue3?.split("/")?.get(2))
-
-        val irkeyValue4 = sharedPreferences.getString("load_ir_key_8","")
-        binding2.irKey10.setText(irkeyValue4?.split("/")?.get(0))
-        binding2.irKey11.setText(irkeyValue4?.split("/")?.get(1))
-        binding2.irKey12.setText(irkeyValue4?.split("/")?.get(2))
-
-
-        binding2.btnLoad.setOnClickListener {
-
-            val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
-
-            val spinnerValue = sharedPreferences.getInt("spinnerSelect1", 0)
-            val editTextValue = sharedPreferences.getString("editdata1", "")
-            val spinnerValue2 = sharedPreferences.getInt("spinnerSelect2", 0)
-            val editTextValue2 = sharedPreferences.getString("editdata2", "")
-            val spinnerValue3 = sharedPreferences.getInt("spinnerSelect3", 0)
-            val editTextValue3 = sharedPreferences.getString("editdata3", "")
-            val spinnerValue4 = sharedPreferences.getInt("spinnerSelect4", 0)
-            val editTextValue4 = sharedPreferences.getString("editdata4", "")
-            val spinnerValue5 = sharedPreferences.getInt("spinnerSelect5", 0)
-            val editTextValue5 = sharedPreferences.getString("editdata5", "")
-            val spinnerValue6 = sharedPreferences.getInt("spinnerSelect6", 0)
-            val editTextValue6 = sharedPreferences.getString("editdata6", "")
-            val spinnerValue7 = sharedPreferences.getInt("spinnerSelect7", 0)
-            val editTextValue7 = sharedPreferences.getString("editdata7", "")
-            val spinnerValue8 = sharedPreferences.getInt("spinnerSelect8", 0)
-            val editTextValue8 = sharedPreferences.getString("editdata8", "")
-            val spinnerValue9 = sharedPreferences.getInt("spinnerSelect9", 0)
-            val editTextValue9 = sharedPreferences.getString("editdata9", "")
-            val spinnerValue10 = sharedPreferences.getInt("spinnerSelect10", 0)
-            val editTextValue10 = sharedPreferences.getString("editdata10", "")
-
-            val spinnerValue5_2 = sharedPreferences.getInt("spinnerSelect5_Device", 0)
-            val spinnerValue5_3 = sharedPreferences.getInt("spinnerSelect5_Company", 0)
-            val spinnerValue5_4 = sharedPreferences.getInt("spinnerSelect5_Model", 0)
-
-            val spinnerValue6_2 = sharedPreferences.getInt("spinnerSelect6_Device", 0)
-            val spinnerValue6_3 = sharedPreferences.getInt("spinnerSelect6_Company", 0)
-            val spinnerValue6_4 = sharedPreferences.getInt("spinnerSelect6_Model", 0)
-
-            val spinnerValue8_2 = sharedPreferences.getInt("spinnerSelect8_Device", 0)
-            val spinnerValue8_3 = sharedPreferences.getInt("spinnerSelect8_Company", 0)
-            val spinnerValue8_4 = sharedPreferences.getInt("spinnerSelect8_Model", 0)
-
-            val spinnerValue9_2 = sharedPreferences.getInt("spinnerSelect9_Device", 0)
-            val spinnerValue9_3 = sharedPreferences.getInt("spinnerSelect9_Company", 0)
-            val spinnerValue9_4 = sharedPreferences.getInt("spinnerSelect9_Model", 0)
-
-            binding2.editText1.setText(editTextValue.toString())
-            binding2.spinner1.setSelection(spinnerValue)
+            val editTextValue2 = sharedPreferences.getString("load_nid_1", "")
             binding2.editText2.setText(editTextValue2.toString())
-            binding2.spinner2.setSelection(spinnerValue2)
+            val editTextValue3 = sharedPreferences.getString("load_nid_2", "")
             binding2.editText3.setText(editTextValue3.toString())
-            binding2.spinner3.setSelection(spinnerValue3)
+            val editTextValue4 = sharedPreferences.getString("load_nid_3", "")
             binding2.editText4.setText(editTextValue4.toString())
-            binding2.spinner4.setSelection(spinnerValue4)
+            val editTextValue5 = sharedPreferences.getString("load_nid_4", "")
             binding2.editText5.setText(editTextValue5.toString())
-            binding2.spinner5.setSelection(spinnerValue5)
+            val editTextValue6 = sharedPreferences.getString("load_nid_5", "")
             binding2.editText6.setText(editTextValue6.toString())
-            binding2.spinner6.setSelection(spinnerValue6)
-
+            val editTextValue7 = sharedPreferences.getString("load_nid_6", "")
             binding2.editText7.setText(editTextValue7.toString())
-            binding2.spinner7.setSelection(spinnerValue7)
-            binding2.editText8.setText(editTextValue8.toString())
-            binding2.spinner8.setSelection(spinnerValue8)
-            binding2.editText9.setText(editTextValue9.toString())
-            binding2.spinner9.setSelection(spinnerValue9)
+            val editTextValue10 = sharedPreferences.getString("load_nid_9", "")
             binding2.editText10.setText(editTextValue10.toString())
-            binding2.spinner10.setSelection(spinnerValue10)
 
-            binding2.spinner52.setSelection(spinnerValue5_2)
-            binding2.spinner53.setSelection(spinnerValue5_3)
-            binding2.spinner54.setSelection(spinnerValue5_4)
+            val editor : SharedPreferences.Editor = sharedPreferences2.edit()
+            editor.putBoolean("btnLoadClick",false)
+            editor.commit()
 
-            binding2.spinner62.setSelection(spinnerValue6_2)
-            binding2.spinner63.setSelection(spinnerValue6_3)
-            binding2.spinner64.setSelection(spinnerValue6_4)
+//        val irkeyValue = sharedPreferences.getString("load_ir_key_4","")
+//        binding2.irKey1.setText(irkeyValue?.split("/")?.get(0))
+//        binding2.irKey2.setText(irkeyValue?.split("/")?.get(1))
+//        binding2.irKey3.setText(irkeyValue?.split("/")?.get(2))
+//
+//        val irkeyValue2 = sharedPreferences.getString("load_ir_key_5","")
+//        binding2.irKey4.setText(irkeyValue2?.split("/")?.get(0))
+//        binding2.irKey5.setText(irkeyValue2?.split("/")?.get(1))
+//        binding2.irKey6.setText(irkeyValue2?.split("/")?.get(2))
+//
+//        val irkeyValue3 = sharedPreferences.getString("load_ir_key_7","")
+//        binding2.irKey7.setText(irkeyValue3?.split("/")?.get(0))
+//        binding2.irKey8.setText(irkeyValue3?.split("/")?.get(1))
+//        binding2.irKey9.setText(irkeyValue3?.split("/")?.get(2))
+//
+//        val irkeyValue4 = sharedPreferences.getString("load_ir_key_8","")
+//        binding2.irKey10.setText(irkeyValue4?.split("/")?.get(0))
+//        binding2.irKey11.setText(irkeyValue4?.split("/")?.get(1))
+//        binding2.irKey12.setText(irkeyValue4?.split("/")?.get(2))
 
-            binding2.spinner82.setSelection(spinnerValue8_2)
-            binding2.spinner83.setSelection(spinnerValue8_3)
-            binding2.spinner84.setSelection(spinnerValue8_4)
-
-            binding2.spinner92.setSelection(spinnerValue9_2)
-            binding2.spinner93.setSelection(spinnerValue9_3)
-            binding2.spinner94.setSelection(spinnerValue9_4)
         }
 
+        binding2.btnLoad.setOnClickListener {
+            load()
+        }
+    }
 
+    fun load() {
+        val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
+
+        val spinnerValue = sharedPreferences.getInt("spinnerSelect1", 0)
+        val editTextValue = sharedPreferences.getString("editdata1", "")
+        val spinnerValue2 = sharedPreferences.getInt("spinnerSelect2", 0)
+        val editTextValue2 = sharedPreferences.getString("editdata2", "")
+        val spinnerValue3 = sharedPreferences.getInt("spinnerSelect3", 0)
+        val editTextValue3 = sharedPreferences.getString("editdata3", "")
+        val spinnerValue4 = sharedPreferences.getInt("spinnerSelect4", 0)
+        val editTextValue4 = sharedPreferences.getString("editdata4", "")
+        val spinnerValue5 = sharedPreferences.getInt("spinnerSelect5", 0)
+        val editTextValue5 = sharedPreferences.getString("editdata5", "")
+        val spinnerValue6 = sharedPreferences.getInt("spinnerSelect6", 0)
+        val editTextValue6 = sharedPreferences.getString("editdata6", "")
+        val spinnerValue7 = sharedPreferences.getInt("spinnerSelect7", 0)
+        val editTextValue7 = sharedPreferences.getString("editdata7", "")
+        val spinnerValue8 = sharedPreferences.getInt("spinnerSelect8", 0)
+        val editTextValue8 = sharedPreferences.getString("editdata8", "")
+        val spinnerValue9 = sharedPreferences.getInt("spinnerSelect9", 0)
+        val editTextValue9 = sharedPreferences.getString("editdata9", "")
+        val spinnerValue10 = sharedPreferences.getInt("spinnerSelect10", 0)
+        val editTextValue10 = sharedPreferences.getString("editdata10", "")
+
+        val spinnerValue5_2 = sharedPreferences.getInt("spinnerSelect5_Device", 0)
+        val spinnerValue5_3 = sharedPreferences.getInt("spinnerSelect5_Company", 0)
+        val spinnerValue5_4 = sharedPreferences.getInt("spinnerSelect5_Model", 0)
+
+        val spinnerValue6_2 = sharedPreferences.getInt("spinnerSelect6_Device", 0)
+        val spinnerValue6_3 = sharedPreferences.getInt("spinnerSelect6_Company", 0)
+        val spinnerValue6_4 = sharedPreferences.getInt("spinnerSelect6_Model", 0)
+
+        val spinnerValue8_2 = sharedPreferences.getInt("spinnerSelect8_Device", 0)
+        val spinnerValue8_3 = sharedPreferences.getInt("spinnerSelect8_Company", 0)
+        val spinnerValue8_4 = sharedPreferences.getInt("spinnerSelect8_Model", 0)
+
+        val spinnerValue9_2 = sharedPreferences.getInt("spinnerSelect9_Device", 0)
+        val spinnerValue9_3 = sharedPreferences.getInt("spinnerSelect9_Company", 0)
+        val spinnerValue9_4 = sharedPreferences.getInt("spinnerSelect9_Model", 0)
+
+        binding2.editText1.setText(editTextValue.toString())
+        binding2.spinner1.setSelection(spinnerValue)
+        binding2.editText2.setText(editTextValue2.toString())
+        binding2.spinner2.setSelection(spinnerValue2)
+        binding2.editText3.setText(editTextValue3.toString())
+        binding2.spinner3.setSelection(spinnerValue3)
+        binding2.editText4.setText(editTextValue4.toString())
+        binding2.spinner4.setSelection(spinnerValue4)
+        binding2.editText5.setText(editTextValue5.toString())
+        binding2.spinner5.setSelection(spinnerValue5)
+        binding2.editText6.setText(editTextValue6.toString())
+        binding2.spinner6.setSelection(spinnerValue6)
+
+        binding2.editText7.setText(editTextValue7.toString())
+        binding2.spinner7.setSelection(spinnerValue7)
+        binding2.editText8.setText(editTextValue8.toString())
+        binding2.spinner8.setSelection(spinnerValue8)
+        binding2.editText9.setText(editTextValue9.toString())
+        binding2.spinner9.setSelection(spinnerValue9)
+        binding2.editText10.setText(editTextValue10.toString())
+        binding2.spinner10.setSelection(spinnerValue10)
+
+        binding2.spinner52.setSelection(spinnerValue5_2)
+        binding2.spinner53.setSelection(spinnerValue5_3)
+        binding2.spinner54.setSelection(spinnerValue5_4)
+
+        binding2.spinner62.setSelection(spinnerValue6_2)
+        binding2.spinner63.setSelection(spinnerValue6_3)
+        binding2.spinner64.setSelection(spinnerValue6_4)
+
+        binding2.spinner82.setSelection(spinnerValue8_2)
+        binding2.spinner83.setSelection(spinnerValue8_3)
+        binding2.spinner84.setSelection(spinnerValue8_4)
+
+        binding2.spinner92.setSelection(spinnerValue9_2)
+        binding2.spinner93.setSelection(spinnerValue9_3)
+        binding2.spinner94.setSelection(spinnerValue9_4)
     }
 
     fun save() {

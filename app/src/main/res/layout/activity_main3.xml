@@ -322,7 +322,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key"
+
                         android:textSize="18dp" />
 
                     <TextView
@@ -330,7 +330,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key2"
+
                         android:textSize="18dp" />
 
                     <TextView
@@ -338,7 +338,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key3"
+
                         android:textSize="18dp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -408,7 +408,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key4"
+
                         android:textSize="18dp" />
 
                     <TextView
@@ -416,7 +416,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key5"
+
                         android:textSize="18dp" />
 
                     <TextView
@@ -424,7 +424,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key6"
+
                         android:textSize="18dp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -515,6 +515,7 @@
                         android:inputType="number"
                         android:lines="1"
                         android:maxLines="1"
+                        android:visibility="invisible"
                         android:selectAllOnFocus="true"
                         tools:text="에어컨 use blaster" />
 
@@ -523,7 +524,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key4"
+
                         android:textSize="18dp" />
 
                     <TextView
@@ -531,7 +532,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key5"
+
                         android:textSize="18dp" />
 
                     <TextView
@@ -539,7 +540,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key6"
+
                         android:textSize="18dp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -601,6 +602,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:inputType="number"
+                        android:visibility="invisible"
                         android:lines="1"
                         android:maxLines="1"
                         android:selectAllOnFocus="true"
@@ -611,7 +613,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key4"
+
                         android:textSize="18dp" />
 
                     <TextView
@@ -619,7 +621,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key5"
+
                         android:textSize="18dp" />
 
                     <TextView
@@ -627,7 +629,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ir_key6"
+
                         android:textSize="18dp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
