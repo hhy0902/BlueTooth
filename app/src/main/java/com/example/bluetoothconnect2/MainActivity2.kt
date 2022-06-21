@@ -227,7 +227,6 @@ class MainActivity2 : AppCompatActivity() {
                     Thread.sleep(200)
                 }
 
-
                 for(i in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
@@ -251,26 +250,37 @@ class MainActivity2 : AppCompatActivity() {
                     for(z in 1..9) {
                         var jsonrpcUnitsValue2 = JSONObject()
                         var jsonrpcPlugValue = JSONObject()
-
 /*
-        1 = pc, 2= 모니터, 3= 스피커, 4= 프로젝터1, 5= 프로젝터2, 6= 공기청정기, 7=에어컨, 8=조명, 9=좌타모니터
+        1=pc, 2=모니터, 3=스피커, 4=프로젝터1, 5=프로젝터2, 6=공기청정기, 7=에어컨, 8=조명, 9=좌타모니터
 */
+
+//                        when(z) {
+//                            1 -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+//                            2 -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+//                            3 -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+//                            4 -> {
+//                                jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+//                                jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+//                            }
+//                            5 -> {
+//                                jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+//                                jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+//                            }
+//                            6 -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+//                            7 -> jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+//                            8 -> jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+//                            else -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+//                        }
+
                         if(z == 4 || z == 5) {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
                             jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-                        } else if(z == 1 || z == 2 || z == 3 || z == 6 || z == 9) {
+                        } else if(z == 1 || z == 2 || z == 3 || z == 6 || z == 9)   {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
                         } else if(z == 7 || z == 8) {
                             jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
                         }
-//                        if(sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 5 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 6) {
-//                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-//                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-//                        } else if(sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 1 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 2 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 3 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 4 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 7) {
-//                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-//                        } else if(sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 10 || sharedPreferences.all.get("spinnerSelect${z}").toString().toInt() == 8) {
-//                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-//                        }
+
                         jsonrpcUnitsValue.put("$z", jsonrpcUnitsValue2)
                     }
 
@@ -315,12 +325,10 @@ class MainActivity2 : AppCompatActivity() {
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
                     for (i in 1..9) {
-
                         if (i != 7 && i != 8) {
                             val jsonrpcObject_2 = JSONObject()
                             val jsonrpcArray_2 = JSONArray()
                             val jsonrpcArrayObject_2 = JSONObject()
-
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
@@ -422,7 +430,6 @@ class MainActivity2 : AppCompatActivity() {
                 spinnerDataList.clear()
 
                 Toast.makeText(this,"전송 완료",Toast.LENGTH_SHORT).show()
-
             }
             else {
                 Toast.makeText(this,"연결이 필요합니다",Toast.LENGTH_SHORT).show()
@@ -442,7 +449,6 @@ class MainActivity2 : AppCompatActivity() {
         }
 
         binding.btnLoad.setOnClickListener {
-
             val sharedPreferences = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
             val editor : SharedPreferences.Editor = sharedPreferences.edit()
 
@@ -471,7 +477,6 @@ class MainActivity2 : AppCompatActivity() {
                         if(z != 7 && z!= 8) {
                             val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/plug/nid\"}, \"id\": \"qwerasd$random\"}"
                             sendCommand(loadJson)
-
                             receiveData()
                             val jsonObject = JSONObject(readMessage)
                             //Log.d("asdf jsonobject", "${jsonObject}")
@@ -556,7 +561,6 @@ class MainActivity2 : AppCompatActivity() {
 //            bluetoothSocket!!.inputStream.read(readColor)
 //            val string = String(readColor)
 //            Log.d("asdf receiveData", "${string}")
-
 
             val buffer = ByteArray(1024)
             var bytes = bluetoothSocket!!.inputStream.read(buffer)
