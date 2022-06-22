@@ -61,7 +61,6 @@ class MainActivity2 : AppCompatActivity() {
     val random = Random().nextInt(9)+1
 
     var loadJsonString = ""
-    var loadJsonStringCount = 0
 
     lateinit var readMessage : String
 
@@ -88,6 +87,7 @@ class MainActivity2 : AppCompatActivity() {
 
         binding.gateWayText.text = "$address $name"
 
+        // 룸 추가한거 유지를 위해 ActivityResultLauncher 사용?
         val startActivityLauncher : ActivityResultLauncher<Intent> =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 when(it.resultCode) {
@@ -119,6 +119,7 @@ class MainActivity2 : AppCompatActivity() {
                 }
             }
 
+        // 룸 추가한거 유지를 위해 ActivityResultLauncher 사용?
         val startActivityLauncher2 : ActivityResultLauncher<Intent> =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 when(it.resultCode) {
@@ -127,6 +128,7 @@ class MainActivity2 : AppCompatActivity() {
                         name = it.data?.getStringExtra("Device_name").toString()
                         binding.gateWayText.text = "$name $address"
 
+                        // bluetooth 연결
                         Thread {
                             try {
                                 bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
@@ -159,17 +161,20 @@ class MainActivity2 : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = roomAdapter
 
+        // recyclerView에 룸 추가
         binding.btnAdd.setOnClickListener {
             i = roomList.size + 1
             roomList.add(Room("room $i"))
             roomAdapter.notifyDataSetChanged()
         }
 
+        // recyclerView에서 룸 삭제
         binding.btnDelete.setOnClickListener {
             roomList.removeAt(roomList.size-1)
             roomAdapter.notifyDataSetChanged()
         }
 
+        // 룸에 있는 모든 데이터 삭제 & 다이얼로그
         binding.btnClearData.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("clear button")
@@ -185,6 +190,7 @@ class MainActivity2 : AppCompatActivity() {
             builder.show()
         }
 
+        // gateway로 값을 저장하는 버튼 누르면 gateway로 값이 들어감
         binding.btnSave.setOnClickListener {
             Log.d("qwer", roomList.size.toString())
             binding.dataText.text = spinnerData1 + spinnerData2 + spinnerData3 + spinnerData4 + spinnerData5 + spinnerData6 + spinnerData7 + spinnerData8 + spinnerData9 + spinnerData10
@@ -219,6 +225,7 @@ class MainActivity2 : AppCompatActivity() {
 //                "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"\"}],\"id\":\"qwerasd$random\"}"
 //            sendCommand(Delete3)
 
+            // 룸1부터 10까지 초기화
             if (bluetoothSocket?.isConnected == true) {
                 for (p in 1..10) {
                     val testDelete3 =
@@ -227,12 +234,11 @@ class MainActivity2 : AppCompatActivity() {
                     Thread.sleep(200)
                 }
 
+                // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 룸 틀만 만들어서 보내줌
+                // 틀이랑 내용물 같이 보내기?
                 for(i in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                    Log.d("asdf spinnerData5_2", "${sharedPreferences.all.get("spinnerData5_Device")}")
-                    Log.d("asdf spinnerData5_3", "${sharedPreferences.all.get("spinnerData5_Company")}")
-                    Log.d("asdf spinnerData5_4", "${sharedPreferences.all.get("spinnerData5_Model")}")
                     val jsonrpcObject = JSONObject()
                     val jsonrpcArray = JSONArray()
                     val jsonrpcArrayObject = JSONObject()
@@ -253,25 +259,6 @@ class MainActivity2 : AppCompatActivity() {
 /*
         1=pc, 2=모니터, 3=스피커, 4=프로젝터1, 5=프로젝터2, 6=공기청정기, 7=에어컨, 8=조명, 9=좌타모니터
 */
-
-//                        when(z) {
-//                            1 -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-//                            2 -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-//                            3 -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-//                            4 -> {
-//                                jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-//                                jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-//                            }
-//                            5 -> {
-//                                jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-//                                jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-//                            }
-//                            6 -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-//                            7 -> jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-//                            8 -> jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-//                            else -> jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-//                        }
-
                         if(z == 4 || z == 5) {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
                             jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
@@ -296,7 +283,7 @@ class MainActivity2 : AppCompatActivity() {
                     Thread.sleep(200)
                 }
 
-
+                // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 plug/nid만 만들어서 보내줌
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
                     for (i in 1..9) {
@@ -322,6 +309,7 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
+                // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 plug/use_switch만 만들어서 보내줌
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
                     for (i in 1..9) {
@@ -354,6 +342,7 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
+                // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 blaster/ir_key만 만들어서 보내줌
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
                     for (i in 1..9) {
@@ -436,6 +425,7 @@ class MainActivity2 : AppCompatActivity() {
             }
         }
 
+        // 연결버튼 누르면 연결 페이지로 이동 / 만약 이미 연결되어 있으면 기존 연결 끊
         binding.btnConnect.setOnClickListener {
             if (bluetoothSocket?.isConnected == true) {
                 bluetoothSocket!!.close()
@@ -448,15 +438,19 @@ class MainActivity2 : AppCompatActivity() {
             startActivityLauncher2.launch(intent)
         }
 
+        // 게이트웨이에 있는 값을 명령어로 불러오는 기능
         binding.btnLoad.setOnClickListener {
+            // load 버튼을 누르면 sharedPreferences 생성 true/false로 클릭여부 확인하여 만약 클릭하면 룸에다가 가져온 정보 보여줌
             val sharedPreferences = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
             val editor : SharedPreferences.Editor = sharedPreferences.edit()
 
+            // 연결되었으면 실행
             if (bluetoothSocket?.isConnected == true) {
                 Toast.makeText(this, "load",Toast.LENGTH_SHORT).show()
                 //val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_1/units/1\"}, \"id\": \"ro33b7sz\"}"
 
-                for(i in 1..roomList.size) {
+                // 방 개수만큼 blaster/node_id를 구하는 sendCommand로 명령어 보내고 receiveData로 불러오기
+               for(i in 1..roomList.size) {
                     val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/blaster/node_id\"}, \"id\": \"qwerasd$random\"}"
                     sendCommand(loadJson)
                     receiveData()
@@ -472,6 +466,7 @@ class MainActivity2 : AppCompatActivity() {
                     editor.commit()
                 }
 
+                // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 plug/nid를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
                     for (z in 1..9) {
                         if(z != 7 && z!= 8) {
@@ -493,6 +488,7 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
+                // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 plug/use_switch를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
                     for (z in 1..9) {
                         if(z != 7 && z!= 8) {
@@ -508,6 +504,7 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
+                // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 blaster/ir_key를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
                     for (z in 1..9) {
                         if(z == 7 || z == 8 || z == 4 || z == 5) {
@@ -529,6 +526,7 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
+                // load 클릭해서 쉐어드 프리퍼런스에 true 입
                 editor.putBoolean("btnLoadClick",true)
                 editor.commit()
 
@@ -552,6 +550,7 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
+    // 보낸 값의 응답을 받는 함수다 inputStream을 이용해 응답을 받는다?
     private fun receiveData() {
         try {
 
@@ -568,8 +567,6 @@ class MainActivity2 : AppCompatActivity() {
             //loadJsonString = loadJsonString + readMessage
             Log.d("asdf receiveData", "${readMessage}")
 
-            loadJsonStringCount++
-
         } catch (e: IOException) {
             e.printStackTrace()
             Log.d("asdf receiveData", "No receiveData")
@@ -577,6 +574,7 @@ class MainActivity2 : AppCompatActivity() {
 
     }
 
+    // 블루투스로 값을 보내는 함수 outputStream을 이용한다 용량이 작아서 큰거는 나눠서 보내야 한다
     private fun sendCommand(input: String) {
         if(bluetoothSocket != null) {
             try {
@@ -588,6 +586,7 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
+    // 블루투스 연결해제 하는 함수
     private fun disconnect() {
         if (bluetoothSocket != null) {
             try {
@@ -603,6 +602,7 @@ class MainActivity2 : AppCompatActivity() {
         finish()
     }
 
+    // 모든 룸에 있는 데이터를 지워주는 함수다
     private fun roomAllClear() {
         val sharedPreferences = getSharedPreferences("1",Context.MODE_PRIVATE)
         val editor : SharedPreferences.Editor = sharedPreferences.edit()

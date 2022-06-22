@@ -25,10 +25,6 @@ import java.util.*
 class BlueAdapter(val context: Context, val blueToothList: MutableList<BlueTooth>) :
     RecyclerView.Adapter<BlueAdapter.ViewHolder>() {
 
-    init {
-
-    }
-
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         val name : TextView

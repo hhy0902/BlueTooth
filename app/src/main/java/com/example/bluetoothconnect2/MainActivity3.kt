@@ -99,6 +99,7 @@ class MainActivity3 : AppCompatActivity() {
         binding2.numberText.text = "Room $abcd"
         roomName = "$abcd"
 
+        // 스피너 값 초기 설정해주기
         Thread {
             runOnUiThread {
                 binding2.spinner1.setSelection(9)
@@ -114,6 +115,7 @@ class MainActivity3 : AppCompatActivity() {
             }
         }.start()
 
+        // 스피너 설정
         val spinnerAdapter1 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
         binding2.spinner1.adapter = spinnerAdapter1
         binding2.spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -122,7 +124,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect1 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -134,7 +136,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect2 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -146,7 +148,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect3 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -158,7 +160,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect4 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -167,15 +169,10 @@ class MainActivity3 : AppCompatActivity() {
         binding2.spinner5.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData5 = binding2.spinner5.getItemAtPosition(p2).toString()
-                Log.d("asdf spinner5","$spinnerData5")
-                Log.d("asdf spinner p0","$p0")
-                Log.d("asdf spinner p1","$p1")
-                Log.d("asdf spinner p2","$p2")
-                Log.d("asdf spinner p3","$p3")
                 spinnerSelect5 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -184,11 +181,10 @@ class MainActivity3 : AppCompatActivity() {
         binding2.spinner52.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData5_Device = binding2.spinner52.getItemAtPosition(p2).toString()
-                Log.d("asdf spinnerData5_2","$spinnerData5_Device")
                 spinnerSelect5_Device = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -200,7 +196,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect5_Company = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -212,7 +208,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect5_Model = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -224,7 +220,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect6 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -236,7 +232,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect6_Device = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -248,7 +244,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect6_Company = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -260,7 +256,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect6_Model = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -272,7 +268,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect7 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -284,7 +280,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect8 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -296,7 +292,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect8_Device = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -308,7 +304,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect8_Company = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -320,7 +316,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect8_Model = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -332,7 +328,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect9 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -344,7 +340,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect9_Device = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -356,7 +352,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect9_Company = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -368,7 +364,7 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect9_Model = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
@@ -380,10 +376,11 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect10 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
 
+        // 클리어 버튼 에디트 텍스트 값을 초기화 해줌
         binding2.btnClear.setOnClickListener {
             binding2.editText1.text = null
             binding2.editText2.text = null
@@ -397,16 +394,20 @@ class MainActivity3 : AppCompatActivity() {
             binding2.editText10.text = null
         }
 
+        // 세이브 버튼
         binding2.btnSave.setOnClickListener {
             isSave++
             save()
         }
 
+        // 저장된 값을 불러오는 로드
         load()
 
         val sharedPreferences2 = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
         val LoadToF = sharedPreferences2.getBoolean("btnLoadClick", false)
 
+        // 메인 페이지에서 만약 load버튼을 눌렀으면 LoadToF가 true 아니면 false
+        // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
         if (LoadToF) {
             val sharedPreferences = getSharedPreferences("load$roomName", Context.MODE_PRIVATE)
 
@@ -428,6 +429,7 @@ class MainActivity3 : AppCompatActivity() {
             val editTextValue10 = sharedPreferences.getString("load_nid_9", "")
             binding2.editText10.setText(editTextValue10.toString())
 
+            // load 버튼을 눌러 true로 변경되었고 gateway에서 가져온 값을 보여줬다면 값을 다시 false로 초기화해준다
             val editor : SharedPreferences.Editor = sharedPreferences2.edit()
             editor.putBoolean("btnLoadClick",false)
             editor.commit()
@@ -454,11 +456,13 @@ class MainActivity3 : AppCompatActivity() {
 
         }
 
+        // 저장된 값을 불러오는 load 버튼
         binding2.btnLoad.setOnClickListener {
             load()
         }
     }
 
+    // 저장된 값을 불러온다
     fun load() {
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
@@ -538,6 +542,7 @@ class MainActivity3 : AppCompatActivity() {
         binding2.spinner94.setSelection(spinnerValue9_4)
     }
 
+    // 값을 쉐어드 프리퍼런스로 저장하는 함수
     fun save() {
         editData1 = binding2.editText1.text.toString()
         editData2 = binding2.editText2.text.toString()
@@ -636,6 +641,8 @@ class MainActivity3 : AppCompatActivity() {
 //        Log.d("asdf value", "${editTextValue}")
     }
 
+    // 뒤로가기 버튼을 누르면 저장된 값과 현재 editText에 있는 값을 비교하여
+    // 만약 변화가 생겼을 경우 저장하겠냐고 하는 다이얼로그 생성 변화가 없으면 그대로 나가기
     override fun onBackPressed() {
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
