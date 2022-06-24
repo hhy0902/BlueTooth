@@ -227,7 +227,7 @@
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true"
-                    tools:text="모니터" />
+                    tools:text="프로젝터1" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -256,7 +256,7 @@
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true"
-                    tools:text="스피" />
+                    tools:text="프로젝터2 " />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -315,7 +315,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:selectAllOnFocus="true"
-                        tools:text="프로젝터1 use blaster" />
+                        tools:text="스피커 " />
 
                     <TextView
                         android:id="@+id/ir_key1"
@@ -401,7 +401,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:selectAllOnFocus="true"
-                        tools:text="프로젝터1 use blaster" />
+                        tools:text="조명 " />
 
                     <TextView
                         android:id="@+id/ir_key4"
@@ -457,7 +457,7 @@
                     android:lines="1"
                     android:maxLines="1"
                     android:selectAllOnFocus="true"
-                    tools:text="공기청정" />
+                    tools:text="에어컨" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
