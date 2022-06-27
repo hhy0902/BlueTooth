@@ -106,12 +106,7 @@ class MainActivity2 : AppCompatActivity() {
                         editData6 = it.data?.getStringExtra("editdata6").toString()
                         spinnerData7 = it.data?.getStringExtra("spinner7").toString()
                         editData7 = it.data?.getStringExtra("editdata7").toString()
-                        spinnerData8 = it.data?.getStringExtra("spinner8").toString()
-                        editData8 = it.data?.getStringExtra("editdata8").toString()
-                        spinnerData9 = it.data?.getStringExtra("spinner9").toString()
-                        editData9 = it.data?.getStringExtra("editdata9").toString()
-                        spinnerData10 = it.data?.getStringExtra("spinner10").toString()
-                        editData10 = it.data?.getStringExtra("editdata10").toString()
+
 
                         roomName = it.data?.getStringExtra("roomName").toString()
                         Log.d("asdf roomname","$roomName")
@@ -204,8 +199,7 @@ class MainActivity2 : AppCompatActivity() {
             spinnerDataList.add(5, spinnerData6)
             spinnerDataList.add(6, spinnerData7)
             spinnerDataList.add(7, spinnerData8)
-            spinnerDataList.add(8, spinnerData9)
-            spinnerDataList.add(9, spinnerData10)
+
 
             editDataList.add(0, editData1)
             editDataList.add(1, editData2)
@@ -215,8 +209,7 @@ class MainActivity2 : AppCompatActivity() {
             editDataList.add(5, editData6)
             editDataList.add(6, editData7)
             editDataList.add(7, editData8)
-            editDataList.add(8, editData9)
-            editDataList.add(9, editData10)
+
 
             Log.d("asdf 1", isConnected.toString())
             Log.d("asdf 2", bluetoothSocket?.isConnected.toString())
@@ -234,6 +227,8 @@ class MainActivity2 : AppCompatActivity() {
                     Thread.sleep(200)
                 }
 
+
+
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 룸 틀만 만들어서 보내줌
                 // 틀이랑 내용물 같이 보내기?
                 for(i in 1..roomList.size) {
@@ -245,6 +240,7 @@ class MainActivity2 : AppCompatActivity() {
                     val jsonrpcValue = JSONObject()
                     val jsonrpcValue2 = JSONObject()
                     val jsonrpcUnitsValue = JSONObject()
+                    val irdbObject = JSONObject()
 
                     jsonrpcObject.put("jsonrpc","2.0")
                     jsonrpcObject.put("method","patch_gz")
@@ -253,18 +249,18 @@ class MainActivity2 : AppCompatActivity() {
                     jsonrpcValue2.put("node_id",sharedPreferences.all.get("editdata1").toString().toInt())
                     jsonrpcValue.put("blaster",jsonrpcValue2)
 
-                    for(z in 1..9) {
+                    for(z in 1 until 7) {
                         var jsonrpcUnitsValue2 = JSONObject()
                         var jsonrpcPlugValue = JSONObject()
 /*
-        1=pc, 2=모니터, 3=스피커, 4=프로젝터1, 5=프로젝터2, 6=공기청정기, 7=에어컨, 8=조명, 9=좌타모니터
+        1=pc, 2=스피커, 3=조명, 4=프로젝터1, 5=프로젝터2, 6=에어컨
 */
                         if(z == 4 || z == 5) {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
                             jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-                        } else if(z == 1 || z == 2 || z == 3 || z == 6 || z == 9)   {
+                        } else if(z == 1 || z == 2)   {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-                        } else if(z == 7 || z == 8) {
+                        } else if(z == 6 || z == 3) {
                             jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
                         }
 
@@ -286,9 +282,9 @@ class MainActivity2 : AppCompatActivity() {
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 plug/nid만 만들어서 보내줌
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
-                    for (i in 1..9) {
+                    for (i in 1 until 7) {
 
-                        if (i != 7 && i != 8) {
+                        if (i != 3 && i != 6) {
                             val jsonrpcObject_2 = JSONObject()
                             val jsonrpcArray_2 = JSONArray()
                             val jsonrpcArrayObject_2 = JSONObject()
@@ -312,8 +308,8 @@ class MainActivity2 : AppCompatActivity() {
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 plug/use_switch만 만들어서 보내줌
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
-                    for (i in 1..9) {
-                        if (i != 7 && i != 8) {
+                    for (i in 1 until 7) {
+                        if (i != 3 && i != 6) {
                             val jsonrpcObject_2 = JSONObject()
                             val jsonrpcArray_2 = JSONArray()
                             val jsonrpcArrayObject_2 = JSONObject()
@@ -322,10 +318,16 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcArrayObject_2.put("op", "add")
                             jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/plug/use_switch")
 
-                            if(sharedPreferences.all.get("spinnerSelect${i+1}").toString().toInt() == 1) {
+                            if (i == 1) {
                                 jsonrpcArrayObject_2.put("value", true)
-                            } else
+                            } else {
                                 jsonrpcArrayObject_2.put("value", false)
+                            }
+
+//                            if(sharedPreferences.all.get("spinnerSelect${i+1}").toString().toInt() == 1) {
+//                                jsonrpcArrayObject_2.put("value", true)
+//                            } else
+//                                jsonrpcArrayObject_2.put("value", false)
 
                             //jsonrpcArrayObject_2.put("value", false)
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
@@ -345,8 +347,8 @@ class MainActivity2 : AppCompatActivity() {
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 blaster/ir_key만 만들어서 보내줌
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
-                    for (i in 1..9) {
-                        if(i == 8 || i == 7 || i == 4 || i == 5) {
+                    for (i in 1 until 7) {
+                        if(i == 3 || i == 6 || i == 4 || i == 5) {
                             val jsonrpcObject_2 = JSONObject()
                             val jsonrpcArray_2 = JSONArray()
                             val jsonrpcArrayObject_2 = JSONObject()
@@ -368,7 +370,46 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
-                Log.d("asdf roomlistsize", "${roomList.size}")
+                for(i in 1..roomList.size) {
+                    sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
+
+                    val jsonrpcObject = JSONObject()
+                    val jsonrpcArray = JSONArray()
+                    val jsonrpcArrayObject = JSONObject()
+                    val irdbDeviceObject = JSONObject()
+                    val irdbCompanyObject = JSONObject()
+
+                    val irdbModelObject = JSONObject()
+                    val irdbTypeObject = JSONObject()
+                    val irdbOnOffObject = JSONObject()
+
+                    jsonrpcObject.put("jsonrpc","2.0")
+                    jsonrpcObject.put("method","patch_gz")
+                    jsonrpcArrayObject.put("op","add")
+                    jsonrpcArrayObject.put("path","/room_$i/units/irdb")
+
+                    irdbDeviceObject.put("projector", irdbCompanyObject)
+                    irdbCompanyObject.put("maxell",irdbModelObject)
+                    irdbModelObject.put("mp-eu5002", irdbTypeObject)
+                    irdbTypeObject.put("type","nec")
+                    irdbTypeObject.put("bitlen",32)
+                    irdbOnOffObject.put("off", "88C00510")
+                    irdbOnOffObject.put("on", "88008080")
+                    irdbTypeObject.put("data", irdbOnOffObject)
+
+                    jsonrpcArrayObject.put("value",irdbDeviceObject)
+                    jsonrpcArray.put(jsonrpcArrayObject)
+                    jsonrpcObject.put("params",jsonrpcArray)
+                    jsonrpcObject.put("id","qwerasd$random")
+
+                    sendCommand(jsonrpcObject.toString())
+
+                    Log.d("asdf jsonrpcobject", jsonrpcObject.toString())
+                    Thread.sleep(200)
+                }
+
+
+
 
 //                for(e in 1..roomList.size) {
 //                    sharedPreferences = getSharedPreferences("$e", Context.MODE_PRIVATE)
@@ -468,8 +509,8 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 plug/nid를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
-                    for (z in 1..9) {
-                        if(z != 7 && z!= 8) {
+                    for (z in 1 until 7) {
+                        if(z != 3 && z != 6) {
                             val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/plug/nid\"}, \"id\": \"qwerasd$random\"}"
                             sendCommand(loadJson)
                             receiveData()
@@ -490,8 +531,8 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 plug/use_switch를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
-                    for (z in 1..9) {
-                        if(z != 7 && z!= 8) {
+                    for (z in 1 until 7) {
+                        if(z != 3 && z != 6) {
                             val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/plug/use_switch\"}, \"id\": \"qwerasd$random\"}"
                             sendCommand(loadJson)
                             receiveData()
@@ -506,8 +547,8 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 blaster/ir_key를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
-                    for (z in 1..9) {
-                        if(z == 7 || z == 8 || z == 4 || z == 5) {
+                    for (z in 1 until 7) {
+                        if(z == 3 || z == 6 || z == 4 || z == 5) {
                             val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/blaster/ir_key\"}, \"id\": \"qwerasd$random\"}"
                             sendCommand(loadJson)
                             receiveData()

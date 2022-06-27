@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lighting_model_lg">
+        <item></item>
+        <item>lgModel1</item>
+        <item>lgModel2</item>
+        <item>lgModel3</item>
+        <item>lgModel4</item>
+        <item>lgModel5</item>
+    </string-array>
+</resources>

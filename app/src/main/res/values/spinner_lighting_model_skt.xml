@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lighting_model_skt">
+        <item></item>
+        <item>sktModel1</item>
+        <item>sktModel2</item>
+        <item>sktModel3</item>
+        <item>sktModel4</item>
+        <item>sktModel5</item>
+    </string-array>
+</resources>

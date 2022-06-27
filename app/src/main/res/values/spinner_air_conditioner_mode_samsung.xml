@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="air_conditioner_model_samsung">
+        <item></item>
+        <item>our_office</item>
+        <item>samsungModel1</item>
+        <item>samsungModel2</item>
+        <item>samsungModel3</item>
+    </string-array>
+</resources>

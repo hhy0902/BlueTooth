@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lighting_company">
+        <item></item>
+        <item>lg</item>
+        <item>kt</item>
+        <item>skt</item>
+    </string-array>
+</resources>

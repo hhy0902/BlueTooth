@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="projector_model_aaa">
+        <item></item>
+        <item>mp-eu5002</item>
+        <item>aaa1</item>
+        <item>aaa2</item>
+        <item>aaa3</item>
+    </string-array>
+</resources>

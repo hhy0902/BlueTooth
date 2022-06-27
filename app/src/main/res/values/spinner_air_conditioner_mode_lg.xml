@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="air_conditioner_model_lg">
+        <item></item>
+        <item>our_office</item>
+        <item>lgModel1</item>
+        <item>lgModel2</item>
+        <item>lgModel3</item>
+    </string-array>
+</resources>
