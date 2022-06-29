@@ -16,9 +16,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bluetoothconnect2.ItemKey.Companion.MAXELL
+import com.example.bluetoothconnect2.ItemKey.Companion.PROJECTOR
 import com.example.bluetoothconnect2.adapter.RoomAdapter
 import com.example.bluetoothconnect2.databinding.ActivityMain2Binding
 import com.example.bluetoothconnect2.model.Room
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -214,18 +218,23 @@ class MainActivity2 : AppCompatActivity() {
             Log.d("asdf 1", isConnected.toString())
             Log.d("asdf 2", bluetoothSocket?.isConnected.toString())
 
-//            val Delete3 =
-//                "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"\"}],\"id\":\"qwerasd$random\"}"
-//            sendCommand(Delete3)
 
-            // 룸1부터 10까지 초기화
+
             if (bluetoothSocket?.isConnected == true) {
+
+                // 룸1부터 10까지 초기화
                 for (p in 1..10) {
                     val testDelete3 =
                         "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
                     sendCommand(testDelete3)
                     Thread.sleep(200)
                 }
+
+                //irdb 초기화
+                val testDelete4 =
+                    "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/irdb\"}],\"id\":\"qwerasd$random\"}"
+                sendCommand(testDelete4)
+                Thread.sleep(200)
 
 
 
@@ -370,32 +379,69 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
-                for(i in 1..roomList.size) {
+                for(i in 1..1) {
                     sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
                     val jsonrpcObject = JSONObject()
                     val jsonrpcArray = JSONArray()
                     val jsonrpcArrayObject = JSONObject()
+
                     val irdbDeviceObject = JSONObject()
                     val irdbCompanyObject = JSONObject()
-
                     val irdbModelObject = JSONObject()
-                    val irdbTypeObject = JSONObject()
+                    val irdbValueObject = JSONObject()
                     val irdbOnOffObject = JSONObject()
 
                     jsonrpcObject.put("jsonrpc","2.0")
                     jsonrpcObject.put("method","patch_gz")
                     jsonrpcArrayObject.put("op","add")
-                    jsonrpcArrayObject.put("path","/room_$i/units/irdb")
+                    jsonrpcArrayObject.put("path","/irdb")
 
-                    irdbDeviceObject.put("projector", irdbCompanyObject)
-                    irdbCompanyObject.put("maxell",irdbModelObject)
-                    irdbModelObject.put("mp-eu5002", irdbTypeObject)
-                    irdbTypeObject.put("type","nec")
-                    irdbTypeObject.put("bitlen",32)
+                    irdbDeviceObject.put(PROJECTOR, irdbCompanyObject)
+                    irdbCompanyObject.put(MAXELL,irdbModelObject)
+                    irdbModelObject.put("mp-eu5002", irdbValueObject)
+                    irdbValueObject.put("type","nec")
+                    irdbValueObject.put("bitlen",32)
+                    irdbValueObject.put("data", irdbOnOffObject)
                     irdbOnOffObject.put("off", "88C00510")
                     irdbOnOffObject.put("on", "88008080")
-                    irdbTypeObject.put("data", irdbOnOffObject)
+
+                    val irdbCompanyObject2 = JSONObject()
+                    val irdbModelObject2 = JSONObject()
+                    val irdbValueObject2 = JSONObject()
+                    val irdbOnOffObject2 = JSONObject()
+
+                    irdbDeviceObject.put("air_conditioner", irdbCompanyObject2)
+                    irdbCompanyObject2.put("lg", irdbModelObject2)
+                    irdbModelObject2.put("our_office", irdbValueObject2)
+                    irdbValueObject2.put("type","nec")
+                    irdbValueObject2.put("bitlen", 28)
+                    irdbValueObject2.put("data",irdbOnOffObject2)
+                    irdbOnOffObject2.put("off","88C00510")
+                    irdbOnOffObject2.put("on","88008080")
+
+                    val irdbCompanyObject3 = JSONObject()
+                    val irdbModelObject3 = JSONObject()
+                    val irdbModelObject3_2 = JSONObject()
+                    val irdbValueObject3 = JSONObject()
+                    val irdbValueObject3_2 = JSONObject()
+                    val irdbOnOffObject3 = JSONObject()
+
+                    irdbDeviceObject.put("lighting", irdbCompanyObject3)
+                    irdbCompanyObject3.put("skt",irdbModelObject3)
+                    irdbCompanyObject3.put("kt",irdbModelObject3_2)
+                    irdbModelObject3.put("sktModel1", irdbValueObject3)
+                    irdbModelObject3.put("sktModel2", irdbValueObject3)
+                    irdbModelObject3_2.put("ktModel1", irdbValueObject3_2)
+                    irdbModelObject3_2.put("ktModel2", irdbValueObject3_2)
+                    irdbValueObject3.put("type","nec")
+                    irdbValueObject3.put("bitlen",24)
+                    irdbValueObject3.put("data",irdbOnOffObject3)
+                    irdbValueObject3_2.put("type","nec2")
+                    irdbValueObject3_2.put("bitlen",32)
+                    irdbValueObject3_2.put("data",irdbOnOffObject3)
+                    irdbOnOffObject3.put("off","88C00510")
+                    irdbOnOffObject3.put("on","88008080")
 
                     jsonrpcArrayObject.put("value",irdbDeviceObject)
                     jsonrpcArray.put(jsonrpcArrayObject)
@@ -406,10 +452,78 @@ class MainActivity2 : AppCompatActivity() {
 
                     Log.d("asdf jsonrpcobject", jsonrpcObject.toString())
                     Thread.sleep(200)
+
+                    val mainKey = irdbDeviceObject.keys()
+                    val key2 = irdbCompanyObject.keys()
+                    val key3 = irdbModelObject.keys()
+                    val key4 = irdbValueObject.keys()
+                    val key5 = irdbOnOffObject.keys()
+
+                    val key2_2 = irdbCompanyObject2.keys()
+                    val key3_2 = irdbModelObject2.keys()
+                    val key4_2 = irdbValueObject2.keys()
+                    val key5_2 = irdbOnOffObject2.keys()
+
+                    val key2_3 = irdbCompanyObject3.keys()
+                    val key3_3 = irdbModelObject3.keys()
+                    val key3_3_2 = irdbModelObject3_2.keys()
+                    val key4_3 = irdbValueObject3.keys()
+                    val key5_3 = irdbOnOffObject3.keys()
+
+                    val sharedPreferencesIrdb = getSharedPreferences("irdb", Context.MODE_PRIVATE)
+                    val editorIrdb : SharedPreferences.Editor = sharedPreferencesIrdb.edit()
+                    var mainKeySize = 0
+                    while (mainKey.hasNext()) {
+                        val a = mainKey.next().toString()
+                        Log.d("asdf mainKey${mainKeySize}", a)
+                        editorIrdb.putString("mainKey${mainKeySize}",a)
+                        Log.d("asdf mainKeySize ", mainKeySize.toString())
+                        mainKeySize += 1
+                    }
+                    mainKeySize = 0
+
+                    var lightingCompanyKeySize = 0
+                    while (key2_3.hasNext()) {
+                        val a = key2_3.next().toString()
+                        editorIrdb.putString("lightingCompanyKey${lightingCompanyKeySize}",a)
+                        Log.d("asdf key2_3 a", a)
+                        lightingCompanyKeySize += 1
+                    }
+                    lightingCompanyKeySize = 0
+
+                    var sktModelKeySize = 0
+                    while (key3_3.hasNext()) {
+                        val a = key3_3.next().toString()
+                        editorIrdb.putString("sktmodelKey${sktModelKeySize}",a)
+                        Log.d("asdf key3_3 a", a)
+                        sktModelKeySize += 1
+                    }
+
+                    var ktModelKeySize = 0
+                    while (key3_3_2.hasNext()) {
+                        val a = key3_3_2.next().toString()
+                        editorIrdb.putString("ktmodelKey${ktModelKeySize}",a)
+                        Log.d("asdf key3_3_2 a", a)
+                        ktModelKeySize += 1
+                    }
+
+                    while (key4_3.hasNext()) {
+                        val a = key4_3.next().toString()
+                        Log.d("asdf key4_3 a", a)
+                    }
+
+                    while (key5_3.hasNext()) {
+                        val a = key5_3.next().toString()
+                        Log.d("asdf key5_3 a", a)
+                    }
+
+                    editorIrdb.commit()
+
+//                    irdbDeviceObject.keys().forEach {
+//                        Log.d("asdf key ", "${it}")
+//                    }
+
                 }
-
-
-
 
 //                for(e in 1..roomList.size) {
 //                    sharedPreferences = getSharedPreferences("$e", Context.MODE_PRIVATE)
@@ -565,6 +679,29 @@ class MainActivity2 : AppCompatActivity() {
 
                         }
                     }
+                }
+
+                // irdb load하기
+                for (i in 1..1) {
+                    val loadJson: String =
+                        "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/irdb\"}, \"id\": \"qwerasd$random\"}"
+                    sendCommand(loadJson)
+                    receiveData()
+                    val jsonObject = JSONObject(readMessage)
+                    Log.d("asdf jsonobject", "${jsonObject}")
+                    val result = jsonObject.get("result")
+                    //Log.d("asdf irdb", result.toString())
+
+                    val jsonObject2 = JSONObject(result.toString())
+                    jsonObject2.get("projector")
+                    Log.d("asdf jsonObject2", "${jsonObject2}")
+                    Log.d("asdf jsonObject2 projector", "${jsonObject2.get("projector")}")
+
+//                    val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
+//                    val editor: SharedPreferences.Editor = sharedPreferences.edit()
+//                    editor.putString("load_ir_key_$z", result.toString())
+//
+//                    editor.commit()
                 }
 
                 // load 클릭해서 쉐어드 프리퍼런스에 true 입

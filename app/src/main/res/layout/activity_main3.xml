@@ -247,17 +247,43 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/editText4"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:selectAllOnFocus="true"
-                    android:visibility="invisible"
-                    tools:text="조명 " />
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/testSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/testSpinner2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/testSpinner3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editText4"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:selectAllOnFocus="true"
+                        android:visibility="invisible"
+                        tools:text="조명 " />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -94,21 +94,23 @@ class MainActivity3 : AppCompatActivity() {
         roomName = "$abcd"
 
         // 스피너 값 초기 설정해주기
-        Thread {
-            runOnUiThread {
-                binding2.spinner1.setSelection(9)
-                binding2.spinner2.setSelection(1)
-                binding2.spinner3.setSelection(4)
-                binding2.spinner4.setSelection(8)
-                binding2.spinner5.setSelection(5)
-                binding2.spinner6.setSelection(6)
-                binding2.spinner7.setSelection(10)
-//                binding2.spinner42.setSelection(1)
-//                binding2.spinner52.setSelection(1)
-//                binding2.spinner62.setSelection(1)
-//                binding2.spinner72.setSelection(1)
-            }
-        }.start()
+//        Thread {
+//            runOnUiThread {
+//                binding2.spinner1.setSelection(9)
+//                binding2.spinner2.setSelection(1)
+//                binding2.spinner3.setSelection(4)
+//                binding2.spinner4.setSelection(8)
+//                binding2.spinner5.setSelection(5)
+//                binding2.spinner6.setSelection(6)
+//                binding2.spinner7.setSelection(10)
+////                binding2.spinner42.setSelection(1)
+////                binding2.spinner52.setSelection(1)
+////                binding2.spinner62.setSelection(1)
+////                binding2.spinner72.setSelection(1)
+//            }
+//        }.start()
+
+        val sharedPreferences4 = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
         // 스피너 설정
         val spinnerAdapter1 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
@@ -157,10 +159,8 @@ class MainActivity3 : AppCompatActivity() {
 
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
-
 
 //        val spinnerAdapter4_2 = ArrayAdapter.createFromResource(this,R.array.lighting,android.R.layout.simple_spinner_item)
 //        binding2.spinner42.adapter = spinnerAdapter4_2
@@ -173,7 +173,6 @@ class MainActivity3 : AppCompatActivity() {
 //
 //            }
 //        }
-
 
         val spinnerAdapter4_3 = ArrayAdapter.createFromResource(this,R.array.lighting_company,android.R.layout.simple_spinner_item)
         binding2.spinner43.adapter = spinnerAdapter4_3
@@ -192,9 +191,10 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect4_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect4_Model = sharedPreferences4.getInt("spinnerSelect4_Model",0)
+                        binding2.spinner44.setSelection(spinnerSelect4_Model)
                     }
                     2 -> {
                         val spinnerAdapter4_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.lighting_model_kt,android.R.layout.simple_spinner_item)
@@ -208,6 +208,8 @@ class MainActivity3 : AppCompatActivity() {
 
                             }
                         }
+                        val spinnerSelect4_Model = sharedPreferences4.getInt("spinnerSelect4_Model",0)
+                        binding2.spinner44.setSelection(spinnerSelect4_Model)
                     }
                     3 -> {
                         val spinnerAdapter4_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.lighting_model_skt,android.R.layout.simple_spinner_item)
@@ -221,12 +223,12 @@ class MainActivity3 : AppCompatActivity() {
 
                             }
                         }
+                        val spinnerSelect4_Model = sharedPreferences4.getInt("spinnerSelect4_Model",0)
+                        binding2.spinner44.setSelection(spinnerSelect4_Model)
                     }
-                    else -> {}
                 }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
 
@@ -250,7 +252,6 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerSelect5 = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
 
@@ -265,8 +266,6 @@ class MainActivity3 : AppCompatActivity() {
 //
 //            }
 //        }
-
-
 
         val spinnerAdapter5_3 = ArrayAdapter.createFromResource(this,R.array.projector_company,android.R.layout.simple_spinner_item)
         binding2.spinner53.adapter = spinnerAdapter5_3
@@ -285,9 +284,10 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect5_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect5_Model = sharedPreferences4.getInt("spinnerSelect5_Model",0)
+                        binding2.spinner54.setSelection(spinnerSelect5_Model)
                     }
                     2 -> {
                         val spinnerAdapter5_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.projector_model_aaa,android.R.layout.simple_spinner_item)
@@ -298,9 +298,10 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect5_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect5_Model = sharedPreferences4.getInt("spinnerSelect5_Model",0)
+                        binding2.spinner54.setSelection(spinnerSelect5_Model)
                     }
                     3 -> {
                         val spinnerAdapter5_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.projector_model_bbb,android.R.layout.simple_spinner_item)
@@ -311,9 +312,10 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect5_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect5_Model = sharedPreferences4.getInt("spinnerSelect5_Model",0)
+                        binding2.spinner54.setSelection(spinnerSelect5_Model)
                     }
                     4 -> {
                         val spinnerAdapter5_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.projector_model_ccc,android.R.layout.simple_spinner_item)
@@ -324,14 +326,14 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect5_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect5_Model = sharedPreferences4.getInt("spinnerSelect5_Model",0)
+                        binding2.spinner54.setSelection(spinnerSelect5_Model)
                     }
                 }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
 
@@ -388,9 +390,10 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect6_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect6_Model = sharedPreferences4.getInt("spinnerSelect6_Model",0)
+                        binding2.spinner64.setSelection(spinnerSelect6_Model)
                     }
                     2 -> {
                         val spinnerAdapter6_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.projector_model_aaa,android.R.layout.simple_spinner_item)
@@ -401,9 +404,10 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect6_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect6_Model = sharedPreferences4.getInt("spinnerSelect6_Model",0)
+                        binding2.spinner64.setSelection(spinnerSelect6_Model)
                     }
                     3 -> {
                         val spinnerAdapter6_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.projector_model_bbb,android.R.layout.simple_spinner_item)
@@ -414,9 +418,10 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect6_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect6_Model = sharedPreferences4.getInt("spinnerSelect6_Model",0)
+                        binding2.spinner64.setSelection(spinnerSelect6_Model)
                     }
                     4 -> {
                         val spinnerAdapter6_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.projector_model_ccc,android.R.layout.simple_spinner_item)
@@ -427,9 +432,10 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect6_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect6_Model = sharedPreferences4.getInt("spinnerSelect6_Model",0)
+                        binding2.spinner64.setSelection(spinnerSelect6_Model)
                     }
                 }
             }
@@ -481,9 +487,12 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerData7_Company = binding2.spinner73.getItemAtPosition(p2).toString()
                 spinnerSelect7_Company = p2
 
+                var spinnerAdapter7_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.empty,android.R.layout.simple_spinner_item)
+                binding2.spinner74.adapter = spinnerAdapter7_4
+
                 when(p2) {
                     1 -> {
-                        val spinnerAdapter7_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.air_conditioner_model_lg,android.R.layout.simple_spinner_item)
+                        spinnerAdapter7_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.air_conditioner_model_lg,android.R.layout.simple_spinner_item)
                         binding2.spinner74.adapter = spinnerAdapter7_4
                         binding2.spinner74.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -491,12 +500,13 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect7_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect7_Model = sharedPreferences4.getInt("spinnerSelect7_Model",0)
+                        binding2.spinner74.setSelection(spinnerSelect7_Model)
                     }
                     2 -> {
-                        val spinnerAdapter7_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.air_conditioner_model_samsung,android.R.layout.simple_spinner_item)
+                        spinnerAdapter7_4 = ArrayAdapter.createFromResource(this@MainActivity3,R.array.air_conditioner_model_samsung,android.R.layout.simple_spinner_item)
                         binding2.spinner74.adapter = spinnerAdapter7_4
                         binding2.spinner74.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -504,14 +514,14 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerSelect7_Model = p2
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
+                        val spinnerSelect7_Model = sharedPreferences4.getInt("spinnerSelect7_Model",0)
+                        binding2.spinner74.setSelection(spinnerSelect7_Model)
                     }
                 }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
 
@@ -527,22 +537,77 @@ class MainActivity3 : AppCompatActivity() {
 //            }
 //        }
 
-        // 클리어 버튼 에디트 텍스트 값을 초기화 해줌
-        binding2.btnClear.setOnClickListener {
-            binding2.editText1.text = null
-            binding2.editText2.text = null
-            binding2.editText3.text = null
-            binding2.editText4.text = null
-            binding2.editText5.text = null
-            binding2.editText6.text = null
-            binding2.editText7.text = null
+        binding2.spinner1.setSelection(9)
+        binding2.spinner2.setSelection(1)
+        binding2.spinner3.setSelection(4)
+        binding2.spinner4.setSelection(8)
+        binding2.spinner5.setSelection(5)
+        binding2.spinner6.setSelection(6)
+        binding2.spinner7.setSelection(10)
 
-        }
+        val sharedPreferencesIrdb = getSharedPreferences("irdb", Context.MODE_PRIVATE)
+        val mainKeyValue0 = sharedPreferencesIrdb.getString("mainKey0", "")
+        val mainKeyValue1 = sharedPreferencesIrdb.getString("mainKey1", "")
+        val mainKeyValue2 = sharedPreferencesIrdb.getString("mainKey2", "")
 
-        // 세이브 버튼
-        binding2.btnSave.setOnClickListener {
-            isSave++
-            save()
+        val lightingCompanyKeyValue0 = sharedPreferencesIrdb.getString("lightingCompanyKey0", "")
+        val lightingCompanyKeyValue1 = sharedPreferencesIrdb.getString("lightingCompanyKey1", "")
+
+        val sktModelKeyValue0 = sharedPreferencesIrdb.getString("sktmodelKey0", "")
+        val sktModelKeyValue1 = sharedPreferencesIrdb.getString("sktmodelKey1", "")
+
+        val ktModelKeyValue0 = sharedPreferencesIrdb.getString("ktmodelKey0", "")
+        val ktModelKeyValue1 = sharedPreferencesIrdb.getString("ktmodelKey1", "")
+
+        Log.d("asdf mainKeyValue0","${mainKeyValue0}")
+        Log.d("asdf mainKeyValue1","${mainKeyValue1}")
+        Log.d("asdf mainKeyValue2","${mainKeyValue2}")
+
+        Log.d("asdf lightingCompanyKeyValue0","${lightingCompanyKeyValue0}")
+        Log.d("asdf lightingCompanyKeyValue1","${lightingCompanyKeyValue1}")
+        val testList = mutableListOf<String>()
+        testList.add(mainKeyValue0.toString())
+        testList.add(mainKeyValue1.toString())
+        testList.add(mainKeyValue2.toString())
+
+        val testList2 = mutableListOf<String>()
+        testList2.add(lightingCompanyKeyValue0.toString())
+        testList2.add(lightingCompanyKeyValue1.toString())
+
+        val testListSkt = mutableListOf<String>()
+        testListSkt.add("")
+        testListSkt.add(sktModelKeyValue0.toString())
+        testListSkt.add(sktModelKeyValue1.toString())
+
+        val testListKt = mutableListOf<String>()
+        testListKt.add("")
+        testListKt.add(ktModelKeyValue0.toString())
+        testListKt.add(ktModelKeyValue1.toString())
+
+        val spinnerAdapterMainKey = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, testList)
+        binding2.testSpinner.adapter = spinnerAdapterMainKey
+
+        val spinnerAdapterCompanyKey = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, testList2)
+        binding2.testSpinner2.adapter = spinnerAdapterCompanyKey
+        binding2.testSpinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                when(position) {
+                    0 -> {
+                        val spinnerAdapterModelKey = ArrayAdapter(this@MainActivity3, R.layout.support_simple_spinner_dropdown_item, testListSkt)
+                        binding2.testSpinner3.adapter = spinnerAdapterModelKey
+
+                    }
+                    1 -> {
+                        val spinnerAdapterModelKey = ArrayAdapter(this@MainActivity3, R.layout.support_simple_spinner_dropdown_item, testListKt)
+                        binding2.testSpinner3.adapter = spinnerAdapterModelKey
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
         }
 
         // 저장된 값을 불러오는 로드
@@ -572,6 +637,21 @@ class MainActivity3 : AppCompatActivity() {
             val editTextValue7 = sharedPreferences.getString("load_nid_6", "")
             binding2.editText7.setText(editTextValue7.toString())
 
+            // load_ir_key 가 없는 이유 : load_ir_key 는 스트링이라 int로 값을 보여주는 spinner.setSelection으로
+            // 값을 보여줄 수 없어서 안만듬
+
+            val load_ir_key_3 = sharedPreferences.getString("load_ir_key_3","")
+            Log.d("asdf load_ir_key_3", "${load_ir_key_3}")
+
+            val load_ir_key_4 = sharedPreferences.getString("load_ir_key_4","")
+            Log.d("asdf load_ir_key_4", "${load_ir_key_4}")
+
+            val load_ir_key_5 = sharedPreferences.getString("load_ir_key_5","")
+            Log.d("asdf load_ir_key_5", "${load_ir_key_5}")
+
+            val load_ir_key_6 = sharedPreferences.getString("load_ir_key_6","")
+            Log.d("asdf load_ir_key_6", "${load_ir_key_6}")
+
             // load 버튼을 눌러 true로 변경되었고 gateway에서 가져온 값을 보여줬다면 값을 다시 false로 초기화해준다
             val editor : SharedPreferences.Editor = sharedPreferences2.edit()
             editor.putBoolean("btnLoadClick",false)
@@ -579,10 +659,30 @@ class MainActivity3 : AppCompatActivity() {
 
         }
 
+        // 클리어 버튼 에디트 텍스트 값을 초기화 해줌
+        binding2.btnClear.setOnClickListener {
+            binding2.editText1.text = null
+            binding2.editText2.text = null
+            binding2.editText3.text = null
+            binding2.editText4.text = null
+            binding2.editText5.text = null
+            binding2.editText6.text = null
+            binding2.editText7.text = null
+
+        }
+
+        // 세이브 버튼
+        binding2.btnSave.setOnClickListener {
+            isSave++
+            save()
+        }
+
         // 저장된 값을 불러오는 load 버튼
         binding2.btnLoad.setOnClickListener {
             load()
         }
+
+
     }
 
     // 저장된 값을 불러온다
@@ -619,6 +719,7 @@ class MainActivity3 : AppCompatActivity() {
         val spinnerValue7_2 = sharedPreferences.getInt("spinnerSelect7_Device", 0)
         val spinnerValue7_3 = sharedPreferences.getInt("spinnerSelect7_Company", 0)
         val spinnerValue7_4 = sharedPreferences.getInt("spinnerSelect7_Model", 0)
+
 
         binding2.editText1.setText(editTextValue.toString())
         binding2.spinner1.setSelection(spinnerValue)
@@ -710,8 +811,6 @@ class MainActivity3 : AppCompatActivity() {
         editor.putInt("spinnerSelect7_Model",spinnerSelect7_Model)
         editor.putString("spinnerData7_Model", spinnerData7_Model)
 
-
-
         editor.commit()
 
         val intent = Intent(this,MainActivity::class.java)
@@ -737,8 +836,7 @@ class MainActivity3 : AppCompatActivity() {
         //finish()
         Toast.makeText(this,"save",Toast.LENGTH_SHORT).show()
         Log.d("asdf saveroomname", "$roomName")
-//        val editTextValue = sharedPreferences.getString("editdata1", "")
-//        Log.d("asdf value", "${editTextValue}")
+
     }
 
     // 뒤로가기 버튼을 누르면 저장된 값과 현재 editText에 있는 값을 비교하여
