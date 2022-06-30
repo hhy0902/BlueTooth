@@ -380,7 +380,11 @@ class MainActivity2 : AppCompatActivity() {
                 }
 
                 for(i in 1..1) {
-                    sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
+                    val jsonString = assets.open("irdb.json").reader().readText()
+                    val irdb = JSONObject(jsonString)
+                    Log.d("asdf irdb", irdb.toString())
+                    sendCommand(irdb.toString())
+                    Thread.sleep(200)
 
                     val jsonrpcObject = JSONObject()
                     val jsonrpcArray = JSONArray()
@@ -448,80 +452,12 @@ class MainActivity2 : AppCompatActivity() {
                     jsonrpcObject.put("params",jsonrpcArray)
                     jsonrpcObject.put("id","qwerasd$random")
 
-                    sendCommand(jsonrpcObject.toString())
+                    Log.d("asdf jsonrpcObject", jsonrpcObject.toString())
+                    Log.d("asdf jsonString","${jsonString.length}")
+                    Log.d("asdf irdb","${irdb.toString().length}")
+                    Log.d("asdf jsonrpcObject size", jsonrpcObject.toString().length.toString())
+                    //sendCommand(jsonrpcObject.toString())
 
-                    Log.d("asdf jsonrpcobject", jsonrpcObject.toString())
-                    Thread.sleep(200)
-
-                    val mainKey = irdbDeviceObject.keys()
-                    val key2 = irdbCompanyObject.keys()
-                    val key3 = irdbModelObject.keys()
-                    val key4 = irdbValueObject.keys()
-                    val key5 = irdbOnOffObject.keys()
-
-                    val key2_2 = irdbCompanyObject2.keys()
-                    val key3_2 = irdbModelObject2.keys()
-                    val key4_2 = irdbValueObject2.keys()
-                    val key5_2 = irdbOnOffObject2.keys()
-
-                    val key2_3 = irdbCompanyObject3.keys()
-                    val key3_3 = irdbModelObject3.keys()
-                    val key3_3_2 = irdbModelObject3_2.keys()
-                    val key4_3 = irdbValueObject3.keys()
-                    val key5_3 = irdbOnOffObject3.keys()
-
-                    val sharedPreferencesIrdb = getSharedPreferences("irdb", Context.MODE_PRIVATE)
-                    val editorIrdb : SharedPreferences.Editor = sharedPreferencesIrdb.edit()
-                    var mainKeySize = 0
-                    while (mainKey.hasNext()) {
-                        val a = mainKey.next().toString()
-                        Log.d("asdf mainKey${mainKeySize}", a)
-                        editorIrdb.putString("mainKey${mainKeySize}",a)
-                        Log.d("asdf mainKeySize ", mainKeySize.toString())
-                        mainKeySize += 1
-                    }
-                    mainKeySize = 0
-
-                    var lightingCompanyKeySize = 0
-                    while (key2_3.hasNext()) {
-                        val a = key2_3.next().toString()
-                        editorIrdb.putString("lightingCompanyKey${lightingCompanyKeySize}",a)
-                        Log.d("asdf key2_3 a", a)
-                        lightingCompanyKeySize += 1
-                    }
-                    lightingCompanyKeySize = 0
-
-                    var sktModelKeySize = 0
-                    while (key3_3.hasNext()) {
-                        val a = key3_3.next().toString()
-                        editorIrdb.putString("sktmodelKey${sktModelKeySize}",a)
-                        Log.d("asdf key3_3 a", a)
-                        sktModelKeySize += 1
-                    }
-
-                    var ktModelKeySize = 0
-                    while (key3_3_2.hasNext()) {
-                        val a = key3_3_2.next().toString()
-                        editorIrdb.putString("ktmodelKey${ktModelKeySize}",a)
-                        Log.d("asdf key3_3_2 a", a)
-                        ktModelKeySize += 1
-                    }
-
-                    while (key4_3.hasNext()) {
-                        val a = key4_3.next().toString()
-                        Log.d("asdf key4_3 a", a)
-                    }
-
-                    while (key5_3.hasNext()) {
-                        val a = key5_3.next().toString()
-                        Log.d("asdf key5_3 a", a)
-                    }
-
-                    editorIrdb.commit()
-
-//                    irdbDeviceObject.keys().forEach {
-//                        Log.d("asdf key ", "${it}")
-//                    }
 
                 }
 
@@ -848,6 +784,7 @@ class MainActivity2 : AppCompatActivity() {
         editor13.clear()
         editor13.commit()
     }
+
 }
 
 
