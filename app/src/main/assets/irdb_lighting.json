@@ -1,0 +1,51 @@
+{
+  "jsonrpc": "2.0",
+  "method": "patch_gz",
+  "params": [
+    {
+      "op": "add",
+      "path": "\/irdb\/lighting",
+      "value": {
+        "lighting": {
+          "skt": {
+            "sktModel1": {
+              "type": "nec",
+              "bitlen": 24,
+              "data": {
+                "off": "88C00510",
+                "on": "88008080"
+              }
+            },
+            "sktModel2": {
+              "type": "nec",
+              "bitlen": 24,
+              "data": {
+                "off": "88C00510",
+                "on": "88008080"
+              }
+            }
+          },
+          "kt": {
+            "ktModel1": {
+              "type": "nec2",
+              "bitlen": 32,
+              "data": {
+                "off": "88C00510",
+                "on": "88008080"
+              }
+            },
+            "ktModel2": {
+              "type": "nec2",
+              "bitlen": 32,
+              "data": {
+                "off": "88C00510",
+                "on": "88008080"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "id": "qwerasd6"
+}

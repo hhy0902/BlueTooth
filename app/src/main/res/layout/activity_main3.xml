@@ -129,7 +129,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText1"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:inputType="number"
@@ -159,7 +159,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText2"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:lines="1"
@@ -188,7 +188,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText3"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:lines="1"
@@ -222,16 +222,19 @@
                         android:layout_margin="10dp" />
 
                     <TextView
-                        android:text="lighting"
-                        android:layout_margin="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginStart="18dp"
+                        android:text="lighting"
+                        android:textColor="@color/black"
+                        android:textSize="17dp" />
 
-<!--                    <androidx.appcompat.widget.AppCompatSpinner-->
-<!--                        android:id="@+id/spinner4_2"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_margin="10dp" />-->
+                    <!--                    <androidx.appcompat.widget.AppCompatSpinner-->
+                    <!--                        android:id="@+id/spinner4_2"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_margin="10dp" />-->
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/spinner4_3"
@@ -249,30 +252,12 @@
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_height="wrap_content">
-
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/testSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp" />
-
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/testSpinner2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp" />
-
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/testSpinner3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editText4"
-                        android:layout_width="100dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:lines="1"
@@ -282,7 +267,6 @@
                         tools:text="조명 " />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -310,17 +294,20 @@
                         android:layout_margin="10dp" />
 
                     <TextView
-                        android:text="projector"
-                        android:layout_margin="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginStart="18dp"
+                        android:text="projector"
+                        android:textColor="@color/black"
+                        android:textSize="17dp" />
 
 
                     <!--                    <androidx.appcompat.widget.AppCompatSpinner-->
-<!--                        android:id="@+id/spinner5_2"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_margin="10dp" />-->
+                    <!--                        android:id="@+id/spinner5_2"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_margin="10dp" />-->
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/spinner5_3"
@@ -343,15 +330,13 @@
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editText5"
-                        android:layout_width="100dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:lines="1"
                         android:maxLines="1"
                         android:selectAllOnFocus="true"
                         tools:text="프로젝터1 " />
-
-
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -381,16 +366,19 @@
                         android:layout_margin="10dp" />
 
                     <TextView
-                        android:text="projector"
-                        android:layout_margin="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginStart="18dp"
+                        android:text="projector2"
+                        android:textColor="@color/black"
+                        android:textSize="17dp" />
 
-<!--                    <androidx.appcompat.widget.AppCompatSpinner-->
-<!--                        android:id="@+id/spinner6_2"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_margin="10dp" />-->
+                    <!--                    <androidx.appcompat.widget.AppCompatSpinner-->
+                    <!--                        android:id="@+id/spinner6_2"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_margin="10dp" />-->
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/spinner6_3"
@@ -413,7 +401,7 @@
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editText6"
-                        android:layout_width="100dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:lines="1"
@@ -449,16 +437,19 @@
                         android:layout_margin="10dp" />
 
                     <TextView
-                        android:text="air_conditioner"
-                        android:layout_margin="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginStart="18dp"
+                        android:text="air_conditioner"
+                        android:textColor="@color/black"
+                        android:textSize="17dp" />
 
-<!--                    <androidx.appcompat.widget.AppCompatSpinner-->
-<!--                        android:id="@+id/spinner7_2"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_margin="10dp" />-->
+                    <!--                    <androidx.appcompat.widget.AppCompatSpinner-->
+                    <!--                        android:id="@+id/spinner7_2"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_margin="10dp" />-->
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/spinner7_3"
@@ -477,7 +468,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText7"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:lines="1"
@@ -510,7 +501,7 @@
         android:text="load"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_clear"
-       app:layout_constraintStart_toEndOf="@id/btn_save" />
+        app:layout_constraintStart_toEndOf="@id/btn_save" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_clear"

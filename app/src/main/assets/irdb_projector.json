@@ -1,0 +1,51 @@
+{
+  "jsonrpc": "2.0",
+  "method": "patch_gz",
+  "params": [
+    {
+      "op": "add",
+      "path": "\/irdb\/projector",
+      "value": {
+        "projector": {
+          "maxell": {
+            "mp-eu5002": {
+              "type": "nec",
+              "bitlen": 32,
+              "data": {
+                "off": "88C00510",
+                "on": "88008080"
+              }
+            },
+            "mp-eu2005": {
+              "type": "nec",
+              "bitlen": 32,
+              "data": {
+                "off": "88C00510",
+                "on": "88008080"
+              }
+            }
+          },
+          "sony": {
+            "sonyModel": {
+              "type": "nec",
+              "bitlen": 28,
+              "data": {
+                "off": "88C00510",
+                "on": "88008080"
+              }
+            },
+            "sonyModel2": {
+              "type": "nec",
+              "bitlen": 36,
+              "data": {
+                "off": "88C00510",
+                "on": "88008080"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "id": "qwerasd6"
+}

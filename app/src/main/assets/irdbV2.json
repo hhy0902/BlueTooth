@@ -1,0 +1,116 @@
+{
+  "projector": {
+    "maxell": {
+      "mp-eu5002": {
+        "type": "nec",
+        "bitlen": 32,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "mp-eu2005": {
+        "type": "nec",
+        "bitlen": 32,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      }
+    },
+    "sony": {
+      "sonyModel": {
+        "type": "nec",
+        "bitlen": 28,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "sonyModel2": {
+        "type": "nec",
+        "bitlen": 36,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      }
+    }
+  },
+  "air_conditioner": {
+    "lg": {
+      "our_office": {
+        "type": "nec",
+        "bitlen": 28,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "lgModel2": {
+        "type": "nec",
+        "bitlen": 24,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      }
+    },
+    "samsung": {
+      "samsungModel1": {
+        "type": "nec",
+        "bitlen": 28,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "samsungModel2": {
+        "type": "nec",
+        "bitlen": 24,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      }
+    }
+  },
+  "lighting": {
+    "skt": {
+      "sktModel1": {
+        "type": "nec",
+        "bitlen": 24,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "sktModel2": {
+        "type": "nec",
+        "bitlen": 20,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      }
+    },
+    "kt": {
+      "ktModel1": {
+        "type": "nec",
+        "bitlen": 32,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "ktModel2": {
+        "type": "nec2",
+        "bitlen": 36,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      }
+    }
+  }
+}

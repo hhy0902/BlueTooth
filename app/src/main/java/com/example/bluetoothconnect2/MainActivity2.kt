@@ -380,131 +380,130 @@ class MainActivity2 : AppCompatActivity() {
                 }
 
                 for(i in 1..1) {
-                    val jsonString = assets.open("irdb.json").reader().readText()
-                    val irdb = JSONObject(jsonString)
-                    Log.d("asdf irdb", irdb.toString())
-                    sendCommand(irdb.toString())
+
+//                    // irdb.keys ['projector', 'aircon',
+//                    for i in irdb.keys:
+//                    for j in manufe~.keys:
+//                    for k in models.keys:
+//                    path = / irdb / + i + / + j + / + k + /
+//                    jsonString =
+
+
+                    // base ==========================================================================================================================================================
+
+                    val order = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order)
                     Thread.sleep(200)
 
-                    val jsonrpcObject = JSONObject()
-                    val jsonrpcArray = JSONArray()
-                    val jsonrpcArrayObject = JSONObject()
+                    val irdbString = assets.open("irdbV2.json").reader().readText()
+                    val irdb = JSONObject(irdbString)
+                    Log.d("asdf irdbString", irdb.toString())
+                    val irdb_device_key_list = mutableListOf<String>()
+                    irdb.keys().forEach {
+                        irdb_device_key_list.add(it)
+                        Log.d("asdf irdb key", it)
+                    }
 
-                    val irdbDeviceObject = JSONObject()
-                    val irdbCompanyObject = JSONObject()
-                    val irdbModelObject = JSONObject()
-                    val irdbValueObject = JSONObject()
-                    val irdbOnOffObject = JSONObject()
+                    // projector ==========================================================================================================================================================
 
-                    jsonrpcObject.put("jsonrpc","2.0")
-                    jsonrpcObject.put("method","patch_gz")
-                    jsonrpcArrayObject.put("op","add")
-                    jsonrpcArrayObject.put("path","/irdb")
+                    val irdb_projector = irdb.getString("projector")
+                    Log.d("asdf irdb_projector", irdb_projector)
+                    val irdb_projector_key = JSONObject(irdb_projector)
+                    val irdb_projector_model_key_list = mutableListOf<String>()
+                    irdb_projector_key.keys().forEach {
+                        Log.d("asdf irdb_projector_key" , "${it}")
+                        irdb_projector_model_key_list.add(it)
+                    }
+                    val irdb_projector_json = JSONObject(irdb_projector)
+                    val irdb_projector_modle1 = irdb_projector_json.getString("${irdb_projector_model_key_list.get(0)}")
+                    val irdb_projector_modle2 = irdb_projector_json.getString("${irdb_projector_model_key_list.get(1)}")
+                    Log.d("asdf irdb_projector_modle1", "${irdb_projector_modle1}")
+                    Log.d("asdf irdb_projector_modle2", "${irdb_projector_modle2}")
 
-                    irdbDeviceObject.put(PROJECTOR, irdbCompanyObject)
-                    irdbCompanyObject.put(MAXELL,irdbModelObject)
-                    irdbModelObject.put("mp-eu5002", irdbValueObject)
-                    irdbValueObject.put("type","nec")
-                    irdbValueObject.put("bitlen",32)
-                    irdbValueObject.put("data", irdbOnOffObject)
-                    irdbOnOffObject.put("off", "88C00510")
-                    irdbOnOffObject.put("on", "88008080")
+                    val order_projector =
+                        "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_projector)
+                    Thread.sleep(200)
 
-                    val irdbCompanyObject2 = JSONObject()
-                    val irdbModelObject2 = JSONObject()
-                    val irdbValueObject2 = JSONObject()
-                    val irdbOnOffObject2 = JSONObject()
+                    for(i in 0 until irdb_projector_model_key_list.size) {
+                        val irdb_projector_modle = irdb_projector_json.getString("${irdb_projector_model_key_list.get(i)}")
+                        val order_projector_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_model_key_list.get(i)}\", \"value\": ${irdb_projector_modle}}], \"id\": \"qwerasd$random\"}"
+                        sendCommand(order_projector_model)
+                        Thread.sleep(100)
+                    }
 
-                    irdbDeviceObject.put("air_conditioner", irdbCompanyObject2)
-                    irdbCompanyObject2.put("lg", irdbModelObject2)
-                    irdbModelObject2.put("our_office", irdbValueObject2)
-                    irdbValueObject2.put("type","nec")
-                    irdbValueObject2.put("bitlen", 28)
-                    irdbValueObject2.put("data",irdbOnOffObject2)
-                    irdbOnOffObject2.put("off","88C00510")
-                    irdbOnOffObject2.put("on","88008080")
+//                    한번에 보내는거
+//                    val send_projector = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector\", \"value\": ${irdb_projector}}], \"id\": \"qwerasd$random\"}"
+//                    sendCommand(send_projector)
+//                    Thread.sleep(200)
 
-                    val irdbCompanyObject3 = JSONObject()
-                    val irdbModelObject3 = JSONObject()
-                    val irdbModelObject3_2 = JSONObject()
-                    val irdbValueObject3 = JSONObject()
-                    val irdbValueObject3_2 = JSONObject()
-                    val irdbOnOffObject3 = JSONObject()
+                    // lighting ==========================================================================================================================================================
 
-                    irdbDeviceObject.put("lighting", irdbCompanyObject3)
-                    irdbCompanyObject3.put("skt",irdbModelObject3)
-                    irdbCompanyObject3.put("kt",irdbModelObject3_2)
-                    irdbModelObject3.put("sktModel1", irdbValueObject3)
-                    irdbModelObject3.put("sktModel2", irdbValueObject3)
-                    irdbModelObject3_2.put("ktModel1", irdbValueObject3_2)
-                    irdbModelObject3_2.put("ktModel2", irdbValueObject3_2)
-                    irdbValueObject3.put("type","nec")
-                    irdbValueObject3.put("bitlen",24)
-                    irdbValueObject3.put("data",irdbOnOffObject3)
-                    irdbValueObject3_2.put("type","nec2")
-                    irdbValueObject3_2.put("bitlen",32)
-                    irdbValueObject3_2.put("data",irdbOnOffObject3)
-                    irdbOnOffObject3.put("off","88C00510")
-                    irdbOnOffObject3.put("on","88008080")
+                    val irdb_lighting = irdb.getString("lighting")
+                    Log.d("asdf irdb_lighting", irdb_lighting)
+                    val irdb_lighting_key = JSONObject(irdb_lighting)
+                    val irdb_lighting_model_key_list = mutableListOf<String>()
+                    irdb_lighting_key.keys().forEach {
+                        Log.d("asdf irdb_lighting_key" , "${it}")
+                        irdb_lighting_model_key_list.add(it)
+                    }
+                    val irdb_lighting_json = JSONObject(irdb_lighting)
+                    val irdb_lighting_modle1 = irdb_lighting_json.getString("${irdb_lighting_model_key_list.get(0)}")
+                    val irdb_lighting_modle2 = irdb_lighting_json.getString("${irdb_lighting_model_key_list.get(1)}")
+                    Log.d("asdf irdb_lighting_modle1", "${irdb_lighting_modle1}")
+                    Log.d("asdf irdb_lighting_modle2", "${irdb_lighting_modle2}")
 
-                    jsonrpcArrayObject.put("value",irdbDeviceObject)
-                    jsonrpcArray.put(jsonrpcArrayObject)
-                    jsonrpcObject.put("params",jsonrpcArray)
-                    jsonrpcObject.put("id","qwerasd$random")
+                    val order_lighting =
+                        "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_lighting)
+                    Thread.sleep(200)
 
-                    Log.d("asdf jsonrpcObject", jsonrpcObject.toString())
-                    Log.d("asdf jsonString","${jsonString.length}")
-                    Log.d("asdf irdb","${irdb.toString().length}")
-                    Log.d("asdf jsonrpcObject size", jsonrpcObject.toString().length.toString())
-                    //sendCommand(jsonrpcObject.toString())
+//                    한번에 보내는거
+//                    val order_lighting = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting\", \"value\": ${irdb_lighting}}], \"id\": \"qwerasd$random\"}"
+//                    sendCommand(order_lighting)
+//                    Thread.sleep(200)
 
+                    for(i in 0 until irdb_lighting_model_key_list.size) {
+                        val irdb_lighting_modle = irdb_lighting_json.getString("${irdb_lighting_model_key_list.get(i)}")
+                        val order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_model_key_list.get(i)}\", \"value\": ${irdb_lighting_modle}}], \"id\": \"qwerasd$random\"}"
+                        sendCommand(order_lighting_model)
+                        Thread.sleep(100)
+                    }
+
+                    // air_conditioner ==========================================================================================================================================================
+
+                    val irdb_aircon = irdb.getString("air_conditioner")
+                    Log.d("asdf irdb_aircon", irdb_aircon)
+                    val irdb_aircon_key = JSONObject(irdb_aircon)
+                    val irdb_aircon_model_key_list = mutableListOf<String>()
+                    irdb_aircon_key.keys().forEach {
+                        Log.d("asdf irdb_aircon_key" , "${it}")
+                        irdb_aircon_model_key_list.add(it)
+                    }
+                    val irdb_aircon_json = JSONObject(irdb_aircon)
+                    val irdb_aircon_modle1 = irdb_aircon_json.getString("${irdb_aircon_model_key_list.get(0)}")
+                    val irdb_aircon_modle2 = irdb_aircon_json.getString("${irdb_aircon_model_key_list.get(1)}")
+                    Log.d("asdf irdb_aircon_modle1", "${irdb_aircon_modle1}")
+                    Log.d("asdf irdb_aircon_modle2", "${irdb_aircon_modle2}")
+
+                    val order_aircon =
+                        "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_aircon)
+                    Thread.sleep(200)
+
+//                    한번에 보내는거
+//                    val order_aircon = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner\", \"value\": ${irdb_aircon}}], \"id\": \"qwerasd$random\"}"
+//                    sendCommand(order_aircon)
+//                    Thread.sleep(200)
+
+                    for(i in 0 until irdb_aircon_model_key_list.size) {
+                        val irdb_aircon_modle = irdb_aircon_json.getString("${irdb_aircon_model_key_list.get(i)}")
+                        val order_aircon_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_model_key_list.get(i)}\", \"value\": ${irdb_aircon_modle}}], \"id\": \"qwerasd$random\"}"
+                        sendCommand(order_aircon_model)
+                        Thread.sleep(100)
+                    }
 
                 }
-
-//                for(e in 1..roomList.size) {
-//                    sharedPreferences = getSharedPreferences("$e", Context.MODE_PRIVATE)
-//
-//                    val testBody2 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-//                    val testBody3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/blaster\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-//                    val testBody4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/blaster/node_id\",\"value\":300002}],\"id\":\"qwerasd$random\"}"
-//                    val testBody5 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-//
-//                    Thread.sleep(100)
-//                    sendCommand(testBody2)
-//
-//                    Thread.sleep(100)
-//                    sendCommand(testBody3)
-//
-//                    Thread.sleep(100)
-//                    sendCommand(testBody4)
-//
-//                    Thread.sleep(100)
-//                    sendCommand(testBody5)
-//                    Thread.sleep(100)
-//
-//                    for (w in 1..10) {
-//                        val testBody6 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w\",\"value\":{}}],\"id\":\"qwerasd$random\"}"
-//                        sendCommand(testBody6)
-//                        Thread.sleep(100)
-//                        Log.d("asdf testBody6_${e}_$w", testBody6)
-//
-//                        val testBody7 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/node_id\",\"value\":${sharedPreferences.all.get("editdata${w}")}}],\"id\":\"qwerasd$random\"}"
-//                        sendCommand(testBody7)
-//                        Thread.sleep(100)
-//                        Log.d("asdf testBody7_${e}_$w", testBody7)
-//
-//                        val testBody8 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/use_switch\",\"value\":\"false\"}],\"id\":\"qwerasd$random\"}"
-//                        sendCommand(testBody8)
-//                        Thread.sleep(100)
-//                        Log.d("asdf testBody8_${e}_$w", testBody8)
-//
-//                        val testBody9 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"add\",\"path\":\"/room_$e/plugs/$w/remote_key\",\"value\":\"projector/maxell/mp-eu5002\"}],\"id\":\"qwerasd$random\"}"
-//                        sendCommand(testBody9)
-//                        Thread.sleep(100)
-//                        Log.d("asdf testBody9_${e}_$w", testBody9)
-//                    }
-//                    receiveData()
-//                }
 
                 editDataList.clear()
                 spinnerDataList.clear()
@@ -615,29 +614,6 @@ class MainActivity2 : AppCompatActivity() {
 
                         }
                     }
-                }
-
-                // irdb load하기
-                for (i in 1..1) {
-                    val loadJson: String =
-                        "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/irdb\"}, \"id\": \"qwerasd$random\"}"
-                    sendCommand(loadJson)
-                    receiveData()
-                    val jsonObject = JSONObject(readMessage)
-                    Log.d("asdf jsonobject", "${jsonObject}")
-                    val result = jsonObject.get("result")
-                    //Log.d("asdf irdb", result.toString())
-
-                    val jsonObject2 = JSONObject(result.toString())
-                    jsonObject2.get("projector")
-                    Log.d("asdf jsonObject2", "${jsonObject2}")
-                    Log.d("asdf jsonObject2 projector", "${jsonObject2.get("projector")}")
-
-//                    val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
-//                    val editor: SharedPreferences.Editor = sharedPreferences.edit()
-//                    editor.putString("load_ir_key_$z", result.toString())
-//
-//                    editor.commit()
                 }
 
                 // load 클릭해서 쉐어드 프리퍼런스에 true 입

@@ -1,0 +1,29 @@
+{
+  "irdb": {
+    "projector": {
+      "maxell": {
+        "mp-eu5002": {
+          "type": "nec",
+          "bitlen": 32,
+          "data": {
+            "off": "E1A2782000",
+            "on": "E1A2B82000"
+          }
+        }
+      }
+    },
+    "air_conditioner": {
+      "lg": {
+        "our_office": {
+          "type": "nec",
+          "bitlen": 28,
+          "data": {
+            "off": "88C00510",
+            "on": "88008080"
+          }
+        }
+      }
+    }
+  }
+}
+
