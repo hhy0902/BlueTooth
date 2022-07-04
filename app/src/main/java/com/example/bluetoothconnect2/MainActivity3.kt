@@ -116,6 +116,15 @@ class MainActivity3 : AppCompatActivity() {
         val irdb = JSONObject(irdbString)
         Log.d("asdf irdbString", irdb.toString())
 
+//        val irdb_projector = irdb.getString("projector")
+//        Log.d("asdf irdb_projector", irdb_projector)
+//        val irdb_projector_key = JSONObject(irdb_projector)
+//        val irdb_projector_model_key_list = mutableListOf<String>()
+//        irdb_projector_key.keys().forEach {
+//            Log.d("asdf irdb_projector_key" , "${it}")
+//            irdb_projector_model_key_list.add(it)
+//        }
+
         val irdb_projector = irdb.getString("projector")
         Log.d("asdf irdb_projector", irdb_projector)
         val irdb_lighting = irdb.getString("lighting")
@@ -125,39 +134,81 @@ class MainActivity3 : AppCompatActivity() {
 
         // projector ==========================================================================================================================================================
 
-        val irdbProjectorCompany = irdb.getJSONObject("projector")
-        val irdbProjectorModel = irdbProjectorCompany.getJSONObject("maxell")
-        val irdbProjectorModel_2 = irdbProjectorCompany.getJSONObject("sony")
-
-        val irdbProjectorCompanyKey = irdbProjectorCompany.keys()
-        val irdbProjectorModelKey = irdbProjectorModel.keys()
-        val irdbProjectorModelKey_2 = irdbProjectorModel_2.keys()
-
-        var projectorCompanyKeySize = 0
-        while (irdbProjectorCompanyKey.hasNext()) {
-            val a = irdbProjectorCompanyKey.next().toString()
-            editorIrdb.putString("irdbProjectorCompanyKey${projectorCompanyKeySize}",a)
-            projectorCompanyKeySize += 1
+        val irdb_projector_key = JSONObject(irdb_projector)
+        val irdb_projector_company_key_list = mutableListOf<String>()
+        irdb_projector_key.keys().forEach {
+            Log.d("asdf irdb_projector_company_key_list", "${it}")
+            irdb_projector_company_key_list.add(it)
         }
-        projectorCompanyKeySize = 0
-
-        var projectorModelKeySize = 0
-        while (irdbProjectorModelKey.hasNext()) {
-            val a = irdbProjectorModelKey.next().toString()
-            editorIrdb.putString("irdbProjectorModelKey${projectorModelKeySize}",a)
-            projectorModelKeySize += 1
+        val irdb_projector_company_key = irdb_projector_key.getString("maxell")
+        val irdb_projector_model_key = JSONObject(irdb_projector_company_key)
+        val irdb_projector_model_key_list = mutableListOf<String>()
+        irdb_projector_model_key.keys().forEach {
+            Log.d("asdf irdb_projector_model_key", "${it}")
+            irdb_projector_model_key_list.add(it)
         }
-        projectorModelKeySize = 0
-
-        var projectorModelKeySize_2 = 0
-        while (irdbProjectorModelKey_2.hasNext()) {
-            val a = irdbProjectorModelKey_2.next().toString()
-            editorIrdb.putString("irdbProjectorModelKey_2_${projectorModelKeySize_2}",a)
-            projectorModelKeySize_2 += 1
+        val irdb_projector_company_key2 = irdb_projector_key.getString("sony")
+        val irdb_projector_model_key2 = JSONObject(irdb_projector_company_key2)
+        val irdb_projector_model_key2_list = mutableListOf<String>()
+        irdb_projector_model_key2.keys().forEach {
+            Log.d("asdf irdb_projector_model_key2", "${it}")
+            irdb_projector_model_key2_list.add(it)
         }
-        projectorModelKeySize_2 = 0
+
+//        val irdbProjectorCompany = irdb.getJSONObject("projector")
+//        val irdbProjectorModel = irdbProjectorCompany.getJSONObject("maxell")
+//        val irdbProjectorModel_2 = irdbProjectorCompany.getJSONObject("sony")
+//
+//        val irdbProjectorCompanyKey = irdbProjectorCompany.keys()
+//        val irdbProjectorModelKey = irdbProjectorModel.keys()
+//        val irdbProjectorModelKey_2 = irdbProjectorModel_2.keys()
+//
+//        var projectorCompanyKeySize = 0
+//        while (irdbProjectorCompanyKey.hasNext()) {
+//            val a = irdbProjectorCompanyKey.next().toString()
+//            editorIrdb.putString("irdbProjectorCompanyKey${projectorCompanyKeySize}",a)
+//            projectorCompanyKeySize += 1
+//        }
+//        projectorCompanyKeySize = 0
+//
+//        var projectorModelKeySize = 0
+//        while (irdbProjectorModelKey.hasNext()) {
+//            val a = irdbProjectorModelKey.next().toString()
+//            editorIrdb.putString("irdbProjectorModelKey${projectorModelKeySize}",a)
+//            projectorModelKeySize += 1
+//        }
+//        projectorModelKeySize = 0
+//
+//        var projectorModelKeySize_2 = 0
+//        while (irdbProjectorModelKey_2.hasNext()) {
+//            val a = irdbProjectorModelKey_2.next().toString()
+//            editorIrdb.putString("irdbProjectorModelKey_2_${projectorModelKeySize_2}",a)
+//            projectorModelKeySize_2 += 1
+//        }
+//        projectorModelKeySize_2 = 0
 
         // air_conditioner ==========================================================================================================================================================
+
+//        val irdb_aircon_key = JSONObject(irdb_air_conditioner)
+//        val irdb_aircon_company_key_list = mutableListOf<String>()
+//        irdb_aircon_key.keys().forEach {
+//            Log.d("asdf irdb_aircon_company_key_list", "${it}")
+//            irdb_aircon_company_key_list.add(it)
+//        }
+//        val irdb_aircon_company_key = irdb_aircon_key.getString("lg")
+//        val irdb_aircon_model_key = JSONObject(irdb_aircon_company_key)
+//        val irdb_aircon_model_key_list = mutableListOf<String>()
+//        irdb_aircon_model_key.keys().forEach {
+//            Log.d("asdf irdb_aircon_model_key_list", "${it}")
+//            irdb_aircon_model_key_list.add(it)
+//        }
+//        val irdb_aircon_company_key2 = irdb_aircon_key.getString("samsung")
+//        val irdb_aircon_model_key2 = JSONObject(irdb_projector_company_key2)
+//        val irdb_aircon_model_key2_list = mutableListOf<String>()
+//        irdb_projector_model_key2.keys().forEach {
+//            Log.d("asdf irdb_projector_model_key2", "${it}")
+//            irdb_projector_model_key2_list.add(it)
+//        }
 
         val irdbAirconCompany = irdb.getJSONObject("air_conditioner")
         val irdbAirconModel = irdbAirconCompany.getJSONObject("lg")
@@ -230,18 +281,18 @@ class MainActivity3 : AppCompatActivity() {
 
         //==========================================================================================================================================================
 
-        val projectorCompanyKeyValue0 = sharedPreferencesIrdb.getString("irdbProjectorCompanyKey0", "")
-        val projectorCompanyKeyValue1 = sharedPreferencesIrdb.getString("irdbProjectorCompanyKey1", "")
-        Log.d("asdf projectorCompanyKeyValue0", projectorCompanyKeyValue0.toString())
-        Log.d("asdf projectorCompanyKeyValue1", projectorCompanyKeyValue1.toString())
-        val projectorModelKeyValue0 = sharedPreferencesIrdb.getString("irdbProjectorModelKey0", "")
-        val projectorModelKeyValue1 = sharedPreferencesIrdb.getString("irdbProjectorModelKey1", "")
-        Log.d("asdf projectorModelKeyValue0", projectorModelKeyValue0.toString())
-        Log.d("asdf projectorModelKeyValue1", projectorModelKeyValue1.toString())
-        val projectorModelKeyValue_2_0 = sharedPreferencesIrdb.getString("irdbProjectorModelKey_2_0", "")
-        val projectorModelKeyValue_2_1 = sharedPreferencesIrdb.getString("irdbProjectorModelKey_2_1", "")
-        Log.d("asdf projectorModelKeyValue_2_0", projectorModelKeyValue_2_0.toString())
-        Log.d("asdf projectorModelKeyValue_2_1", projectorModelKeyValue_2_1.toString())
+//        val projectorCompanyKeyValue0 = sharedPreferencesIrdb.getString("irdbProjectorCompanyKey0", "")
+//        val projectorCompanyKeyValue1 = sharedPreferencesIrdb.getString("irdbProjectorCompanyKey1", "")
+//        Log.d("asdf projectorCompanyKeyValue0", projectorCompanyKeyValue0.toString())
+//        Log.d("asdf projectorCompanyKeyValue1", projectorCompanyKeyValue1.toString())
+//        val projectorModelKeyValue0 = sharedPreferencesIrdb.getString("irdbProjectorModelKey0", "")
+//        val projectorModelKeyValue1 = sharedPreferencesIrdb.getString("irdbProjectorModelKey1", "")
+//        Log.d("asdf projectorModelKeyValue0", projectorModelKeyValue0.toString())
+//        Log.d("asdf projectorModelKeyValue1", projectorModelKeyValue1.toString())
+//        val projectorModelKeyValue_2_0 = sharedPreferencesIrdb.getString("irdbProjectorModelKey_2_0", "")
+//        val projectorModelKeyValue_2_1 = sharedPreferencesIrdb.getString("irdbProjectorModelKey_2_1", "")
+//        Log.d("asdf projectorModelKeyValue_2_0", projectorModelKeyValue_2_0.toString())
+//        Log.d("asdf projectorModelKeyValue_2_1", projectorModelKeyValue_2_1.toString())
 
         //==========================================================================================================================================================
 
@@ -281,18 +332,28 @@ class MainActivity3 : AppCompatActivity() {
 
         val projectorCompanyList = mutableListOf<String>()
         projectorCompanyList.add("")
-        projectorCompanyList.add(projectorCompanyKeyValue0.toString())
-        projectorCompanyList.add(projectorCompanyKeyValue1.toString())
+        for(i in 0 until irdb_projector_company_key_list.size) {
+            projectorCompanyList.add(irdb_projector_company_key_list.get(i))
+        }
+
+        //projectorCompanyList.add(projectorCompanyKeyValue0.toString())
+        //projectorCompanyList.add(projectorCompanyKeyValue1.toString())
 
         val projectorModelList = mutableListOf<String>()
         projectorModelList.add("")
-        projectorModelList.add(projectorModelKeyValue0.toString())
-        projectorModelList.add(projectorModelKeyValue1.toString())
+        for(i in 0 until irdb_projector_model_key_list.size) {
+            projectorModelList.add(irdb_projector_model_key_list.get(i))
+        }
+//        projectorModelList.add(projectorModelKeyValue0.toString())
+//        projectorModelList.add(projectorModelKeyValue1.toString())
 
         val projectorModelList2 = mutableListOf<String>()
         projectorModelList2.add("")
-        projectorModelList2.add(projectorModelKeyValue_2_0.toString())
-        projectorModelList2.add(projectorModelKeyValue_2_1.toString())
+        for(i in 0 until irdb_projector_model_key2_list.size) {
+            projectorModelList2.add(irdb_projector_model_key2_list.get(i))
+        }
+//        projectorModelList2.add(projectorModelKeyValue_2_0.toString())
+//        projectorModelList2.add(projectorModelKeyValue_2_1.toString())
 
         //==========================================================================================================================================================
 
