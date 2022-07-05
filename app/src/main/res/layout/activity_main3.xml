@@ -138,6 +138,13 @@
                     android:selectAllOnFocus="true"
                     tools:text="ir블래스터" />
 
+                <ImageView
+                    android:id="@+id/qrImage1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:src="@drawable/ic_baseline_qr_code_24" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -167,6 +174,13 @@
                     android:selectAllOnFocus="true"
                     tools:text="pc" />
 
+                <ImageView
+                    android:id="@+id/qrImage2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:src="@drawable/ic_baseline_qr_code_24" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -195,6 +209,13 @@
                     android:maxLines="1"
                     android:selectAllOnFocus="true"
                     tools:text="스피커 " />
+
+                <ImageView
+                    android:id="@+id/qrImage3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:src="@drawable/ic_baseline_qr_code_24" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -326,7 +347,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editText5"
@@ -337,6 +358,14 @@
                         android:maxLines="1"
                         android:selectAllOnFocus="true"
                         tools:text="프로젝터1 " />
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:id="@+id/qrImage5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:src="@drawable/ic_baseline_qr_code_24" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -397,7 +426,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editText6"
@@ -408,6 +437,15 @@
                         android:maxLines="1"
                         android:selectAllOnFocus="true"
                         tools:text="프로젝터2 " />
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:id="@+id/qrImage6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:src="@drawable/ic_baseline_qr_code_24" />
+
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
