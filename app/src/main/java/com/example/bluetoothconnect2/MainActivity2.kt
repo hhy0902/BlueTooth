@@ -16,13 +16,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bluetoothconnect2.ItemKey.Companion.MAXELL
-import com.example.bluetoothconnect2.ItemKey.Companion.PROJECTOR
 import com.example.bluetoothconnect2.adapter.RoomAdapter
 import com.example.bluetoothconnect2.databinding.ActivityMain2Binding
 import com.example.bluetoothconnect2.model.Room
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -333,12 +329,6 @@ class MainActivity2 : AppCompatActivity() {
                                 jsonrpcArrayObject_2.put("value", false)
                             }
 
-//                            if(sharedPreferences.all.get("spinnerSelect${i+1}").toString().toInt() == 1) {
-//                                jsonrpcArrayObject_2.put("value", true)
-//                            } else
-//                                jsonrpcArrayObject_2.put("value", false)
-
-                            //jsonrpcArrayObject_2.put("value", false)
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
                             jsonrpcObject_2.put("params", jsonrpcArray_2)
                             jsonrpcObject_2.put("id", "qwerasd$random")
@@ -375,25 +365,34 @@ class MainActivity2 : AppCompatActivity() {
 
                             Thread.sleep(100)
                             Log.d("asdf jsonrpcobject_ir_key_${q}_$i", jsonrpcObject_2.toString())
+//                            Log.d("asdf spinnerSelect4_Company", "${sharedPreferences.all.get("spinnerSelect4_Company")}")
+//                            Log.d("asdf spinnerSelect4_Model", "${sharedPreferences.all.get("spinnerSelect4_Model")}")
+
                         }
                     }
                 }
 
                 for(i in 1..1) {
 
-//                    // irdb.keys ['projector', 'aircon',
-//                    for i in irdb.keys:
-//                    for j in manufe~.keys:
-//                    for k in models.keys:
-//                    path = / irdb / + i + / + j + / + k + /
-//                    jsonString =
-
-
                     // base ==========================================================================================================================================================
 
                     val order = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
                     sendCommand(order)
-                    Thread.sleep(200)
+                    Thread.sleep(100)
+
+                    val order_projector =
+                        "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_projector)
+                    Thread.sleep(100)
+
+                    val order_lighting =
+                        "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_lighting)
+                    Thread.sleep(100)
+
+                    val order_aircon = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_aircon)
+                    Thread.sleep(100)
 
                     val irdbString = assets.open("irdbV2.json").reader().readText()
                     val irdb = JSONObject(irdbString)
@@ -409,28 +408,150 @@ class MainActivity2 : AppCompatActivity() {
                     val irdb_projector = irdb.getString("projector")
                     Log.d("asdf irdb_projector", irdb_projector)
                     val irdb_projector_key = JSONObject(irdb_projector)
-                    val irdb_projector_model_key_list = mutableListOf<String>()
+                    val irdb_projector_company_key_list = mutableListOf<String>()
+                    val irdb_projector_modle_key_list = mutableListOf<String>()
+                    val irdb_projector_modle2_key_list = mutableListOf<String>()
+
                     irdb_projector_key.keys().forEach {
-                        Log.d("asdf irdb_projector_key" , "${it}")
-                        irdb_projector_model_key_list.add(it)
+                        Log.d("asdf irdb_projector_company_key_list" , "${it}")
+                        irdb_projector_company_key_list.add(it)
                     }
+
+                    val order_projector_company = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(0)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_projector_company)
+
+                    val order_projector_company2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(1)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_projector_company2)
+
                     val irdb_projector_json = JSONObject(irdb_projector)
-                    val irdb_projector_modle1 = irdb_projector_json.getString("${irdb_projector_model_key_list.get(0)}")
-                    val irdb_projector_modle2 = irdb_projector_json.getString("${irdb_projector_model_key_list.get(1)}")
-                    Log.d("asdf irdb_projector_modle1", "${irdb_projector_modle1}")
-                    Log.d("asdf irdb_projector_modle2", "${irdb_projector_modle2}")
+                    val irdb_projector_modle1_string = irdb_projector_json.getString("${irdb_projector_company_key_list.get(0)}")
+                    val irdb_projector_modle2_string = irdb_projector_json.getString("${irdb_projector_company_key_list.get(1)}")
+//                    Log.d("asdf irdb_projector_modle1_string", "${irdb_projector_modle1_string}")
+//                    Log.d("asdf irdb_projector_modle2_string", "${irdb_projector_modle2_string}")
 
-                    val order_projector =
-                        "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
-                    sendCommand(order_projector)
-                    Thread.sleep(200)
-
-                    for(i in 0 until irdb_projector_model_key_list.size) {
-                        val irdb_projector_modle = irdb_projector_json.getString("${irdb_projector_model_key_list.get(i)}")
-                        val order_projector_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_model_key_list.get(i)}\", \"value\": ${irdb_projector_modle}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_projector_model)
-                        Thread.sleep(100)
+                    val irdb_projector_modle = irdb_projector_json.getString("${irdb_projector_company_key_list.get(0)}")
+                    val irdb_projector_modle_key = JSONObject(irdb_projector_modle)
+                    irdb_projector_modle_key.keys().forEach {
+                        Log.d("asdf irdb_projector_modle_key_list" , "${it}")
+                        irdb_projector_modle_key_list.add(it)
                     }
+
+                    val irdb_projector_modle2 = irdb_projector_json.getString("${irdb_projector_company_key_list.get(1)}")
+                    val irdb_projector_modle2_key = JSONObject(irdb_projector_modle2)
+                    irdb_projector_modle2_key.keys().forEach {
+                        Log.d("asdf irdb_projector_modle2_key_list" , "${it}")
+                        irdb_projector_modle2_key_list.add(it)
+                    }
+
+                    val irdb_projector_modle_value = irdb_projector_modle_key.getString(irdb_projector_modle_key_list.get(0).toString())
+                    val irdb_projector_modle_value2 = irdb_projector_modle_key.getString(irdb_projector_modle_key_list.get(1).toString())
+                    val irdb_projector_modle_value3 = irdb_projector_modle_key.getString(irdb_projector_modle_key_list.get(2).toString())
+
+                    val irdb_projector_modle2_value = irdb_projector_modle2_key.getString(irdb_projector_modle2_key_list.get(0).toString())
+                    val irdb_projector_modle2_value2 = irdb_projector_modle2_key.getString(irdb_projector_modle2_key_list.get(1).toString())
+                    val irdb_projector_modle2_value3 = irdb_projector_modle2_key.getString(irdb_projector_modle2_key_list.get(2).toString())
+
+//                    Log.d("asdf irdb_projector_modle2_value", "${irdb_projector_modle2_value}")
+//                    Log.d("asdf irdb_projector_modle2_value2", "${irdb_projector_modle2_value2}")
+//                    Log.d("asdf irdb_projector_modle2_value3", "${irdb_projector_modle2_value3}")
+
+                    for (i in 1..roomList.size) {
+                        sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
+                        val spinnerSelect5_Company = sharedPreferences.getInt("spinnerSelect5_Company", 0)
+                        val spinnerSelect5_Model = sharedPreferences.getInt("spinnerSelect5_Model", 0)
+
+                        val spinnerSelect6_Company = sharedPreferences.getInt("spinnerSelect6_Company", 0)
+                        val spinnerSelect6_Model = sharedPreferences.getInt("spinnerSelect6_Model", 0)
+
+                        Log.d("asdf irdb spinnerSelect5_Company ", "${spinnerSelect5_Company}")
+                        Log.d("asdf irdb spinnerSelect5_Model", "${spinnerSelect5_Model}")
+
+                        when(spinnerSelect5_Company) {
+                            // maxell
+                            1 -> {
+                                Log.d("asdf input maxell", "maxell")
+                                when(spinnerSelect5_Model) {
+                                    1 -> {
+                                        val order_projector_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle_value}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model)
+                                    }
+                                    2 -> {
+                                        val order_projector_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle_value2}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model2)
+                                    }
+                                    3 -> {
+                                        val order_projector_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle_value3}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model3)
+                                    }
+                                }
+                            }
+                            // sony
+                            2 -> {
+                                Log.d("asdf input sony", "sony")
+                                when(spinnerSelect5_Model) {
+                                    1 -> {
+                                        val order_projector_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle_value}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model)
+                                    }
+                                    2 -> {
+                                        val order_projector_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle_value2}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model2)
+                                    }
+                                    3 -> {
+                                        val order_projector_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle_value3}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model3)
+                                    }
+                                }
+                            }
+                        }
+
+                        when(spinnerSelect6_Company) {
+                            // maxell
+                            1 -> {
+                                Log.d("asdf input maxell", "maxell")
+                                when(spinnerSelect6_Model) {
+                                    1 -> {
+                                        val order_projector_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect6_Company-1)}/${irdb_projector_modle_key_list.get(spinnerSelect6_Model-1)}\", \"value\": ${irdb_projector_modle_value}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model)
+                                    }
+                                    2 -> {
+                                        val order_projector_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect6_Company-1)}/${irdb_projector_modle_key_list.get(spinnerSelect6_Model-1)}\", \"value\": ${irdb_projector_modle_value2}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model2)
+                                    }
+                                    3 -> {
+                                        val order_projector_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect6_Company-1)}/${irdb_projector_modle_key_list.get(spinnerSelect6_Model-1)}\", \"value\": ${irdb_projector_modle_value3}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model3)
+                                    }
+                                }
+                            }
+                            // sony
+                            2 -> {
+                                Log.d("asdf input sony", "sony")
+                                when(spinnerSelect6_Model) {
+                                    1 -> {
+                                        val order_projector_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect6_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect6_Model-1)}\", \"value\": ${irdb_projector_modle_value}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model)
+                                    }
+                                    2 -> {
+                                        val order_projector_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect6_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect6_Model-1)}\", \"value\": ${irdb_projector_modle_value2}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model2)
+                                    }
+                                    3 -> {
+                                        val order_projector_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect6_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect6_Model-1)}\", \"value\": ${irdb_projector_modle_value3}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_projector_model3)
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+//                    for(i in 0 until irdb_projector_model_key_list.size) {
+//                        val irdb_projector_modle = irdb_projector_json.getString("${irdb_projector_model_key_list.get(i)}")
+//                        val order_projector_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_model_key_list.get(i)}\", \"value\": ${irdb_projector_modle}}], \"id\": \"qwerasd$random\"}"
+//                        sendCommand(order_projector_model)
+//                        Thread.sleep(100)
+//                    }
 
 //                    한번에 보내는거
 //                    val send_projector = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector\", \"value\": ${irdb_projector}}], \"id\": \"qwerasd$random\"}"
@@ -442,66 +563,233 @@ class MainActivity2 : AppCompatActivity() {
                     val irdb_lighting = irdb.getString("lighting")
                     Log.d("asdf irdb_lighting", irdb_lighting)
                     val irdb_lighting_key = JSONObject(irdb_lighting)
-                    val irdb_lighting_model_key_list = mutableListOf<String>()
-                    irdb_lighting_key.keys().forEach {
-                        Log.d("asdf irdb_lighting_key" , "${it}")
-                        irdb_lighting_model_key_list.add(it)
-                    }
-                    val irdb_lighting_json = JSONObject(irdb_lighting)
-                    val irdb_lighting_modle1 = irdb_lighting_json.getString("${irdb_lighting_model_key_list.get(0)}")
-                    val irdb_lighting_modle2 = irdb_lighting_json.getString("${irdb_lighting_model_key_list.get(1)}")
-                    Log.d("asdf irdb_lighting_modle1", "${irdb_lighting_modle1}")
-                    Log.d("asdf irdb_lighting_modle2", "${irdb_lighting_modle2}")
+                    val irdb_lighting_company_key_list = mutableListOf<String>()
+                    val irdb_lighting_modle_key_list = mutableListOf<String>()
+                    val irdb_lighting_modle2_key_list = mutableListOf<String>()
 
-                    val order_lighting =
-                        "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
-                    sendCommand(order_lighting)
-                    Thread.sleep(200)
+                    irdb_lighting_key.keys().forEach {
+                        Log.d("asdf irdb_lighting_company_key_list" , "${it}")
+                        irdb_lighting_company_key_list.add(it)
+                    }
+
+                    val order_lighting_company = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(0)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_lighting_company)
+
+                    val order_lighting_company2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(1)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_lighting_company2)
+
+                    val irdb_lighting_json = JSONObject(irdb_lighting)
+                    val irdb_lighting_modle1_string = irdb_lighting_json.getString("${irdb_lighting_company_key_list.get(0)}")
+                    val irdb_lighting_modle2_string = irdb_lighting_json.getString("${irdb_lighting_company_key_list.get(1)}")
+//                    Log.d("asdf irdb_lighting_modle1_string", "${irdb_lighting_modle1_string}")
+//                    Log.d("asdf irdb_lighting_modle2_string", "${irdb_lighting_modle2_string}")
+
+                    val irdb_lighting_modle = irdb_lighting_json.getString("${irdb_lighting_company_key_list.get(0)}")
+                    val irdb_lighting_modle_key = JSONObject(irdb_lighting_modle)
+                    irdb_lighting_modle_key.keys().forEach {
+                        Log.d("asdf irdb_lighting_modle_key_list" , "${it}")
+                        irdb_lighting_modle_key_list.add(it)
+                    }
+
+                    val irdb_lighting_modle2 = irdb_lighting_json.getString("${irdb_lighting_company_key_list.get(1)}")
+                    val irdb_lighting_modle2_key = JSONObject(irdb_lighting_modle2)
+                    irdb_lighting_modle2_key.keys().forEach {
+                        Log.d("asdf irdb_lighting_modle2_key_list" , "${it}")
+                        irdb_lighting_modle2_key_list.add(it)
+                    }
+
+                    val irdb_lighting_modle_value = irdb_lighting_modle_key.getString(irdb_lighting_modle_key_list.get(0).toString())
+                    val irdb_lighting_modle_value2 = irdb_lighting_modle_key.getString(irdb_lighting_modle_key_list.get(1).toString())
+                    val irdb_lighting_modle_value3 = irdb_lighting_modle_key.getString(irdb_lighting_modle_key_list.get(2).toString())
+
+                    val irdb_lighting_modle2_value = irdb_lighting_modle2_key.getString(irdb_lighting_modle2_key_list.get(0).toString())
+                    val irdb_lighting_modle2_value2 = irdb_lighting_modle2_key.getString(irdb_lighting_modle2_key_list.get(1).toString())
+                    val irdb_lighting_modle2_value3 = irdb_lighting_modle2_key.getString(irdb_lighting_modle2_key_list.get(2).toString())
+
+//                    Log.d("asdf irdb_lighting_modle2_value", "${irdb_lighting_modle2_value}")
+//                    Log.d("asdf irdb_lighting_modle2_value2", "${irdb_lighting_modle2_value2}")
+//                    Log.d("asdf irdb_lighting_modle2_value3", "${irdb_lighting_modle2_value3}")
+
+                    for (i in 1..roomList.size) {
+                        sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
+                        val spinnerSelect4_Company = sharedPreferences.getInt("spinnerSelect4_Company", 0)
+                        val spinnerSelect4_Model = sharedPreferences.getInt("spinnerSelect4_Model", 0)
+
+                        Log.d("asdf irdb spinnerSelect4_Company ", "${spinnerSelect4_Company}")
+                        Log.d("asdf irdb spinnerSelect4_Model", "${spinnerSelect4_Model}")
+
+                        when(spinnerSelect4_Company) {
+                            // skt
+                            1 -> {
+                                Log.d("asdf input skt", "skt")
+                                when(spinnerSelect4_Model) {
+                                    1 -> {
+                                        val order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(spinnerSelect4_Company-1)}/${irdb_lighting_modle_key_list.get(spinnerSelect4_Model-1)}\", \"value\": ${irdb_lighting_modle_value}}], \"id\": \"qwerasd$random\"}"
+                                        //val order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/skt/sktModel1\", \"value\": ${irdb_lighting_modle_value}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_lighting_model)
+                                        Log.d("asdf spinnerSelect4_Model skt", "1")
+                                    }
+                                    2 -> {
+                                        val order_lighting_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(spinnerSelect4_Company-1)}/${irdb_lighting_modle_key_list.get(spinnerSelect4_Model-1)}\", \"value\": ${irdb_lighting_modle_value2}}], \"id\": \"qwerasd$random\"}"
+                                        //val order_lighting_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/skt/sktModel2\", \"value\": ${irdb_lighting_modle_value2}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_lighting_model2)
+                                        Log.d("asdf spinnerSelect4_Model skt", "2")
+                                    }
+                                    3 -> {
+                                        val order_lighting_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(spinnerSelect4_Company-1)}/${irdb_lighting_modle_key_list.get(spinnerSelect4_Model-1)}\", \"value\": ${irdb_lighting_modle_value3}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_lighting_model3)
+                                        Log.d("asdf spinnerSelect4_Model skt", "3")
+                                    }
+                                }
+                            }
+                            // kt
+                            2 -> {
+                                Log.d("asdf input kt", "kt")
+                                when(spinnerSelect4_Model) {
+                                    1 -> {
+                                        //val order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/kt/ktModel1\", \"value\": ${irdb_lighting_modle2_value}}], \"id\": \"qwerasd$random\"}"
+                                        val order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(spinnerSelect4_Company-1)}/${irdb_lighting_modle2_key_list.get(spinnerSelect4_Model-1)}\", \"value\": ${irdb_lighting_modle2_value}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_lighting_model)
+                                    }
+                                    2 -> {
+                                        //val order_lighting_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/kt/ktModel2\", \"value\": ${irdb_lighting_modle2_value2}}], \"id\": \"qwerasd$random\"}"
+                                        val order_lighting_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(spinnerSelect4_Company-1)}/${irdb_lighting_modle2_key_list.get(spinnerSelect4_Model-1)}\", \"value\": ${irdb_lighting_modle2_value2}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_lighting_model2)
+                                    }
+                                    3 -> {
+                                        //val order_lighting_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/kt/ktModel3\", \"value\": ${irdb_lighting_modle2_value3}}], \"id\": \"qwerasd$random\"}"
+                                        val order_lighting_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(spinnerSelect4_Company-1)}/${irdb_lighting_modle2_key_list.get(spinnerSelect4_Model-1)}\", \"value\": ${irdb_lighting_modle2_value3}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_lighting_model3)
+                                    }
+                                }
+                            }
+                        }
+                    }
 
 //                    한번에 보내는거
 //                    val order_lighting = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting\", \"value\": ${irdb_lighting}}], \"id\": \"qwerasd$random\"}"
 //                    sendCommand(order_lighting)
 //                    Thread.sleep(200)
 
-                    for(i in 0 until irdb_lighting_model_key_list.size) {
-                        val irdb_lighting_modle = irdb_lighting_json.getString("${irdb_lighting_model_key_list.get(i)}")
-                        val order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_model_key_list.get(i)}\", \"value\": ${irdb_lighting_modle}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_lighting_model)
-                        Thread.sleep(100)
-                    }
+//                    for(i in 0 until irdb_lighting_model_key_list.size) {
+//                        val irdb_lighting_modle = irdb_lighting_json.getString("${irdb_lighting_model_key_list.get(i)}")
+//                        val order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_model_key_list.get(i)}\", \"value\": ${irdb_lighting_modle}}], \"id\": \"qwerasd$random\"}"
+//                        sendCommand(order_lighting_model)
+//                        Thread.sleep(100)
+//                    }
 
                     // air_conditioner ==========================================================================================================================================================
 
                     val irdb_aircon = irdb.getString("air_conditioner")
                     Log.d("asdf irdb_aircon", irdb_aircon)
                     val irdb_aircon_key = JSONObject(irdb_aircon)
-                    val irdb_aircon_model_key_list = mutableListOf<String>()
+                    val irdb_aircon_company_key_list = mutableListOf<String>()
+                    val irdb_aircon_modle_key_list = mutableListOf<String>()
+                    val irdb_aircon_modle2_key_list = mutableListOf<String>()
                     irdb_aircon_key.keys().forEach {
-                        Log.d("asdf irdb_aircon_key" , "${it}")
-                        irdb_aircon_model_key_list.add(it)
+                        Log.d("asdf irdb_aircon_company_key_list" , "${it}")
+                        irdb_aircon_company_key_list.add(it)
                     }
-                    val irdb_aircon_json = JSONObject(irdb_aircon)
-                    val irdb_aircon_modle1 = irdb_aircon_json.getString("${irdb_aircon_model_key_list.get(0)}")
-                    val irdb_aircon_modle2 = irdb_aircon_json.getString("${irdb_aircon_model_key_list.get(1)}")
-                    Log.d("asdf irdb_aircon_modle1", "${irdb_aircon_modle1}")
-                    Log.d("asdf irdb_aircon_modle2", "${irdb_aircon_modle2}")
 
-                    val order_aircon =
-                        "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
-                    sendCommand(order_aircon)
-                    Thread.sleep(200)
+                    val order_aircon_company = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_company_key_list.get(0)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_aircon_company)
+                    Thread.sleep(100)
+
+                    val order_aircon_company2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_company_key_list.get(1)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_aircon_company2)
+                    Thread.sleep(100)
+
+                    val irdb_aircon_json = JSONObject(irdb_aircon)
+                    val irdb_aircon_modle1_string = irdb_aircon_json.getString("${irdb_aircon_company_key_list.get(0)}")
+                    val irdb_aircon_modle2_string = irdb_aircon_json.getString("${irdb_aircon_company_key_list.get(1)}")
+//                    Log.d("asdf irdb_aircon_modle1_string", "${irdb_aircon_modle1_string}")
+//                    Log.d("asdf irdb_aircon_modle2_string", "${irdb_aircon_modle2_string}")
+
+                    val irdb_aircon_modle = irdb_aircon_json.getString("${irdb_aircon_company_key_list.get(0)}")
+                    val irdb_aircon_modle_key = JSONObject(irdb_aircon_modle)
+                    irdb_aircon_modle_key.keys().forEach {
+                        Log.d("asdf irdb_aircon_modle_key_list" , "${it}")
+                        irdb_aircon_modle_key_list.add(it)
+                    }
+
+                    val irdb_aircon_modle2 = irdb_aircon_json.getString("${irdb_aircon_company_key_list.get(1)}")
+                    val irdb_aircon_modle2_key = JSONObject(irdb_aircon_modle2)
+                    irdb_aircon_modle2_key.keys().forEach {
+                        Log.d("asdf irdb_aircon_modle2_key_list" , "${it}")
+                        irdb_aircon_modle2_key_list.add(it)
+                    }
+
+                    val irdb_aircon_modle_value = irdb_aircon_modle_key.getString(irdb_aircon_modle_key_list.get(0).toString())
+                    val irdb_aircon_modle_value2 = irdb_aircon_modle_key.getString(irdb_aircon_modle_key_list.get(1).toString())
+                    val irdb_aircon_modle_value3 = irdb_aircon_modle_key.getString(irdb_aircon_modle_key_list.get(2).toString())
+
+                    val irdb_aircon_modle2_value = irdb_aircon_modle2_key.getString(irdb_aircon_modle2_key_list.get(0).toString())
+                    val irdb_aircon_modle2_value2 = irdb_aircon_modle2_key.getString(irdb_aircon_modle2_key_list.get(1).toString())
+                    val irdb_aircon_modle2_value3 = irdb_aircon_modle2_key.getString(irdb_aircon_modle2_key_list.get(2).toString())
+
+//                    Log.d("asdf irdb_aircon_modle_value", "${irdb_aircon_modle_value}")
+//                    Log.d("asdf irdb_aircon_modle2_value2", "${irdb_aircon_modle2_value2}")
+//                    Log.d("asdf irdb_aircon_modle2_value3", "${irdb_aircon_modle2_value3}")
+
+                    for (i in 1..roomList.size) {
+                        sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
+                        val spinnerSelect7_Company = sharedPreferences.getInt("spinnerSelect7_Company", 0)
+                        val spinnerSelect7_Model = sharedPreferences.getInt("spinnerSelect7_Model", 0)
+
+                        Log.d("asdf irdb spinnerSelect7_Company ", "${spinnerSelect7_Company}")
+                        Log.d("asdf irdb spinnerSelect7_Model", "${spinnerSelect7_Model}")
+
+                        when(spinnerSelect7_Company) {
+                            // lg
+                            1 -> {
+                                Log.d("asdf input lg", "lg")
+                                when(spinnerSelect7_Model) {
+                                    1 -> {
+                                        val order_aircon_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_company_key_list.get(spinnerSelect7_Company-1)}/${irdb_aircon_modle_key_list.get(spinnerSelect7_Model-1)}\", \"value\": ${irdb_aircon_modle_value}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_aircon_model)
+                                    }
+                                    2 -> {
+                                        val order_aircon_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_company_key_list.get(spinnerSelect7_Company-1)}/${irdb_aircon_modle_key_list.get(spinnerSelect7_Model-1)}\", \"value\": ${irdb_aircon_modle_value2}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_aircon_model2)
+                                    }
+                                    3 -> {
+                                        val order_aircon_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_company_key_list.get(spinnerSelect7_Company-1)}/${irdb_aircon_modle_key_list.get(spinnerSelect7_Model-1)}\", \"value\": ${irdb_aircon_modle_value3}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_aircon_model3)
+                                    }
+                                }
+                            }
+                            // samsung
+                            2 -> {
+                                Log.d("asdf input samsung", "samsung")
+                                when(spinnerSelect7_Model) {
+                                    1 -> {
+                                        val order_aircon_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_company_key_list.get(spinnerSelect7_Company-1)}/${irdb_aircon_modle2_key_list.get(spinnerSelect7_Model-1)}\", \"value\": ${irdb_aircon_modle2_value}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_aircon_model)
+                                    }
+                                    2 -> {
+                                        val order_aircon_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_company_key_list.get(spinnerSelect7_Company-1)}/${irdb_aircon_modle2_key_list.get(spinnerSelect7_Model-1)}\", \"value\": ${irdb_aircon_modle2_value2}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_aircon_model2)
+                                    }
+                                    3 -> {
+                                        val order_aircon_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_company_key_list.get(spinnerSelect7_Company-1)}/${irdb_aircon_modle2_key_list.get(spinnerSelect7_Model-1)}\", \"value\": ${irdb_aircon_modle2_value3}}], \"id\": \"qwerasd$random\"}"
+                                        sendCommand(order_aircon_model3)
+                                    }
+                                }
+                            }
+                        }
+                    }
 
 //                    한번에 보내는거
 //                    val order_aircon = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner\", \"value\": ${irdb_aircon}}], \"id\": \"qwerasd$random\"}"
 //                    sendCommand(order_aircon)
 //                    Thread.sleep(200)
 
-                    for(i in 0 until irdb_aircon_model_key_list.size) {
-                        val irdb_aircon_modle = irdb_aircon_json.getString("${irdb_aircon_model_key_list.get(i)}")
-                        val order_aircon_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_model_key_list.get(i)}\", \"value\": ${irdb_aircon_modle}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_aircon_model)
-                        Thread.sleep(100)
-                    }
+//                    for(i in 0 until irdb_aircon_model_key_list.size) {
+//                        val irdb_aircon_modle = irdb_aircon_json.getString("${irdb_aircon_model_key_list.get(i)}")
+//                        val order_aircon_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_aircon_model_key_list.get(i)}\", \"value\": ${irdb_aircon_modle}}], \"id\": \"qwerasd$random\"}"
+//                        sendCommand(order_aircon_model)
+//                        Thread.sleep(100)
+//                    }
 
                 }
 

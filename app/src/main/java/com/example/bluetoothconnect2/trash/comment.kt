@@ -117,4 +117,78 @@ class comment {
 //                    }
 //                    receiveData()
 //                }
+
+
+    //when (spinnerSelect4_Company) {
+//                        1 -> {
+//                            Log.d("asdf spinnerSelect4_Company value check1" , "1234")
+//                            order_lighting_company = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(0)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+//                            when (spinnerSelect4_Model) {
+//                                1 -> {
+//
+//                                }
+//                                2 -> {
+//
+//                                }
+//                                3 -> {
+//
+//                                }
+//                            }
+//                        }
+//                        2 -> {
+//                            Log.d("asdf spinnerSelect4_Company value check2" , "5678")
+//                            order_lighting_company = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(1)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+//                            when (spinnerSelect4_Model) {
+//                                1 -> {
+//                                    Log.d("asdf spinnerSelect4_Model value check1" , "qw")
+//                                    order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(1)}/${irdb_lighting_modle_key_list.get(0)}\", \"value\": ${irdb_lighting_modle_value}}], \"id\": \"qwerasd$random\"}"
+//                                }
+//                                2 -> {
+//                                    Log.d("asdf spinnerSelect4_Model value check2" , "er")
+//                                    order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(1)}/${irdb_lighting_modle_key_list.get(1)}\", \"value\": ${irdb_lighting_modle_value2}}], \"id\": \"qwerasd$random\"}"
+//                                }
+//                                3 -> {
+//                                    Log.d("asdf spinnerSelect4_Model value check3" , "as")
+//                                    order_lighting_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(1)}/${irdb_lighting_modle_key_list.get(2)}\", \"value\": ${irdb_lighting_modle_value3}}], \"id\": \"qwerasd$random\"}"
+//                                }
+//                            }
+//                        }
+//                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+

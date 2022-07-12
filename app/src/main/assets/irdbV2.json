@@ -16,6 +16,14 @@
           "off": "88C00510",
           "on": "88008080"
         }
+      },
+      "mp-eu3005": {
+        "type": "nec",
+        "bitlen": 24,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
       }
     },
     "sony": {
@@ -30,6 +38,14 @@
       "sonyModel2": {
         "type": "nec",
         "bitlen": 36,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "sonyModel3": {
+        "type": "nec",
+        "bitlen": 30,
         "data": {
           "off": "88C00510",
           "on": "88008080"
@@ -54,6 +70,14 @@
           "off": "88C00510",
           "on": "88008080"
         }
+      },
+      "lgModel3": {
+        "type": "nec",
+        "bitlen": 22,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
       }
     },
     "samsung": {
@@ -68,6 +92,14 @@
       "samsungModel2": {
         "type": "nec",
         "bitlen": 24,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "samsungModel3": {
+        "type": "nec",
+        "bitlen": 30,
         "data": {
           "off": "88C00510",
           "on": "88008080"
@@ -92,6 +124,14 @@
           "off": "88C00510",
           "on": "88008080"
         }
+      },
+      "sktModel3": {
+        "type": "nec",
+        "bitlen": 26,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
       }
     },
     "kt": {
@@ -106,6 +146,14 @@
       "ktModel2": {
         "type": "nec2",
         "bitlen": 36,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "ktModel3": {
+        "type": "nec4",
+        "bitlen": 28,
         "data": {
           "off": "88C00510",
           "on": "88008080"
