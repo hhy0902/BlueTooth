@@ -397,15 +397,23 @@ class MainActivity2 : AppCompatActivity() {
                     val irdbString = assets.open("irdbV2.json").reader().readText()
                     val irdb = JSONObject(irdbString)
                     Log.d("asdf irdbString", irdb.toString())
+                    Log.d("asdf irdbString", irdb.length().toString())
                     val irdb_device_key_list = mutableListOf<String>()
                     irdb.keys().forEach {
                         irdb_device_key_list.add(it)
                         Log.d("asdf irdb key", it)
+                        val irdbDeviceDict = irdb.getString(it)
+                        Log.d("asdf irdb_wook", irdbDeviceDict)
+
+                        val devicedb = JSONObject(irdbDeviceDict)
+                        devicedb.keys().forEach{
+                            val devicedbCompanyDict = devicedb.getString(it)
+                            Log.d("asdf irdb_wook", devicedbCompanyDict)
+                        }
                     }
 
                     // projector ==========================================================================================================================================================
-
-                    val irdb_projector = irdb.getString("projector")
+                    val irdb_projector = irdb.getString("${irdb_device_key_list.get(0)}")
                     Log.d("asdf irdb_projector", irdb_projector)
                     val irdb_projector_key = JSONObject(irdb_projector)
                     val irdb_projector_company_key_list = mutableListOf<String>()
@@ -424,10 +432,6 @@ class MainActivity2 : AppCompatActivity() {
                     sendCommand(order_projector_company2)
 
                     val irdb_projector_json = JSONObject(irdb_projector)
-                    val irdb_projector_modle1_string = irdb_projector_json.getString("${irdb_projector_company_key_list.get(0)}")
-                    val irdb_projector_modle2_string = irdb_projector_json.getString("${irdb_projector_company_key_list.get(1)}")
-//                    Log.d("asdf irdb_projector_modle1_string", "${irdb_projector_modle1_string}")
-//                    Log.d("asdf irdb_projector_modle2_string", "${irdb_projector_modle2_string}")
 
                     val irdb_projector_modle = irdb_projector_json.getString("${irdb_projector_company_key_list.get(0)}")
                     val irdb_projector_modle_key = JSONObject(irdb_projector_modle)
@@ -490,15 +494,15 @@ class MainActivity2 : AppCompatActivity() {
                                 Log.d("asdf input sony", "sony")
                                 when(spinnerSelect5_Model) {
                                     1 -> {
-                                        val order_projector_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle_value}}], \"id\": \"qwerasd$random\"}"
+                                        val order_projector_model = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle2_value}}], \"id\": \"qwerasd$random\"}"
                                         sendCommand(order_projector_model)
                                     }
                                     2 -> {
-                                        val order_projector_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle_value2}}], \"id\": \"qwerasd$random\"}"
+                                        val order_projector_model2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle2_value2}}], \"id\": \"qwerasd$random\"}"
                                         sendCommand(order_projector_model2)
                                     }
                                     3 -> {
-                                        val order_projector_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle_value3}}], \"id\": \"qwerasd$random\"}"
+                                        val order_projector_model3 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${irdb_projector_company_key_list.get(spinnerSelect5_Company-1)}/${irdb_projector_modle2_key_list.get(spinnerSelect5_Model-1)}\", \"value\": ${irdb_projector_modle2_value3}}], \"id\": \"qwerasd$random\"}"
                                         sendCommand(order_projector_model3)
                                     }
                                 }
@@ -579,10 +583,6 @@ class MainActivity2 : AppCompatActivity() {
                     sendCommand(order_lighting_company2)
 
                     val irdb_lighting_json = JSONObject(irdb_lighting)
-                    val irdb_lighting_modle1_string = irdb_lighting_json.getString("${irdb_lighting_company_key_list.get(0)}")
-                    val irdb_lighting_modle2_string = irdb_lighting_json.getString("${irdb_lighting_company_key_list.get(1)}")
-//                    Log.d("asdf irdb_lighting_modle1_string", "${irdb_lighting_modle1_string}")
-//                    Log.d("asdf irdb_lighting_modle2_string", "${irdb_lighting_modle2_string}")
 
                     val irdb_lighting_modle = irdb_lighting_json.getString("${irdb_lighting_company_key_list.get(0)}")
                     val irdb_lighting_modle_key = JSONObject(irdb_lighting_modle)
@@ -700,10 +700,6 @@ class MainActivity2 : AppCompatActivity() {
                     Thread.sleep(100)
 
                     val irdb_aircon_json = JSONObject(irdb_aircon)
-                    val irdb_aircon_modle1_string = irdb_aircon_json.getString("${irdb_aircon_company_key_list.get(0)}")
-                    val irdb_aircon_modle2_string = irdb_aircon_json.getString("${irdb_aircon_company_key_list.get(1)}")
-//                    Log.d("asdf irdb_aircon_modle1_string", "${irdb_aircon_modle1_string}")
-//                    Log.d("asdf irdb_aircon_modle2_string", "${irdb_aircon_modle2_string}")
 
                     val irdb_aircon_modle = irdb_aircon_json.getString("${irdb_aircon_company_key_list.get(0)}")
                     val irdb_aircon_modle_key = JSONObject(irdb_aircon_modle)
@@ -828,7 +824,7 @@ class MainActivity2 : AppCompatActivity() {
                 //val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_1/units/1\"}, \"id\": \"ro33b7sz\"}"
 
                 // 방 개수만큼 blaster/node_id를 구하는 sendCommand로 명령어 보내고 receiveData로 불러오기
-               for(i in 1..roomList.size) {
+                for(i in 1..roomList.size) {
                     val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/blaster/node_id\"}, \"id\": \"qwerasd$random\"}"
                     sendCommand(loadJson)
                     receiveData()
@@ -904,7 +900,7 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
 
-                // load 클릭해서 쉐어드 프리퍼런스에 true 입
+                // load 클릭해서 쉐어드 프리퍼런스에 true 입력
                 editor.putBoolean("btnLoadClick",true)
                 editor.commit()
 
@@ -1050,6 +1046,33 @@ class MainActivity2 : AppCompatActivity() {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
