@@ -11,7 +11,7 @@
       },
       "mp-eu2005": {
         "type": "nec",
-        "bitlen": 32,
+        "bitlen": 30,
         "data": {
           "off": "88C00510",
           "on": "88008080"
