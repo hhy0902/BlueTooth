@@ -181,6 +181,27 @@ class MainActivity3 : AppCompatActivity() {
             Log.d("asdf irdb_lighting_company_key", "${it}")
             irdb_lighting_company_key_list.add(it)
         }
+
+        for (i in 1..irdb_lighting_company_key_list.size) {
+            val irdb_test = irdb_lighting_key.getString("${irdb_lighting_company_key_list.get(i-1)}")
+            val irdb_test_json = JSONObject(irdb_test)
+            Log.d("asdf irdb_test", "${irdb_test}")
+            irdb_test_json.keys().forEach {
+                Log.d("asdf irdb_test_json", "${it}")
+            }
+        }
+
+
+//        for(i in 0..irdb_lighting_company_key_list.size) {
+//            val irdb_lighting_company_key = irdb_lighting_key.getString("${irdb_lighting_company_key_list.get(i)}")
+//            val irdb_lighting_model_key = JSONObject(irdb_lighting_company_key)
+//            val irdb_lighting_model_key_list = mutableListOf<String>()
+//            irdb_lighting_model_key.keys().forEach {
+//                Log.d("asdf irdb_lighting_model_key", "${it}")
+//                irdb_lighting_model_key_list.add(it)
+//            }
+//        }
+
         val irdb_lighting_company_key = irdb_lighting_key.getString("skt")
         val irdb_lighting_model_key = JSONObject(irdb_lighting_company_key)
         val irdb_lighting_model_key_list = mutableListOf<String>()
