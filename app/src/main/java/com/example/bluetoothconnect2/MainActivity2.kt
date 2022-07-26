@@ -251,7 +251,7 @@ class MainActivity2 : AppCompatActivity() {
                     jsonrpcObject.put("method","patch_gz")
                     jsonrpcArrayObject.put("op","add")
                     jsonrpcArrayObject.put("path","/room_$i")
-                    jsonrpcValue2.put("node_id",sharedPreferences.all.get("editdata1").toString().toInt())
+                    jsonrpcValue2.put("nid",sharedPreferences.all.get("editdata1").toString().toInt())
                     jsonrpcValue.put("blaster",jsonrpcValue2)
 
                     for(z in 1 until 7) {
