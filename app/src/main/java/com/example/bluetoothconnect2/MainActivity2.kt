@@ -82,9 +82,6 @@ class MainActivity2 : AppCompatActivity() {
         roomList = mutableListOf<Room>()
         roomList.add(Room("room 1"))
 
-        var editDataList = mutableListOf<String>()
-        var spinnerDataList = mutableListOf<String>()
-
         binding.gateWayText.text = "$address $name"
 
         // 룸 추가한거 유지를 위해 ActivityResultLauncher 사용?
@@ -92,22 +89,6 @@ class MainActivity2 : AppCompatActivity() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 when(it.resultCode) {
                     RESULT_OK -> {
-                        spinnerData1 = it.data?.getStringExtra("spinner1").toString()
-                        editData1 = it.data?.getStringExtra("editdata1").toString()
-                        spinnerData2 = it.data?.getStringExtra("spinner2").toString()
-                        editData2 = it.data?.getStringExtra("editdata2").toString()
-                        spinnerData3 = it.data?.getStringExtra("spinner3").toString()
-                        editData3 = it.data?.getStringExtra("editdata3").toString()
-                        spinnerData4 = it.data?.getStringExtra("spinner4").toString()
-                        editData4 = it.data?.getStringExtra("editdata4").toString()
-                        spinnerData5 = it.data?.getStringExtra("spinner5").toString()
-                        editData5 = it.data?.getStringExtra("editdata5").toString()
-                        spinnerData6 = it.data?.getStringExtra("spinner6").toString()
-                        editData6 = it.data?.getStringExtra("editdata6").toString()
-                        spinnerData7 = it.data?.getStringExtra("spinner7").toString()
-                        editData7 = it.data?.getStringExtra("editdata7").toString()
-
-
                         roomName = it.data?.getStringExtra("roomName").toString()
                         Log.d("asdf roomname","$roomName")
                     }
@@ -188,56 +169,32 @@ class MainActivity2 : AppCompatActivity() {
         // gateway로 값을 저장하는 버튼 누르면 gateway로 값이 들어감
         binding.btnSave.setOnClickListener {
             Log.d("qwer", roomList.size.toString())
-            binding.dataText.text = spinnerData1 + spinnerData2 + spinnerData3 + spinnerData4 + spinnerData5 + spinnerData6 + spinnerData7 + spinnerData8 + spinnerData9 + spinnerData10
-            binding.dataText2.text = editData1 + editData2 + editData3 + editData4 + editData5 + editData6 + editData7 + editData8 + editData9 + editData10
-
-            spinnerDataList.add(0, spinnerData1)
-            spinnerDataList.add(1, spinnerData2)
-            spinnerDataList.add(2, spinnerData3)
-            spinnerDataList.add(3, spinnerData4)
-            spinnerDataList.add(4, spinnerData5)
-            spinnerDataList.add(5, spinnerData6)
-            spinnerDataList.add(6, spinnerData7)
-            spinnerDataList.add(7, spinnerData8)
-
-
-            editDataList.add(0, editData1)
-            editDataList.add(1, editData2)
-            editDataList.add(2, editData3)
-            editDataList.add(3, editData4)
-            editDataList.add(4, editData5)
-            editDataList.add(5, editData6)
-            editDataList.add(6, editData7)
-            editDataList.add(7, editData8)
-
 
             Log.d("asdf 1", isConnected.toString())
             Log.d("asdf 2", bluetoothSocket?.isConnected.toString())
-
-
 
             if (bluetoothSocket?.isConnected == true) {
 
                 // 룸1부터 10까지 초기화
                 for (p in 1..10) {
-                    val testDelete3 =
-                        "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
+                    val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
                     sendCommand(testDelete3)
                     Thread.sleep(200)
                 }
 
                 //irdb 초기화
-                val testDelete4 =
-                    "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/irdb\"}],\"id\":\"qwerasd$random\"}"
+                val testDelete4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/irdb\"}],\"id\":\"qwerasd$random\"}"
                 sendCommand(testDelete4)
                 Thread.sleep(200)
 
-
+                val numList = mutableListOf<Int>(0, 7, 3, 1, 9, 10, 6, 2)
+                //신버전 : 0=ir블래스터 더미 값, 1=조명, 2=터치스크린, 3=스피커, 6=에어컨, 7=pc, 9=프로젝터1, 10=프로젝터2
 
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 룸 틀만 만들어서 보내줌
                 // 틀이랑 내용물 같이 보내기?
                 for(i in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
+
 
                     val jsonrpcObject = JSONObject()
                     val jsonrpcArray = JSONArray()
@@ -245,7 +202,6 @@ class MainActivity2 : AppCompatActivity() {
                     val jsonrpcValue = JSONObject()
                     val jsonrpcValue2 = JSONObject()
                     val jsonrpcUnitsValue = JSONObject()
-                    val irdbObject = JSONObject()
 
                     jsonrpcObject.put("jsonrpc","2.0")
                     jsonrpcObject.put("method","patch_gz")
@@ -254,22 +210,23 @@ class MainActivity2 : AppCompatActivity() {
                     jsonrpcValue2.put("nid",sharedPreferences.all.get("editdata1").toString().toInt())
                     jsonrpcValue.put("blaster",jsonrpcValue2)
 
-                    for(z in 1 until 7) {
+                    for(z in 1 until 8) {
                         var jsonrpcUnitsValue2 = JSONObject()
                         var jsonrpcPlugValue = JSONObject()
-/*
-        1=pc, 2=스피커, 3=조명, 4=프로젝터1, 5=프로젝터2, 6=에어컨
-*/
+
+                        // 1=pc, 2=스피커, 3=조명, 4=프로젝터1, 5=프로젝터2, 6=에어컨 7=터치스크린 추가하기
+                        // 스피커 값 if 문에 들어가는거 변경해주기
+
                         if(z == 4 || z == 5) {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
                             jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-                        } else if(z == 1 || z == 2)   {
+                        } else if(z == 1 || z == 7)   {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-                        } else if(z == 6 || z == 3) {
+                        } else if(z == 6 || z == 3 || z == 2 ) {
                             jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
                         }
-
-                        jsonrpcUnitsValue.put("$z", jsonrpcUnitsValue2)
+                        val temp = numList[z]
+                        jsonrpcUnitsValue.put("$temp", jsonrpcUnitsValue2)
                     }
 
                     jsonrpcValue.put("units", jsonrpcUnitsValue)
@@ -287,17 +244,18 @@ class MainActivity2 : AppCompatActivity() {
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 plug/nid만 만들어서 보내줌
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
-                    for (i in 1 until 7) {
+                    for (i in 1 until 8) {
 
-                        if (i != 3 && i != 6) {
+                        if (i != 3 && i != 6 && i !=2) {
                             val jsonrpcObject_2 = JSONObject()
                             val jsonrpcArray_2 = JSONArray()
                             val jsonrpcArrayObject_2 = JSONObject()
 
+                            val temp = numList[i]
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/plug/nid")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/nid")
                             jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i+1}").toString().toInt())
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
                             jsonrpcObject_2.put("params", jsonrpcArray_2)
@@ -313,15 +271,16 @@ class MainActivity2 : AppCompatActivity() {
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 plug/use_switch만 만들어서 보내줌
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
-                    for (i in 1 until 7) {
-                        if (i != 3 && i != 6) {
+                    for (i in 1 until 8) {
+                        if (i != 3 && i != 6 && i !=2) {
                             val jsonrpcObject_2 = JSONObject()
                             val jsonrpcArray_2 = JSONArray()
                             val jsonrpcArrayObject_2 = JSONObject()
+                            val temp = numList[i]
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/plug/use_switch")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/use_switch")
 
                             if (i == 1) {
                                 jsonrpcArrayObject_2.put("value", true)
@@ -335,9 +294,9 @@ class MainActivity2 : AppCompatActivity() {
                             sendCommand(jsonrpcObject_2.toString())
 
                             Thread.sleep(100)
-                            Log.d("asdf jsonrpcobject_use_switch_${q}_$i", jsonrpcObject_2.toString())
-                            Log.d("asdf jsonrpcobject_spinnerSelect${q}_$i", sharedPreferences.all.get("spinnerSelect${i}").toString())
-                            Log.d("asdf jsonrpcobject_editdata${q}_$i", sharedPreferences.all.get("editdata${i}").toString())
+//                            Log.d("asdf jsonrpcobject_use_switch_${q}_$i", jsonrpcObject_2.toString())
+//                            Log.d("asdf jsonrpcobject_spinnerSelect${q}_$i", sharedPreferences.all.get("spinnerSelect${i}").toString())
+//                            Log.d("asdf jsonrpcobject_editdata${q}_$i", sharedPreferences.all.get("editdata${i}").toString())
                         }
 
                     }
@@ -346,17 +305,19 @@ class MainActivity2 : AppCompatActivity() {
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 blaster/ir_key만 만들어서 보내줌
                 for(q in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
-                    for (i in 1 until 7) {
-                        if(i == 3 || i == 6 || i == 4 || i == 5) {
+                    for (i in 1 until 8) {
+                        if(i == 2 || i == 3 || i == 6 || i == 4 || i == 5) {
                             val jsonrpcObject_2 = JSONObject()
                             val jsonrpcArray_2 = JSONArray()
                             val jsonrpcArrayObject_2 = JSONObject()
 
+                            val temp = numList[i]
+
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$i/blaster/ir_key")
-                            jsonrpcArrayObject_2.put("value", "${sharedPreferences.all.get("spinnerData${i+1}_Device")}/${sharedPreferences.all.get("spinnerData${i+1}_Company")}/${sharedPreferences.all.get("spinnerData${i+1}_Model")}")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/blaster/ir_key")
+                            jsonrpcArrayObject_2.put("value", "/${sharedPreferences.all.get("spinnerData${i+1}_Device")}/${sharedPreferences.all.get("spinnerData${i+1}_Company")}/${sharedPreferences.all.get("spinnerData${i+1}_Model")}")
                             //jsonrpcArrayObject_2.put("value", "projector/maxell/mp-eu5002")
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
                             jsonrpcObject_2.put("params", jsonrpcArray_2)
@@ -382,7 +343,7 @@ class MainActivity2 : AppCompatActivity() {
                     sendCommand(order_projector)
                     Thread.sleep(100)
 
-                    val order_lighting = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    val order_lighting = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lamp\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
                     sendCommand(order_lighting)
                     Thread.sleep(100)
 
@@ -399,7 +360,7 @@ class MainActivity2 : AppCompatActivity() {
                     val irdb_projector_company_key_list = mutableListOf<String>()
                     val irdb_air_conditioner_company_key_list = mutableListOf<String>()
 
-                    val irdb_lighting = irdb.getString("lighting")
+                    val irdb_lighting = irdb.getString("lamp")
                     val irdb_lighting_key = JSONObject(irdb_lighting)
 
                     val irdb_projector = irdb.getString("projector")
@@ -434,7 +395,7 @@ class MainActivity2 : AppCompatActivity() {
                         Thread.sleep(100)
                     }
                     for (i in 1..irdb_lighting_company_key_list.size) {
-                        val order_lighting_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${irdb_lighting_company_key_list.get(i-1)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                        val order_lighting_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lamp/${irdb_lighting_company_key_list.get(i-1)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
                         sendCommand(order_lighting_address)
                         Thread.sleep(100)
                     }
@@ -447,7 +408,7 @@ class MainActivity2 : AppCompatActivity() {
                         val spinnerData4_Company = sharedPreferences.getString("spinnerData4_Company", "")
                         val spinnerData4_Model = sharedPreferences.getString("spinnerData4_Model", "")
 
-                        val tempLighting = JSONObject(irdb.getString("lighting").toString())
+                        val tempLighting = JSONObject(irdb.getString("lamp").toString())
                         val tempLightingData = JSONObject(tempLighting.getString("${spinnerData4_Company}"))
                         val tempLightingModelData = tempLightingData.getString("${spinnerData4_Model}")
                         Log.d("asdf tempLightingModelData", tempLightingModelData)
@@ -460,12 +421,12 @@ class MainActivity2 : AppCompatActivity() {
 //                            Log.d("asdf order_lighting_address", "${order_lighting_address}")
 //                        }
 
-                        val order_lighting_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${spinnerData4_Company}/${spinnerData4_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                        val order_lighting_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lamp/${spinnerData4_Company}/${spinnerData4_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
                         sendCommand(order_lighting_address)
                         Thread.sleep(100)
                         Log.d("asdf order_lighting_deep_address", "${order_lighting_address}")
 
-                        val order_lighting_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lighting/${spinnerData4_Company}/${spinnerData4_Model}\", \"value\": ${tempLightingModelData}}], \"id\": \"qwerasd$random\"}"
+                        val order_lighting_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lamp/${spinnerData4_Company}/${spinnerData4_Model}\", \"value\": ${tempLightingModelData}}], \"id\": \"qwerasd$random\"}"
                         sendCommand(order_lighting_value)
                         Thread.sleep(100)
                         Log.d("asdf order_lighting_value", "${order_lighting_value}")
@@ -529,8 +490,10 @@ class MainActivity2 : AppCompatActivity() {
 
                 }
 
-                editDataList.clear()
-                spinnerDataList.clear()
+                val commit = "{\"jsonrpc\": \"2.0\", \"method\": \"commit_gz\", \"id\": \"qwerasd$random\"}"
+                sendCommand(commit)
+
+                Toast.makeText(this,"commit 완료",Toast.LENGTH_SHORT).show()
 
                 Toast.makeText(this,"전송 완료",Toast.LENGTH_SHORT).show()
             }
@@ -557,6 +520,8 @@ class MainActivity2 : AppCompatActivity() {
             // load 버튼을 누르면 sharedPreferences 생성 true/false로 클릭여부 확인하여 만약 클릭하면 룸에다가 가져온 정보 보여줌
             val sharedPreferences = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
             val editor : SharedPreferences.Editor = sharedPreferences.edit()
+            val numList = mutableListOf<Int>(0, 7, 3, 1, 9, 10, 6, 2)
+            //신버전 : 0=ir블래스터 더미 값, 1=조명, 2=터치스크린, 3=스피커, 6=에어컨, 7=pc, 9=프로젝터1, 10=프로젝터2
 
             // 연결되었으면 실행
             if (bluetoothSocket?.isConnected == true) {
@@ -565,11 +530,11 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 방 개수만큼 blaster/node_id를 구하는 sendCommand로 명령어 보내고 receiveData로 불러오기
                 for(i in 1..roomList.size) {
-                    val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/blaster/node_id\"}, \"id\": \"qwerasd$random\"}"
+                    val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/blaster/nid\"}, \"id\": \"qwerasd$random\"}"
                     sendCommand(loadJson)
                     receiveData()
                     val jsonObject = JSONObject(readMessage)
-                    //Log.d("asdf jsonobject", "${jsonObject}")
+                    Log.d("asdf jsonobject", "${jsonObject}")
                     val result = jsonObject.get("result")
                     Log.d("asdf room${i}_blaster", result.toString())
 
@@ -582,9 +547,10 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 plug/nid를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
-                    for (z in 1 until 7) {
-                        if(z != 3 && z != 6) {
-                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/plug/nid\"}, \"id\": \"qwerasd$random\"}"
+                    for (z in 1 until 8) {
+                        if(z != 3 && z != 6 && z != 2) {
+                            val temp = numList[z]
+                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/nid\"}, \"id\": \"qwerasd$random\"}"
                             sendCommand(loadJson)
                             receiveData()
                             val jsonObject = JSONObject(readMessage)
@@ -604,9 +570,10 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 plug/use_switch를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
-                    for (z in 1 until 7) {
-                        if(z != 3 && z != 6) {
-                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/plug/use_switch\"}, \"id\": \"qwerasd$random\"}"
+                    for (z in 1 until 8) {
+                        if(z != 3 && z != 6 && z != 2) {
+                            val temp = numList[z]
+                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/use_switch\"}, \"id\": \"qwerasd$random\"}"
                             sendCommand(loadJson)
                             receiveData()
                             val jsonObject = JSONObject(readMessage)
@@ -620,9 +587,10 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 blaster/ir_key를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
-                    for (z in 1 until 7) {
-                        if(z == 3 || z == 6 || z == 4 || z == 5) {
-                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$z/blaster/ir_key\"}, \"id\": \"qwerasd$random\"}"
+                    for (z in 1 until 8) {
+                        if(z == 2 || z == 3 || z == 6 || z == 4 || z == 5) {
+                            val temp = numList[z]
+                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/blaster/ir_key\"}, \"id\": \"qwerasd$random\"}"
                             sendCommand(loadJson)
                             receiveData()
                             val jsonObject = JSONObject(readMessage)

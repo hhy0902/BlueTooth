@@ -29,15 +29,11 @@ class MainActivity3 : AppCompatActivity() {
 
     var roomName = ""
 
-    var spinnerData1 : String = ""
-    var spinnerData2 : String = ""
-    var spinnerData3 : String = ""
-    var spinnerData4 : String = ""
-    var spinnerData5 : String = ""
-    var spinnerData6 : String = ""
-    var spinnerData7 : String = ""
+    var spinnerData3_Device : String = "speaker"
+    var spinnerData3_Company : String = ""
+    var spinnerData3_Model : String = ""
 
-    var spinnerData4_Device : String = "lighting"
+    var spinnerData4_Device : String = "lamp"
     var spinnerData4_Company : String = ""
     var spinnerData4_Model : String = ""
 
@@ -62,6 +58,7 @@ class MainActivity3 : AppCompatActivity() {
     var editData5 = ""
     var editData6 = ""
     var editData7 = ""
+    var editData8 = ""
 
 
     var spinnerSelect1 = 0
@@ -71,6 +68,11 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerSelect5 = 0
     var spinnerSelect6 = 0
     var spinnerSelect7 = 0
+    var spinnerSelect8 = 0
+
+    var spinnerSelect3_Device = 1
+    var spinnerSelect3_Company = 0
+    var spinnerSelect3_Model = 0
 
     var spinnerSelect4_Device = 1
     var spinnerSelect4_Company = 0
@@ -100,18 +102,6 @@ class MainActivity3 : AppCompatActivity() {
         binding2.numberText.text = "Room $abcd"
         roomName = "$abcd"
 
-        // 스피너 값 초기 설정해주기
-        Thread {
-            runOnUiThread {
-                binding2.spinner1.setSelection(9)
-                binding2.spinner2.setSelection(1)
-                binding2.spinner3.setSelection(4)
-                binding2.spinner4.setSelection(8)
-                binding2.spinner5.setSelection(5)
-                binding2.spinner6.setSelection(6)
-                binding2.spinner7.setSelection(10)
-            }
-        }.start()
 
         val sharedPreferences4 = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
@@ -121,13 +111,28 @@ class MainActivity3 : AppCompatActivity() {
 
         val irdb_projector = irdb.getString("projector")
         Log.d("asdf irdb_projector", irdb_projector)
-        val irdb_lighting = irdb.getString("lighting")
+        val irdb_lighting = irdb.getString("lamp")
         Log.d("asdf irdb_lighting", irdb_lighting)
         val irdb_air_conditioner = irdb.getString("air_conditioner")
         Log.d("asdf irdb_air_conditioner", irdb_air_conditioner)
+        val irdb_speaker = irdb.getString("speaker")
+
+        // speaker ==========================================================================================================================================================
+        val irdb_speaker_key = JSONObject(irdb_speaker)
+        val irdb_speaker_company_key_list = mutableListOf<String>()
+        irdb_speaker_key.keys().forEach {
+            Log.d("asdf irdb_speaker_company_key", "${it}")
+            irdb_speaker_company_key_list.add(it)
+        }
+        val irdb_speaker_company_key = irdb_speaker_key.getString("blitz")
+        val irdb_speaker_model_key = JSONObject(irdb_speaker_company_key)
+        val irdb_speaker_model_key_list = mutableListOf<String>()
+        irdb_speaker_model_key.keys().forEach {
+            Log.d("asdf irdb_speaker_model_key", "${it}")
+            irdb_speaker_model_key_list.add(it)
+        }
 
         // projector ==========================================================================================================================================================
-
         val irdb_projector_key = JSONObject(irdb_projector)
         val irdb_projector_company_key_list = mutableListOf<String>()
         irdb_projector_key.keys().forEach {
@@ -151,7 +156,6 @@ class MainActivity3 : AppCompatActivity() {
 
 
         // air_conditioner ==========================================================================================================================================================
-
         val irdb_aircon_key = JSONObject(irdb_air_conditioner)
         val irdb_aircon_company_key_list = mutableListOf<String>()
         irdb_aircon_key.keys().forEach {
@@ -174,7 +178,6 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // lighting ==========================================================================================================================================================
-
         val irdb_lighting_key = JSONObject(irdb_lighting)
         val irdb_lighting_company_key_list = mutableListOf<String>()
         irdb_lighting_key.keys().forEach {
@@ -202,7 +205,8 @@ class MainActivity3 : AppCompatActivity() {
 //            }
 //        }
 
-        val irdb_lighting_company_key = irdb_lighting_key.getString("skt")
+        //회사추가
+        val irdb_lighting_company_key = irdb_lighting_key.getString("grb")
         val irdb_lighting_model_key = JSONObject(irdb_lighting_company_key)
         val irdb_lighting_model_key_list = mutableListOf<String>()
         irdb_lighting_model_key.keys().forEach {
@@ -217,8 +221,19 @@ class MainActivity3 : AppCompatActivity() {
             irdb_lighting_model_key2_list.add(it)
         }
 
-        // 프로젝터 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
+        // 스피커 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
+        val speakerCompanyList = mutableListOf<String>()
+        speakerCompanyList.add("")
+        for(i in 0 until irdb_speaker_company_key_list.size) {
+            speakerCompanyList.add(irdb_speaker_company_key_list.get(i))
+        }
+        val speakerModelList = mutableListOf<String>()
+        speakerModelList.add("")
+        for(i in 0 until irdb_speaker_model_key_list.size) {
+            speakerModelList.add(irdb_speaker_model_key_list.get(i))
+        }
 
+        // 프로젝터 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
         val projectorCompanyList = mutableListOf<String>()
         projectorCompanyList.add("")
         for(i in 0 until irdb_projector_company_key_list.size) {
@@ -238,7 +253,6 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // 에어컨 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
-
         val airconCompanyList = mutableListOf<String>()
         airconCompanyList.add("")
         for(i in 0 until irdb_aircon_company_key_list.size) {
@@ -258,7 +272,6 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // 조명 리스트에 값 넣기 이게 스피너로 들어감  ==========================================================================================================================================================
-
         val lightingCompanyList = mutableListOf<String>()
         lightingCompanyList.add("")
         for (i in 0 until irdb_lighting_company_key_list.size) {
@@ -279,48 +292,29 @@ class MainActivity3 : AppCompatActivity() {
 
 
         // 스피너 설정
-        val spinnerAdapter1 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
-        binding2.spinner1.adapter = spinnerAdapter1
-        binding2.spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        val spinnerAdapter3_3 = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, speakerCompanyList)
+        binding2.spinner33.adapter = spinnerAdapter3_3
+        binding2.spinner33.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                spinnerData1 = binding2.spinner1.getItemAtPosition(p2).toString()
-                spinnerSelect1 = p2
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
+                spinnerData3_Company = binding2.spinner33.getItemAtPosition(p2).toString()
+                spinnerSelect3_Company = p2
 
-        val spinnerAdapter2 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
-        binding2.spinner2.adapter = spinnerAdapter2
-        binding2.spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                spinnerData2 = binding2.spinner2.getItemAtPosition(p2).toString()
-                spinnerSelect2 = p2
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-        }
-
-        val spinnerAdapter3 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
-        binding2.spinner3.adapter = spinnerAdapter3
-        binding2.spinner3.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                spinnerData3 = binding2.spinner3.getItemAtPosition(p2).toString()
-                spinnerSelect3 = p2
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-        }
-
-        val spinnerAdapter4 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
-        binding2.spinner4.adapter = spinnerAdapter4
-        binding2.spinner4.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                spinnerData4 = binding2.spinner4.getItemAtPosition(p2).toString()
-                spinnerSelect4 = p2
-                Log.d("asdf spinner", "$p2")
+                when(p2) {
+                    1 -> {
+                        val spinnerAdapter3_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, speakerModelList)
+                        binding2.spinner34.adapter = spinnerAdapter3_4
+                        binding2.spinner34.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                                spinnerData3_Model = binding2.spinner34.getItemAtPosition(p2).toString()
+                                spinnerSelect3_Model = p2
+                            }
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+                            }
+                        }
+                        val spinnerSelect3_Model = sharedPreferences4.getInt("spinnerSelect3_Model",0)
+                        binding2.spinner34.setSelection(spinnerSelect3_Model)
+                    }
+                }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
@@ -368,17 +362,6 @@ class MainActivity3 : AppCompatActivity() {
             }
         }
 
-        val spinnerAdapter5 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
-        binding2.spinner5.adapter = spinnerAdapter5
-        binding2.spinner5.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                spinnerData5 = binding2.spinner5.getItemAtPosition(p2).toString()
-                spinnerSelect5 = p2
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
-
         val spinnerAdapter5_3 = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item, projectorCompanyList)
         binding2.spinner53.adapter = spinnerAdapter5_3
         binding2.spinner53.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -421,18 +404,6 @@ class MainActivity3 : AppCompatActivity() {
             }
         }
 
-        val spinnerAdapter6 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
-        binding2.spinner6.adapter = spinnerAdapter6
-        binding2.spinner6.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                spinnerData6 = binding2.spinner6.getItemAtPosition(p2).toString()
-                spinnerSelect6 = p2
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-        }
-
         val spinnerAdapter6_3 = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item, projectorCompanyList)
         binding2.spinner63.adapter = spinnerAdapter6_3
         binding2.spinner63.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -472,18 +443,6 @@ class MainActivity3 : AppCompatActivity() {
                 }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
-
-        val spinnerAdapter7 = ArrayAdapter.createFromResource(this,R.array.planets_array,android.R.layout.simple_spinner_item)
-        binding2.spinner7.adapter = spinnerAdapter7
-        binding2.spinner7.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                spinnerData7 = binding2.spinner7.getItemAtPosition(p2).toString()
-                spinnerSelect7 = p2
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
 
@@ -551,19 +510,14 @@ class MainActivity3 : AppCompatActivity() {
 
             val editTextValue1 = sharedPreferences.getString("load_blaster_$roomName", "")
             binding2.editText1.setText(editTextValue1.toString())
-
             val editTextValue2 = sharedPreferences.getString("load_nid_1", "")
             binding2.editText2.setText(editTextValue2.toString())
-            val editTextValue3 = sharedPreferences.getString("load_nid_2", "")
-            binding2.editText3.setText(editTextValue3.toString())
-            val editTextValue4 = sharedPreferences.getString("load_nid_3", "")
-            binding2.editText4.setText(editTextValue4.toString())
             val editTextValue5 = sharedPreferences.getString("load_nid_4", "")
             binding2.editText5.setText(editTextValue5.toString())
             val editTextValue6 = sharedPreferences.getString("load_nid_5", "")
             binding2.editText6.setText(editTextValue6.toString())
-            val editTextValue7 = sharedPreferences.getString("load_nid_6", "")
-            binding2.editText7.setText(editTextValue7.toString())
+            val editTextValue8 = sharedPreferences.getString("load_nid_7", "")
+            binding2.editText8.setText(editTextValue8.toString())
 
             // load_ir_key 가 없는 이유 : load_ir_key 는 스트링이라 int로 값을 보여주는 spinner.setSelection으로
             // 값을 보여줄 수 없어서 안만듬
@@ -591,12 +545,9 @@ class MainActivity3 : AppCompatActivity() {
         binding2.btnClear.setOnClickListener {
             binding2.editText1.text = null
             binding2.editText2.text = null
-            binding2.editText3.text = null
-            binding2.editText4.text = null
             binding2.editText5.text = null
             binding2.editText6.text = null
-            binding2.editText7.text = null
-
+            binding2.editText8.text = null
         }
 
         // 세이브 버튼
@@ -610,17 +561,12 @@ class MainActivity3 : AppCompatActivity() {
             load()
         }
 
-
         binding2.qrImage1.setOnClickListener {
             qrButtonClickCheck = "button1"
             runQRcodeReader()
         }
         binding2.qrImage2.setOnClickListener {
             qrButtonClickCheck = "button2"
-            runQRcodeReader()
-        }
-        binding2.qrImage3.setOnClickListener {
-            qrButtonClickCheck = "button3"
             runQRcodeReader()
         }
         binding2.qrImage5.setOnClickListener {
@@ -631,6 +577,10 @@ class MainActivity3 : AppCompatActivity() {
             qrButtonClickCheck = "button6"
             runQRcodeReader()
         }
+        binding2.qrImage8.setOnClickListener {
+            qrButtonClickCheck = "button8"
+            runQRcodeReader()
+        }
 
 
     }
@@ -639,67 +589,48 @@ class MainActivity3 : AppCompatActivity() {
     fun load() {
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
-        val spinnerValue = sharedPreferences.getInt("spinnerSelect1", 0)
         val editTextValue = sharedPreferences.getString("editdata1", "")
-        val spinnerValue2 = sharedPreferences.getInt("spinnerSelect2", 0)
         val editTextValue2 = sharedPreferences.getString("editdata2", "")
-        val spinnerValue3 = sharedPreferences.getInt("spinnerSelect3", 0)
         val editTextValue3 = sharedPreferences.getString("editdata3", "")
-        val spinnerValue4 = sharedPreferences.getInt("spinnerSelect4", 0)
         val editTextValue4 = sharedPreferences.getString("editdata4", "")
-        val spinnerValue5 = sharedPreferences.getInt("spinnerSelect5", 0)
         val editTextValue5 = sharedPreferences.getString("editdata5", "")
-        val spinnerValue6 = sharedPreferences.getInt("spinnerSelect6", 0)
         val editTextValue6 = sharedPreferences.getString("editdata6", "")
-        val spinnerValue7 = sharedPreferences.getInt("spinnerSelect7", 0)
         val editTextValue7 = sharedPreferences.getString("editdata7", "")
+        val editTextValue8 = sharedPreferences.getString("editdata8", "")
 
-        val spinnerValue5_2 = sharedPreferences.getInt("spinnerSelect5_Device", 0)
-        val spinnerValue5_3 = sharedPreferences.getInt("spinnerSelect5_Company", 0)
-        val spinnerValue5_4 = sharedPreferences.getInt("spinnerSelect5_Model", 0)
+        val spinnerValue3_3 = sharedPreferences.getInt("spinnerSelect3_Company", 0)
+        val spinnerValue3_4 = sharedPreferences.getInt("spinnerSelect3_Model", 0)
 
-        val spinnerValue6_2 = sharedPreferences.getInt("spinnerSelect6_Device", 0)
-        val spinnerValue6_3 = sharedPreferences.getInt("spinnerSelect6_Company", 0)
-        val spinnerValue6_4 = sharedPreferences.getInt("spinnerSelect6_Model", 0)
-
-        val spinnerValue4_2 = sharedPreferences.getInt("spinnerSelect4_Device", 0)
         val spinnerValue4_3 = sharedPreferences.getInt("spinnerSelect4_Company", 0)
         val spinnerValue4_4 = sharedPreferences.getInt("spinnerSelect4_Model", 0)
 
-        val spinnerValue7_2 = sharedPreferences.getInt("spinnerSelect7_Device", 0)
+        val spinnerValue5_3 = sharedPreferences.getInt("spinnerSelect5_Company", 0)
+        val spinnerValue5_4 = sharedPreferences.getInt("spinnerSelect5_Model", 0)
+
+        val spinnerValue6_3 = sharedPreferences.getInt("spinnerSelect6_Company", 0)
+        val spinnerValue6_4 = sharedPreferences.getInt("spinnerSelect6_Model", 0)
+
         val spinnerValue7_3 = sharedPreferences.getInt("spinnerSelect7_Company", 0)
         val spinnerValue7_4 = sharedPreferences.getInt("spinnerSelect7_Model", 0)
 
-
         binding2.editText1.setText(editTextValue.toString())
-        binding2.spinner1.setSelection(spinnerValue)
         binding2.editText2.setText(editTextValue2.toString())
-        binding2.spinner2.setSelection(spinnerValue2)
-        binding2.editText3.setText(editTextValue3.toString())
-        binding2.spinner3.setSelection(spinnerValue3)
-        binding2.editText4.setText(editTextValue4.toString())
-        binding2.spinner4.setSelection(spinnerValue4)
         binding2.editText5.setText(editTextValue5.toString())
-        binding2.spinner5.setSelection(spinnerValue5)
         binding2.editText6.setText(editTextValue6.toString())
-        binding2.spinner6.setSelection(spinnerValue6)
+        binding2.editText8.setText(editTextValue8.toString())
 
-        binding2.editText7.setText(editTextValue7.toString())
-        binding2.spinner7.setSelection(spinnerValue7)
+        binding2.spinner33.setSelection(spinnerValue3_3)
+        binding2.spinner34.setSelection(spinnerValue3_4)
 
-        //binding2.spinner42.setSelection(spinnerValue4_2)
         binding2.spinner43.setSelection(spinnerValue4_3)
         binding2.spinner44.setSelection(spinnerValue4_4)
 
-        //binding2.spinner52.setSelection(spinnerValue5_2)
         binding2.spinner53.setSelection(spinnerValue5_3)
         binding2.spinner54.setSelection(spinnerValue5_4)
 
-        //binding2.spinner62.setSelection(spinnerValue6_2)
         binding2.spinner63.setSelection(spinnerValue6_3)
         binding2.spinner64.setSelection(spinnerValue6_4)
 
-        //binding2.spinner72.setSelection(spinnerValue7_2)
         binding2.spinner73.setSelection(spinnerValue7_3)
         binding2.spinner74.setSelection(spinnerValue7_4)
 
@@ -709,12 +640,9 @@ class MainActivity3 : AppCompatActivity() {
     fun save() {
         editData1 = binding2.editText1.text.toString()
         editData2 = binding2.editText2.text.toString()
-        editData3 = binding2.editText3.text.toString()
-        editData4 = binding2.editText4.text.toString()
         editData5 = binding2.editText5.text.toString()
         editData6 = binding2.editText6.text.toString()
-        editData7 = binding2.editText7.text.toString()
-
+        editData8 = binding2.editText8.text.toString()
 
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
         val editor : SharedPreferences.Editor = sharedPreferences.edit()
@@ -732,6 +660,14 @@ class MainActivity3 : AppCompatActivity() {
         editor.putString("editdata6",editData6)
         editor.putInt("spinnerSelect7",spinnerSelect7)
         editor.putString("editdata7",editData7)
+        editor.putString("editdata8",editData8)
+
+        editor.putInt("spinnerSelect3_Device",spinnerSelect3_Device)
+        editor.putString("spinnerData3_Device", spinnerData3_Device)
+        editor.putInt("spinnerSelect3_Company",spinnerSelect3_Company)
+        editor.putString("spinnerData3_Company", spinnerData3_Company)
+        editor.putInt("spinnerSelect3_Model",spinnerSelect3_Model)
+        editor.putString("spinnerData3_Model", spinnerData3_Model)
 
         editor.putInt("spinnerSelect4_Device",spinnerSelect4_Device)
         editor.putString("spinnerData4_Device", spinnerData4_Device)
@@ -764,24 +700,7 @@ class MainActivity3 : AppCompatActivity() {
         editor.commit()
 
         val intent = Intent(this,MainActivity::class.java)
-        intent.putExtra("spinner1","$spinnerData1")
-        intent.putExtra("editdata1","$editData1")
-        intent.putExtra("spinner2","$spinnerData2")
-        intent.putExtra("editdata2","$editData2")
-        intent.putExtra("spinner3","$spinnerData3")
-        intent.putExtra("editdata3","$editData3")
-        intent.putExtra("spinner4","$spinnerData4")
-        intent.putExtra("editdata4","$editData4")
-        intent.putExtra("spinner5","$spinnerData5")
-        intent.putExtra("editdata5","$editData5")
-        intent.putExtra("spinner6","$spinnerData6")
-        intent.putExtra("editdata6","$editData6")
-        intent.putExtra("spinner7","$spinnerData7")
-        intent.putExtra("editdata7","$editData7")
-
-
         intent.putExtra("roomName", roomName)
-
         setResult(RESULT_OK, intent)
         //finish()
         Toast.makeText(this,"save",Toast.LENGTH_SHORT).show()
@@ -796,11 +715,9 @@ class MainActivity3 : AppCompatActivity() {
 
         if(sharedPreferences.all.get("editdata1").toString() == binding2.editText1.text.toString() &&
             sharedPreferences.all.get("editdata2").toString() == binding2.editText2.text.toString() &&
-            sharedPreferences.all.get("editdata3").toString() == binding2.editText3.text.toString() &&
-            sharedPreferences.all.get("editdata4").toString() == binding2.editText4.text.toString() &&
             sharedPreferences.all.get("editdata5").toString() == binding2.editText5.text.toString() &&
             sharedPreferences.all.get("editdata6").toString() == binding2.editText6.text.toString() &&
-            sharedPreferences.all.get("editdata7").toString() == binding2.editText7.text.toString()) {
+            sharedPreferences.all.get("editdata8").toString() == binding2.editText8.text.toString()) {
             Log.d("asdf save","최근 저장 & 값 변화 없음")
             super.onBackPressed()
         } else {
@@ -853,14 +770,14 @@ class MainActivity3 : AppCompatActivity() {
                     "button2" -> {
                         binding2.editText2.setText(result.contents)
                     }
-                    "button3" -> {
-                        binding2.editText3.setText(result.contents)
-                    }
                     "button5" -> {
                         binding2.editText5.setText(result.contents)
                     }
                     "button6" -> {
                         binding2.editText6.setText(result.contents)
+                    }
+                    "button8" -> {
+                        binding2.editText8.setText(result.contents)
                     }
                 }
             }
