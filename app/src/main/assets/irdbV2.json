@@ -27,6 +27,14 @@
           "off": "88C00510",
           "on": "88008080"
         }
+      },
+      "mp-eu4005": {
+        "type": "nec",
+        "bitlen": 28,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
       }
     },
     "sony": {
@@ -66,6 +74,16 @@
           "on": "08E7629D"
         }
       }
+    },
+    "sample": {
+      "default2": {
+        "type": "nec",
+        "bitlen": 32,
+        "data": {
+          "off": "08E7629D",
+          "on": "08E7629D"
+        }
+      }
     }
   },
   "air_conditioner": {
@@ -89,6 +107,14 @@
       "lgModel3": {
         "type": "nec",
         "bitlen": 22,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "lgModel4": {
+        "type": "nec",
+        "bitlen": 32,
         "data": {
           "off": "88C00510",
           "on": "88008080"
@@ -151,6 +177,14 @@
       "sktModel4": {
         "type": "nec",
         "bitlen": 36,
+        "data": {
+          "off": "88C00510",
+          "on": "88008080"
+        }
+      },
+      "sktModel5": {
+        "type": "nec",
+        "bitlen": 16,
         "data": {
           "off": "88C00510",
           "on": "88008080"

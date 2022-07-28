@@ -11,12 +11,10 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.bluetoothconnect2.databinding.ActivityMain3Binding
 import com.google.zxing.integration.android.IntentIntegrator
-import org.json.JSONArray
 import org.json.JSONObject
 
 class MainActivity3 : AppCompatActivity() {
@@ -92,7 +90,6 @@ class MainActivity3 : AppCompatActivity() {
 
     var qrButtonClickCheck = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding2.root)
@@ -124,13 +121,6 @@ class MainActivity3 : AppCompatActivity() {
             Log.d("asdf irdb_speaker_company_key", "${it}")
             irdb_speaker_company_key_list.add(it)
         }
-        val irdb_speaker_company_key = irdb_speaker_key.getString("blitz")
-        val irdb_speaker_model_key = JSONObject(irdb_speaker_company_key)
-        val irdb_speaker_model_key_list = mutableListOf<String>()
-        irdb_speaker_model_key.keys().forEach {
-            Log.d("asdf irdb_speaker_model_key", "${it}")
-            irdb_speaker_model_key_list.add(it)
-        }
 
         // projector ==========================================================================================================================================================
         val irdb_projector_key = JSONObject(irdb_projector)
@@ -139,21 +129,6 @@ class MainActivity3 : AppCompatActivity() {
             Log.d("asdf irdb_projector_company_key", "${it}")
             irdb_projector_company_key_list.add(it)
         }
-        val irdb_projector_company_key = irdb_projector_key.getString("maxell")
-        val irdb_projector_model_key = JSONObject(irdb_projector_company_key)
-        val irdb_projector_model_key_list = mutableListOf<String>()
-        irdb_projector_model_key.keys().forEach {
-            Log.d("asdf irdb_projector_model_key", "${it}")
-            irdb_projector_model_key_list.add(it)
-        }
-        val irdb_projector_company_key2 = irdb_projector_key.getString("sony")
-        val irdb_projector_model_key2 = JSONObject(irdb_projector_company_key2)
-        val irdb_projector_model_key2_list = mutableListOf<String>()
-        irdb_projector_model_key2.keys().forEach {
-            Log.d("asdf irdb_projector_model_key2", "${it}")
-            irdb_projector_model_key2_list.add(it)
-        }
-
 
         // air_conditioner ==========================================================================================================================================================
         val irdb_aircon_key = JSONObject(irdb_air_conditioner)
@@ -161,20 +136,6 @@ class MainActivity3 : AppCompatActivity() {
         irdb_aircon_key.keys().forEach {
             Log.d("asdf irdb_aircon_company_key", "${it}")
             irdb_aircon_company_key_list.add(it)
-        }
-        val irdb_aircon_company_key = irdb_aircon_key.getString("lg")
-        val irdb_aircon_model_key = JSONObject(irdb_aircon_company_key)
-        val irdb_aircon_model_key_list = mutableListOf<String>()
-        irdb_aircon_model_key.keys().forEach {
-            Log.d("asdf irdb_aircon_model_key", "${it}")
-            irdb_aircon_model_key_list.add(it)
-        }
-        val irdb_aircon_company_key2 = irdb_aircon_key.getString("samsung")
-        val irdb_aircon_model_key2 = JSONObject(irdb_aircon_company_key2)
-        val irdb_aircon_model_key2_list = mutableListOf<String>()
-        irdb_aircon_model_key2.keys().forEach {
-            Log.d("asdf irdb_aircon_model_key2", "${it}")
-            irdb_aircon_model_key2_list.add(it)
         }
 
         // lighting ==========================================================================================================================================================
@@ -185,52 +146,11 @@ class MainActivity3 : AppCompatActivity() {
             irdb_lighting_company_key_list.add(it)
         }
 
-        for (i in 1..irdb_lighting_company_key_list.size) {
-            val irdb_test = irdb_lighting_key.getString("${irdb_lighting_company_key_list.get(i-1)}")
-            val irdb_test_json = JSONObject(irdb_test)
-            Log.d("asdf irdb_test", "${irdb_test}")
-            irdb_test_json.keys().forEach {
-                Log.d("asdf irdb_test_json", "${it}")
-            }
-        }
-
-
-//        for(i in 0..irdb_lighting_company_key_list.size) {
-//            val irdb_lighting_company_key = irdb_lighting_key.getString("${irdb_lighting_company_key_list.get(i)}")
-//            val irdb_lighting_model_key = JSONObject(irdb_lighting_company_key)
-//            val irdb_lighting_model_key_list = mutableListOf<String>()
-//            irdb_lighting_model_key.keys().forEach {
-//                Log.d("asdf irdb_lighting_model_key", "${it}")
-//                irdb_lighting_model_key_list.add(it)
-//            }
-//        }
-
-        //회사추가
-        val irdb_lighting_company_key = irdb_lighting_key.getString("grb")
-        val irdb_lighting_model_key = JSONObject(irdb_lighting_company_key)
-        val irdb_lighting_model_key_list = mutableListOf<String>()
-        irdb_lighting_model_key.keys().forEach {
-            Log.d("asdf irdb_lighting_model_key", "${it}")
-            irdb_lighting_model_key_list.add(it)
-        }
-        val irdb_lighting_company_key2 = irdb_lighting_key.getString("kt")
-        val irdb_lighting_model_key2 = JSONObject(irdb_lighting_company_key2)
-        val irdb_lighting_model_key2_list = mutableListOf<String>()
-        irdb_lighting_model_key2.keys().forEach {
-            Log.d("asdf irdb_lighting_model_key2", "${it}")
-            irdb_lighting_model_key2_list.add(it)
-        }
-
         // 스피커 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
         val speakerCompanyList = mutableListOf<String>()
         speakerCompanyList.add("")
         for(i in 0 until irdb_speaker_company_key_list.size) {
             speakerCompanyList.add(irdb_speaker_company_key_list.get(i))
-        }
-        val speakerModelList = mutableListOf<String>()
-        speakerModelList.add("")
-        for(i in 0 until irdb_speaker_model_key_list.size) {
-            speakerModelList.add(irdb_speaker_model_key_list.get(i))
         }
 
         // 프로젝터 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
@@ -240,35 +160,11 @@ class MainActivity3 : AppCompatActivity() {
             projectorCompanyList.add(irdb_projector_company_key_list.get(i))
         }
 
-        val projectorModelList = mutableListOf<String>()
-        projectorModelList.add("")
-        for(i in 0 until irdb_projector_model_key_list.size) {
-            projectorModelList.add(irdb_projector_model_key_list.get(i))
-        }
-
-        val projectorModelList2 = mutableListOf<String>()
-        projectorModelList2.add("")
-        for(i in 0 until irdb_projector_model_key2_list.size) {
-            projectorModelList2.add(irdb_projector_model_key2_list.get(i))
-        }
-
         // 에어컨 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
         val airconCompanyList = mutableListOf<String>()
         airconCompanyList.add("")
         for(i in 0 until irdb_aircon_company_key_list.size) {
             airconCompanyList.add(irdb_aircon_company_key_list.get(i))
-        }
-
-        val airconModelList = mutableListOf<String>()
-        airconModelList.add("")
-        for (i in 0 until irdb_aircon_model_key_list.size) {
-            airconModelList.add(irdb_aircon_model_key_list.get(i))
-        }
-
-        val airconModelList2 = mutableListOf<String>()
-        airconModelList2.add("")
-        for (i in 0 until irdb_aircon_model_key2_list.size) {
-            airconModelList2.add(irdb_aircon_model_key2_list.get(i))
         }
 
         // 조명 리스트에 값 넣기 이게 스피너로 들어감  ==========================================================================================================================================================
@@ -278,90 +174,106 @@ class MainActivity3 : AppCompatActivity() {
             lightingCompanyList.add(irdb_lighting_company_key_list.get(i))
         }
 
-        val lightingModelList = mutableListOf<String>()
-        lightingModelList.add("")
-        for(i in 0 until irdb_lighting_model_key_list.size) {
-            lightingModelList.add(irdb_lighting_model_key_list.get(i))
-        }
-
-        val lightingModelList2 = mutableListOf<String>()
-        lightingModelList2.add("")
-        for(i in 0 until irdb_lighting_model_key2_list.size) {
-            lightingModelList2.add(irdb_lighting_model_key2_list.get(i))
-        }
 
 
         // 스피너 설정
+        val speakerList = mutableListOf<String>()
         val spinnerAdapter3_3 = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, speakerCompanyList)
         binding2.spinner33.adapter = spinnerAdapter3_3
         binding2.spinner33.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData3_Company = binding2.spinner33.getItemAtPosition(p2).toString()
                 spinnerSelect3_Company = p2
+                Log.d("spinnerAdapter3_3","${binding2.spinner33.getItemAtPosition(p2)}")
+                speakerList.clear()
+                speakerList.add("")
 
-                when(p2) {
-                    1 -> {
-                        val spinnerAdapter3_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, speakerModelList)
-                        binding2.spinner34.adapter = spinnerAdapter3_4
-                        binding2.spinner34.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                spinnerData3_Model = binding2.spinner34.getItemAtPosition(p2).toString()
-                                spinnerSelect3_Model = p2
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-                            }
-                        }
-                        val spinnerSelect3_Model = sharedPreferences4.getInt("spinnerSelect3_Model",0)
-                        binding2.spinner34.setSelection(spinnerSelect3_Model)
-                    }
+                val irdb_speaker_company_key = irdb_speaker_key.getString("${binding2.spinner33.getItemAtPosition(p2)}")
+                val irdb_speaker_model_key = JSONObject(irdb_speaker_company_key)
+                irdb_speaker_model_key.keys().forEach {
+                    Log.d("asdf speakerList", "${it}")
+                    speakerList.add(it.toString())
                 }
+                speakerList.forEach {
+                    Log.d("asdf speaker", "${it}")
+                }
+                Log.d("asdf speakerList.size", "${speakerList.size}")
+
+                val spinnerAdapter3_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, speakerList)
+                binding2.spinner34.adapter = spinnerAdapter3_4
+                binding2.spinner34.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                            spinnerData3_Model = binding2.spinner34.getItemAtPosition(p2).toString()
+                            spinnerSelect3_Model = p2
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                        }
+                    }
+                val spinnerSelect3_Model = sharedPreferences4.getInt("spinnerSelect3_Model", 0)
+                binding2.spinner34.setSelection(spinnerSelect3_Model)
+
+//                when(p2) {
+//                    1 -> {
+//                        val spinnerAdapter3_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, speakerModelList)
+//                        binding2.spinner34.adapter = spinnerAdapter3_4
+//                        binding2.spinner34.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                                spinnerData3_Model = binding2.spinner34.getItemAtPosition(p2).toString()
+//                                spinnerSelect3_Model = p2
+//                            }
+//                            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                            }
+//                        }
+//                        val spinnerSelect3_Model = sharedPreferences4.getInt("spinnerSelect3_Model",0)
+//                        binding2.spinner34.setSelection(spinnerSelect3_Model)
+//                    }
+//                }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
 
+        val lampList = mutableListOf<String>()
         val spinnerAdapter4_3 = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, lightingCompanyList)
         binding2.spinner43.adapter = spinnerAdapter4_3
         binding2.spinner43.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData4_Company = binding2.spinner43.getItemAtPosition(p2).toString()
                 spinnerSelect4_Company = p2
+                Log.d("spinnerAdapter4_3","${binding2.spinner43.getItemAtPosition(p2)}")
+                lampList.clear()
+                lampList.add("")
 
-                when(p2) {
-                    1 -> {
-                        val spinnerAdapter4_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, lightingModelList)
-                        binding2.spinner44.adapter = spinnerAdapter4_4
-                        binding2.spinner44.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                spinnerData4_Model = binding2.spinner44.getItemAtPosition(p2).toString()
-                                spinnerSelect4_Model = p2
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-                            }
-                        }
-                        val spinnerSelect4_Model = sharedPreferences4.getInt("spinnerSelect4_Model",0)
-                        binding2.spinner44.setSelection(spinnerSelect4_Model)
-                    }
-                    2 -> {
-                        val spinnerAdapter4_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, lightingModelList2)
-                        binding2.spinner44.adapter = spinnerAdapter4_4
-                        binding2.spinner44.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                spinnerData4_Model = binding2.spinner44.getItemAtPosition(p2).toString()
-                                spinnerSelect4_Model = p2
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-                            }
-                        }
-                        val spinnerSelect4_Model = sharedPreferences4.getInt("spinnerSelect4_Model",0)
-                        binding2.spinner44.setSelection(spinnerSelect4_Model)
-                    }
+                val irdb_lighting_company_key = irdb_lighting_key.getString("${binding2.spinner43.getItemAtPosition(p2)}")
+                val irdb_lighting_model_key = JSONObject(irdb_lighting_company_key)
+                irdb_lighting_model_key.keys().forEach {
+                    Log.d("asdf lampList", "${it}")
+                    lampList.add(it)
                 }
+
+                val spinnerAdapter4_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, lampList)
+                binding2.spinner44.adapter = spinnerAdapter4_4
+                binding2.spinner44.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                            spinnerData4_Model = binding2.spinner44.getItemAtPosition(p2).toString()
+                            spinnerSelect4_Model = p2
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                        }
+                    }
+                val spinnerSelect4_Model = sharedPreferences4.getInt("spinnerSelect4_Model", 0)
+                binding2.spinner44.setSelection(spinnerSelect4_Model)
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
 
+        val projectorList = mutableListOf<String>()
         val spinnerAdapter5_3 = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item, projectorCompanyList)
         binding2.spinner53.adapter = spinnerAdapter5_3
         binding2.spinner53.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -369,120 +281,108 @@ class MainActivity3 : AppCompatActivity() {
                 spinnerData5_Company = binding2.spinner53.getItemAtPosition(p2).toString()
                 spinnerSelect5_Company = p2
 
-                when(p2) {
-                    1 -> {
-                        val spinnerAdapter5_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorModelList)
-                        binding2.spinner54.adapter = spinnerAdapter5_4
-                        binding2.spinner54.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                spinnerData5_Model = binding2.spinner54.getItemAtPosition(p2).toString()
-                                spinnerSelect5_Model = p2
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-                            }
-                        }
-                        val spinnerSelect5_Model = sharedPreferences4.getInt("spinnerSelect5_Model",0)
-                        binding2.spinner54.setSelection(spinnerSelect5_Model)
-                    }
-                    2 -> {
-                        val spinnerAdapter5_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorModelList2)
-                        binding2.spinner54.adapter = spinnerAdapter5_4
-                        binding2.spinner54.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                spinnerData5_Model = binding2.spinner54.getItemAtPosition(p2).toString()
-                                spinnerSelect5_Model = p2
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-                            }
-                        }
-                        val spinnerSelect5_Model = sharedPreferences4.getInt("spinnerSelect5_Model",0)
-                        binding2.spinner54.setSelection(spinnerSelect5_Model)
-                    }
+                Log.d("spinnerAdapter5_3","${binding2.spinner53.getItemAtPosition(p2)}")
+                projectorList.clear()
+                projectorList.add("")
+
+                val irdb_projector_company_key = irdb_projector_key.getString("${binding2.spinner53.getItemAtPosition(p2)}")
+                val irdb_projector_model_key = JSONObject(irdb_projector_company_key)
+                irdb_projector_model_key.keys().forEach {
+                    Log.d("asdf projectorList", "${it}")
+                    projectorList.add(it)
                 }
+
+                val spinnerAdapter5_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorList)
+                binding2.spinner54.adapter = spinnerAdapter5_4
+                binding2.spinner54.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                            spinnerData5_Model = binding2.spinner54.getItemAtPosition(p2).toString()
+                            spinnerSelect5_Model = p2
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                        }
+                    }
+                val spinnerSelect5_Model = sharedPreferences4.getInt("spinnerSelect5_Model", 0)
+                binding2.spinner54.setSelection(spinnerSelect5_Model)
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
 
+        val projectorList2 = mutableListOf<String>()
         val spinnerAdapter6_3 = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item, projectorCompanyList)
         binding2.spinner63.adapter = spinnerAdapter6_3
         binding2.spinner63.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData6_Company = binding2.spinner63.getItemAtPosition(p2).toString()
                 spinnerSelect6_Company = p2
+                Log.d("spinnerAdapter6_3","${binding2.spinner63.getItemAtPosition(p2)}")
+                projectorList2.clear()
+                projectorList2.add("")
 
-                when(p2) {
-                    1 -> {
-                        val spinnerAdapter6_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorModelList)
-                        binding2.spinner64.adapter = spinnerAdapter6_4
-                        binding2.spinner64.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                spinnerData6_Model = binding2.spinner64.getItemAtPosition(p2).toString()
-                                spinnerSelect6_Model = p2
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-                            }
-                        }
-                        val spinnerSelect6_Model = sharedPreferences4.getInt("spinnerSelect6_Model",0)
-                        binding2.spinner64.setSelection(spinnerSelect6_Model)
-                    }
-                    2 -> {
-                        val spinnerAdapter6_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorModelList2)
-                        binding2.spinner64.adapter = spinnerAdapter6_4
-                        binding2.spinner64.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                spinnerData6_Model = binding2.spinner64.getItemAtPosition(p2).toString()
-                                spinnerSelect6_Model = p2
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-                            }
-                        }
-                        val spinnerSelect6_Model = sharedPreferences4.getInt("spinnerSelect6_Model",0)
-                        binding2.spinner64.setSelection(spinnerSelect6_Model)
-                    }
+                val irdb_projector2_company_key = irdb_projector_key.getString("${binding2.spinner63.getItemAtPosition(p2)}")
+                val irdb_projector2_model_key = JSONObject(irdb_projector2_company_key)
+                irdb_projector2_model_key.keys().forEach {
+                    Log.d("asdf projectorList2", "${it}")
+                    projectorList2.add(it)
                 }
+
+                val spinnerAdapter6_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorList2)
+                binding2.spinner64.adapter = spinnerAdapter6_4
+                binding2.spinner64.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                            spinnerData6_Model = binding2.spinner64.getItemAtPosition(p2).toString()
+                            spinnerSelect6_Model = p2
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                        }
+                    }
+                val spinnerSelect6_Model = sharedPreferences4.getInt("spinnerSelect6_Model", 0)
+                binding2.spinner64.setSelection(spinnerSelect6_Model)
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
 
+        val air_conditionerList = mutableListOf<String>()
         val spinnerAdapter7_3 = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, airconCompanyList)
         binding2.spinner73.adapter = spinnerAdapter7_3
         binding2.spinner73.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinnerData7_Company = binding2.spinner73.getItemAtPosition(p2).toString()
                 spinnerSelect7_Company = p2
+                Log.d("spinnerAdapter7_3","${binding2.spinner73.getItemAtPosition(p2)}")
+                air_conditionerList.clear()
+                air_conditionerList.add("")
 
-                when(p2) {
-                    1 -> {
-                        val spinnerAdapter7_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, airconModelList)
-                        binding2.spinner74.adapter = spinnerAdapter7_4
-                        binding2.spinner74.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                spinnerData7_Model = binding2.spinner74.getItemAtPosition(p2).toString()
-                                spinnerSelect7_Model = p2
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-                            }
-                        }
-                        val spinnerSelect7_Model = sharedPreferences4.getInt("spinnerSelect7_Model",0)
-                        binding2.spinner74.setSelection(spinnerSelect7_Model)
-                    }
-                    2 -> {
-                        val spinnerAdapter7_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, airconModelList2)
-                        binding2.spinner74.adapter = spinnerAdapter7_4
-                        binding2.spinner74.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                                spinnerData7_Model = binding2.spinner74.getItemAtPosition(p2).toString()
-                                spinnerSelect7_Model = p2
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-                            }
-                        }
-                        val spinnerSelect7_Model = sharedPreferences4.getInt("spinnerSelect7_Model",0)
-                        binding2.spinner74.setSelection(spinnerSelect7_Model)
-                    }
+                val irdb_air_conditioner_company_key = irdb_aircon_key.getString("${binding2.spinner73.getItemAtPosition(p2)}")
+                val irdb_air_conditioner_model_key = JSONObject(irdb_air_conditioner_company_key)
+                irdb_air_conditioner_model_key.keys().forEach {
+                    Log.d("asdf air_conditionerList", "${it}")
+                    air_conditionerList.add(it)
                 }
+
+                val spinnerAdapter7_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, air_conditionerList)
+                binding2.spinner74.adapter = spinnerAdapter7_4
+                binding2.spinner74.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                            spinnerData7_Model = binding2.spinner74.getItemAtPosition(p2).toString()
+                            spinnerSelect7_Model = p2
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                        }
+                    }
+                val spinnerSelect7_Model = sharedPreferences4.getInt("spinnerSelect7_Model", 0)
+                binding2.spinner74.setSelection(spinnerSelect7_Model)
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
@@ -497,9 +397,10 @@ class MainActivity3 : AppCompatActivity() {
 //        binding2.spinner7.setSelection(10)
 
 
-        // 저장된 값을 불러오는 로드
+        // 저장된 값을 불러와 화면에 뿌려주는 로드
         load()
 
+        // 메인 화면에서 로드하면 발생하는 기능
         val sharedPreferences2 = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
         val LoadToF = sharedPreferences2.getBoolean("btnLoadClick", false)
 
@@ -519,20 +420,35 @@ class MainActivity3 : AppCompatActivity() {
             val editTextValue8 = sharedPreferences.getString("load_nid_7", "")
             binding2.editText8.setText(editTextValue8.toString())
 
-            // load_ir_key 가 없는 이유 : load_ir_key 는 스트링이라 int로 값을 보여주는 spinner.setSelection으로
-            // 값을 보여줄 수 없어서 안만듬
+            // load_ir_key 가 없는 이유 : load_ir_key는 스트링이라 int로 값을 보여주는 spinner.setSelection으로
+            // 값을 보여줄 수 없어서 안만듬 이제 만들어야 함
 
-            val load_ir_key_3 = sharedPreferences.getString("load_ir_key_3","")
-            Log.d("asdf load_ir_key_3", "${load_ir_key_3}")
+            // 스피커
+            val load_speaker = sharedPreferences.getString("load_ir_key_2","")
+            val loadSpeakerList = mutableListOf<String>()
+            Log.d("asdf load_speaker", "${load_speaker}")
+            load_speaker?.split("/")?.forEach {
+                Log.d("load_speaker.split", "$it")
+                loadSpeakerList.add(it)
+            }
 
-            val load_ir_key_4 = sharedPreferences.getString("load_ir_key_4","")
-            Log.d("asdf load_ir_key_4", "${load_ir_key_4}")
+            // 조명
+            val load_lamp = sharedPreferences.getString("load_ir_key_3","")
+            Log.d("asdf load_lamp", "${load_lamp}")
 
-            val load_ir_key_5 = sharedPreferences.getString("load_ir_key_5","")
-            Log.d("asdf load_ir_key_5", "${load_ir_key_5}")
+            // 프로젝터1
+            val load_projector1 = sharedPreferences.getString("load_ir_key_4","")
+            Log.d("asdf load_projector1", "${load_projector1}")
 
-            val load_ir_key_6 = sharedPreferences.getString("load_ir_key_6","")
-            Log.d("asdf load_ir_key_6", "${load_ir_key_6}")
+            // 프로젝터2
+            val load_projector2 = sharedPreferences.getString("load_ir_key_5","")
+            Log.d("asdf load_projector2", "${load_projector2}")
+
+            // 에어컨
+            val load_aircon = sharedPreferences.getString("load_ir_key_6","")
+            Log.d("asdf load_aircon", "${load_aircon}")
+
+
 
             // load 버튼을 눌러 true로 변경되었고 gateway에서 가져온 값을 보여줬다면 값을 다시 false로 초기화해준다
             val editor : SharedPreferences.Editor = sharedPreferences2.edit()
