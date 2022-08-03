@@ -34,27 +34,6 @@ class MainActivity2 : AppCompatActivity() {
     var z = 0
     lateinit var roomList : MutableList<Room>
 
-    var spinnerData1 = ""
-    var editData1 = ""
-    var spinnerData2 = ""
-    var editData2 = ""
-    var spinnerData3 = ""
-    var editData3 = ""
-    var spinnerData4 = ""
-    var editData4 = ""
-    var spinnerData5 = ""
-    var editData5 = ""
-    var spinnerData6 = ""
-    var editData6 = ""
-    var spinnerData7 = ""
-    var editData7 = ""
-    var spinnerData8 = ""
-    var editData8 = ""
-    var spinnerData9 = ""
-    var editData9 = ""
-    var spinnerData10 = ""
-    var editData10 = ""
-
     var address = ""
     var name = ""
     var roomName = ""
@@ -196,7 +175,6 @@ class MainActivity2 : AppCompatActivity() {
                 // 틀이랑 내용물 같이 보내기?
                 for(i in 1..roomList.size) {
                     sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
-
 
                     val jsonrpcObject = JSONObject()
                     val jsonrpcArray = JSONArray()
@@ -353,8 +331,6 @@ class MainActivity2 : AppCompatActivity() {
                             receiveData()
                             //Thread.sleep(100)
                             Log.d("asdf jsonrpcobject_ir_key_${q}_$i", jsonrpcObject_2.toString())
-//                            Log.d("asdf spinnerSelect4_Company", "${sharedPreferences.all.get("spinnerSelect4_Company")}")
-//                            Log.d("asdf spinnerSelect4_Model", "${sharedPreferences.all.get("spinnerSelect4_Model")}")
 
                         }
                     }
@@ -364,6 +340,11 @@ class MainActivity2 : AppCompatActivity() {
 
                     val order = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
                     sendCommand(order)
+                    receiveData()
+                    //Thread.sleep(100)
+
+                    val order_speaker = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/speaker\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                    sendCommand(order_speaker)
                     receiveData()
                     //Thread.sleep(100)
 
@@ -384,12 +365,12 @@ class MainActivity2 : AppCompatActivity() {
 
 
                     // base ==========================================================================================================================================================
-
                     val irdbString = assets.open("irdbV2.json").reader().readText()
                     val irdb = JSONObject(irdbString)
                     val irdb_lighting_company_key_list = mutableListOf<String>()
                     val irdb_projector_company_key_list = mutableListOf<String>()
                     val irdb_air_conditioner_company_key_list = mutableListOf<String>()
+                    val irdb_speaker_company_key_list = mutableListOf<String>()
 
                     val irdb_lighting = irdb.getString("lamp")
                     val irdb_lighting_key = JSONObject(irdb_lighting)
@@ -399,6 +380,14 @@ class MainActivity2 : AppCompatActivity() {
 
                     val irdb_air_conditioner = irdb.getString("air_conditioner")
                     val irdb_air_conditioner_key = JSONObject(irdb_air_conditioner)
+
+                    val irdb_speaker = irdb.getString("speaker")
+                    val irdb_speaker_key = JSONObject(irdb_speaker)
+
+                    irdb_speaker_key.keys().forEach {
+                        Log.d("asdf irdb_speaker_company_key_list", "${it}")
+                        irdb_speaker_company_key_list.add(it)
+                    }
 
                     irdb_lighting_key.keys().forEach {
                         Log.d("asdf irdb_lighting_company_key_list", "${it}")
@@ -415,6 +404,12 @@ class MainActivity2 : AppCompatActivity() {
                         irdb_air_conditioner_company_key_list.add(it)
                     }
 
+                    for (i in 1..irdb_speaker_company_key_list.size) {
+                        val order_speaker_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/speaker/${irdb_speaker_company_key_list.get(i-1)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                        sendCommand(order_speaker_address)
+                        receiveData()
+                        //Thread.sleep(100)
+                    }
                     for (i in 1..irdb_air_conditioner_company_key_list.size) {
                         val order_aircon_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${irdb_air_conditioner_company_key_list.get(i-1)}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
                         sendCommand(order_aircon_address)
@@ -435,7 +430,6 @@ class MainActivity2 : AppCompatActivity() {
                     }
 
                     // lighting ==========================================================================================================================================================
-
                     for(i in 1..roomList.size) {
                         sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
@@ -462,7 +456,6 @@ class MainActivity2 : AppCompatActivity() {
                     }
 
                     // projector ==========================================================================================================================================================
-
                     for(i in 1..roomList.size) {
                         sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
@@ -500,8 +493,7 @@ class MainActivity2 : AppCompatActivity() {
                         //Thread.sleep(100)
                     }
 
-                    // aircon ==========================================================================================================================================================
-
+                    // aircon =========================================================================================================================================================
                     for(i in 1..roomList.size) {
                         sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
@@ -521,6 +513,31 @@ class MainActivity2 : AppCompatActivity() {
                         sendCommand(order_aircon_value)
                         receiveData()
                         //Thread.sleep(100)
+                    }
+
+                    // speaker ==========================================================================================================================================================
+                    for(i in 1..roomList.size) {
+                        sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
+
+                        val spinnerData3_Company = sharedPreferences.getString("spinnerData3_Company", "")
+                        val spinnerData3_Model = sharedPreferences.getString("spinnerData3_Model", "")
+
+                        val tempSpeaker = JSONObject(irdb.getString("speaker").toString())
+                        val tempSpeakerData = JSONObject(tempSpeaker.getString("${spinnerData3_Company}"))
+                        val tempSpeakerModelData = tempSpeakerData.getString("${spinnerData3_Model}")
+                        Log.d("asdf tempSpeakerModelData", tempSpeakerModelData)
+
+                        val order_speaker_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/speaker/${spinnerData3_Company}/${spinnerData3_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                        sendCommand(order_speaker_address)
+                        receiveData()
+                        //Thread.sleep(100)
+                        Log.d("asdf order_speaker_deep_address", "${order_speaker_address}")
+
+                        val order_speaker_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/speaker/${spinnerData3_Company}/${spinnerData3_Model}\", \"value\": ${tempSpeakerModelData}}], \"id\": \"qwerasd$random\"}"
+                        sendCommand(order_speaker_value)
+                        receiveData()
+                        //Thread.sleep(100)
+                        Log.d("asdf order_speaker_value", "${order_speaker_value}")
                     }
 
                 }
@@ -671,13 +688,6 @@ class MainActivity2 : AppCompatActivity() {
     // 보낸 값의 응답을 받는 함수다 inputStream을 이용해 응답을 받는다?
     private fun receiveData() {
         try {
-
-//            val byteAvailable = bluetoothSocket!!.inputStream.available()
-//            //val readColor = ByteArray(832)
-//            val readColor = ByteArray(byteAvailable)
-//            bluetoothSocket!!.inputStream.read(readColor)
-//            val string = String(readColor)
-//            Log.d("asdf receiveData", "${string}")
 
             val buffer = ByteArray(1024)
             var bytes = bluetoothSocket!!.inputStream.read(buffer)

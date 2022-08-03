@@ -73,10 +73,26 @@
           "off": "08E7629D",
           "on": "08E7629D"
         }
+      },
+      "blitzModel2": {
+        "type": "nec",
+        "bitlen": 32,
+        "data": {
+          "off": "08E7629D",
+          "on": "08E7629D"
+        }
       }
     },
     "sample": {
       "default2": {
+        "type": "nec",
+        "bitlen": 32,
+        "data": {
+          "off": "08E7629D",
+          "on": "08E7629D"
+        }
+      },
+      "sampleModel2": {
         "type": "nec",
         "bitlen": 32,
         "data": {

@@ -47,8 +47,6 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerData7_Company : String = ""
     var spinnerData7_Model : String = ""
 
-
-    //var editData1 = StringBuffer()
     var editData1 = ""
     var editData2 = ""
     var editData3 = ""
@@ -57,16 +55,6 @@ class MainActivity3 : AppCompatActivity() {
     var editData6 = ""
     var editData7 = ""
     var editData8 = ""
-
-
-    var spinnerSelect1 = 0
-    var spinnerSelect2 = 0
-    var spinnerSelect3 = 0
-    var spinnerSelect4 = 0
-    var spinnerSelect5 = 0
-    var spinnerSelect6 = 0
-    var spinnerSelect7 = 0
-    var spinnerSelect8 = 0
 
     var spinnerSelect3_Device = 1
     var spinnerSelect3_Company = 0
@@ -99,8 +87,13 @@ class MainActivity3 : AppCompatActivity() {
         binding2.numberText.text = "Room $abcd"
         roomName = "$abcd"
 
-
+        // 메인 화면에서 로드하면 발생하는 기능
+        val sharedPreferences2 = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
+        val LoadToF = sharedPreferences2.getBoolean("btnLoadClick", false)
+        val sharedPreferences3 = getSharedPreferences("appFirst", Context.MODE_PRIVATE)
         val sharedPreferences4 = getSharedPreferences(roomName, Context.MODE_PRIVATE)
+
+        val sharedPreferencesLoad = getSharedPreferences("load$roomName", Context.MODE_PRIVATE)
 
         val irdbString = assets.open("irdbV2.json").reader().readText()
         val irdb = JSONObject(irdbString)
@@ -174,8 +167,6 @@ class MainActivity3 : AppCompatActivity() {
             lightingCompanyList.add(irdb_lighting_company_key_list.get(i))
         }
 
-
-
         // 스피너 설정
         val speakerList = mutableListOf<String>()
         val spinnerAdapter3_3 = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, speakerCompanyList)
@@ -194,10 +185,20 @@ class MainActivity3 : AppCompatActivity() {
                     Log.d("asdf speakerList", "${it}")
                     speakerList.add(it.toString())
                 }
-                speakerList.forEach {
-                    Log.d("asdf speaker", "${it}")
+
+                // 스피커
+                val loadSpeakerList = mutableListOf<String>()
+                if (LoadToF) {
+                    val load_speaker = sharedPreferencesLoad.getString("load_ir_key_2", "")
+                    load_speaker?.split("/")?.forEach {
+                        loadSpeakerList.add(it)
+                    }
+
+                    // 회사
+                    val loadSpeakerCompany = spinnerAdapter3_3.getPosition("${loadSpeakerList.get(2)}")
+                    binding2.spinner33.setSelection(loadSpeakerCompany)
+
                 }
-                Log.d("asdf speakerList.size", "${speakerList.size}")
 
                 val spinnerAdapter3_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, speakerList)
                 binding2.spinner34.adapter = spinnerAdapter3_4
@@ -214,22 +215,12 @@ class MainActivity3 : AppCompatActivity() {
                 val spinnerSelect3_Model = sharedPreferences4.getInt("spinnerSelect3_Model", 0)
                 binding2.spinner34.setSelection(spinnerSelect3_Model)
 
-//                when(p2) {
-//                    1 -> {
-//                        val spinnerAdapter3_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, speakerModelList)
-//                        binding2.spinner34.adapter = spinnerAdapter3_4
-//                        binding2.spinner34.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-//                                spinnerData3_Model = binding2.spinner34.getItemAtPosition(p2).toString()
-//                                spinnerSelect3_Model = p2
-//                            }
-//                            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                            }
-//                        }
-//                        val spinnerSelect3_Model = sharedPreferences4.getInt("spinnerSelect3_Model",0)
-//                        binding2.spinner34.setSelection(spinnerSelect3_Model)
-//                    }
-//                }
+                if (LoadToF) {
+                    // 모델
+                    val loadAirconModel = spinnerAdapter3_4.getPosition("${loadSpeakerList.get(3)}")
+                    binding2.spinner34.setSelection(loadAirconModel)
+                }
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
@@ -253,6 +244,20 @@ class MainActivity3 : AppCompatActivity() {
                     lampList.add(it)
                 }
 
+                // 조명
+                val loadLampList = mutableListOf<String>()
+                if (LoadToF) {
+                    val load_lamp = sharedPreferencesLoad.getString("load_ir_key_3", "")
+                    load_lamp?.split("/")?.forEach {
+                        loadLampList.add(it)
+                    }
+
+                    // 회사
+                    val loadLampCompany = spinnerAdapter4_3.getPosition("${loadLampList.get(2)}")
+                    binding2.spinner43.setSelection(loadLampCompany)
+
+                }
+
                 val spinnerAdapter4_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, lampList)
                 binding2.spinner44.adapter = spinnerAdapter4_4
                 binding2.spinner44.onItemSelectedListener =
@@ -260,6 +265,12 @@ class MainActivity3 : AppCompatActivity() {
                         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                             spinnerData4_Model = binding2.spinner44.getItemAtPosition(p2).toString()
                             spinnerSelect4_Model = p2
+
+                            if (LoadToF) {
+                                // 모델
+                                val loadLampModel = spinnerAdapter4_4.getPosition("${loadLampList.get(3)}")
+                                binding2.spinner44.setSelection(loadLampModel)
+                            }
                         }
 
                         override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -292,6 +303,20 @@ class MainActivity3 : AppCompatActivity() {
                     projectorList.add(it)
                 }
 
+                // 프로젝터1
+                val loadProjectorList1 = mutableListOf<String>()
+                if (LoadToF) {
+                    val load_projector = sharedPreferencesLoad.getString("load_ir_key_4", "")
+                    load_projector?.split("/")?.forEach {
+                        loadProjectorList1.add(it)
+                    }
+
+                    // 회사
+                    val loadProjectorCompany = spinnerAdapter5_3.getPosition("${loadProjectorList1.get(2)}")
+                    binding2.spinner53.setSelection(loadProjectorCompany)
+
+                }
+
                 val spinnerAdapter5_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorList)
                 binding2.spinner54.adapter = spinnerAdapter5_4
                 binding2.spinner54.onItemSelectedListener =
@@ -299,6 +324,12 @@ class MainActivity3 : AppCompatActivity() {
                         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                             spinnerData5_Model = binding2.spinner54.getItemAtPosition(p2).toString()
                             spinnerSelect5_Model = p2
+
+                            if (LoadToF) {
+                                // 모델
+                                val loadProjectorModel = spinnerAdapter5_4.getPosition("${loadProjectorList1.get(3)}")
+                                binding2.spinner54.setSelection(loadProjectorModel)
+                            }
                         }
 
                         override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -330,6 +361,20 @@ class MainActivity3 : AppCompatActivity() {
                     projectorList2.add(it)
                 }
 
+                // 프로젝터2
+                val loadProjectorList2 = mutableListOf<String>()
+                if (LoadToF) {
+                    val load_projector = sharedPreferencesLoad.getString("load_ir_key_4", "")
+                    load_projector?.split("/")?.forEach {
+                        loadProjectorList2.add(it)
+                    }
+
+                    // 회사
+                    val loadProjectorCompany = spinnerAdapter6_3.getPosition("${loadProjectorList2.get(2)}")
+                    binding2.spinner63.setSelection(loadProjectorCompany)
+
+                }
+
                 val spinnerAdapter6_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorList2)
                 binding2.spinner64.adapter = spinnerAdapter6_4
                 binding2.spinner64.onItemSelectedListener =
@@ -337,6 +382,12 @@ class MainActivity3 : AppCompatActivity() {
                         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                             spinnerData6_Model = binding2.spinner64.getItemAtPosition(p2).toString()
                             spinnerSelect6_Model = p2
+
+                            if (LoadToF) {
+                                // 모델
+                                val loadProjectorModel = spinnerAdapter6_4.getPosition("${loadProjectorList2.get(3)}")
+                                binding2.spinner64.setSelection(loadProjectorModel)
+                            }
                         }
 
                         override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -368,6 +419,19 @@ class MainActivity3 : AppCompatActivity() {
                     air_conditionerList.add(it)
                 }
 
+                // 에어컨
+                val loadAirconList = mutableListOf<String>()
+                if (LoadToF) {
+                    val load_aircon = sharedPreferencesLoad.getString("load_ir_key_6", "")
+                    load_aircon?.split("/")?.forEach {
+                        loadAirconList.add(it)
+                    }
+
+                    // 회사
+                    val loadAirconCompany = spinnerAdapter7_3.getPosition("${loadAirconList.get(2)}")
+                    binding2.spinner73.setSelection(loadAirconCompany)
+                }
+
                 val spinnerAdapter7_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, air_conditionerList)
                 binding2.spinner74.adapter = spinnerAdapter7_4
                 binding2.spinner74.onItemSelectedListener =
@@ -375,6 +439,12 @@ class MainActivity3 : AppCompatActivity() {
                         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                             spinnerData7_Model = binding2.spinner74.getItemAtPosition(p2).toString()
                             spinnerSelect7_Model = p2
+
+                            if (LoadToF) {
+                                // 모델
+                                val loadAirconModel = spinnerAdapter7_4.getPosition("${loadAirconList.get(3)}")
+                                binding2.spinner74.setSelection(loadAirconModel)
+                            }
                         }
 
                         override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -400,54 +470,37 @@ class MainActivity3 : AppCompatActivity() {
         // 저장된 값을 불러와 화면에 뿌려주는 로드
         load()
 
-        // 메인 화면에서 로드하면 발생하는 기능
-        val sharedPreferences2 = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
-        val LoadToF = sharedPreferences2.getBoolean("btnLoadClick", false)
 
         // 메인 페이지에서 만약 load버튼을 눌렀으면 LoadToF가 true 아니면 false
         // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
         if (LoadToF) {
-            val sharedPreferences = getSharedPreferences("load$roomName", Context.MODE_PRIVATE)
 
-            val editTextValue1 = sharedPreferences.getString("load_blaster_$roomName", "")
+            val editTextValue1 = sharedPreferencesLoad.getString("load_blaster_$roomName", "")
             binding2.editText1.setText(editTextValue1.toString())
-            val editTextValue2 = sharedPreferences.getString("load_nid_1", "")
+            val editTextValue2 = sharedPreferencesLoad.getString("load_nid_1", "")
             binding2.editText2.setText(editTextValue2.toString())
-            val editTextValue5 = sharedPreferences.getString("load_nid_4", "")
+            val editTextValue5 = sharedPreferencesLoad.getString("load_nid_4", "")
             binding2.editText5.setText(editTextValue5.toString())
-            val editTextValue6 = sharedPreferences.getString("load_nid_5", "")
+            val editTextValue6 = sharedPreferencesLoad.getString("load_nid_5", "")
             binding2.editText6.setText(editTextValue6.toString())
-            val editTextValue8 = sharedPreferences.getString("load_nid_7", "")
+            val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
             binding2.editText8.setText(editTextValue8.toString())
 
             // load_ir_key 가 없는 이유 : load_ir_key는 스트링이라 int로 값을 보여주는 spinner.setSelection으로
-            // 값을 보여줄 수 없어서 안만듬 이제 만들어야 함
+            // 값을 보여줄 수 없어서 만들기 힘듬 이제 만들어야 함
 
-            // 스피커
-            val load_speaker = sharedPreferences.getString("load_ir_key_2","")
-            val loadSpeakerList = mutableListOf<String>()
-            Log.d("asdf load_speaker", "${load_speaker}")
-            load_speaker?.split("/")?.forEach {
-                Log.d("load_speaker.split", "$it")
-                loadSpeakerList.add(it)
-            }
 
             // 조명
-            val load_lamp = sharedPreferences.getString("load_ir_key_3","")
+            val load_lamp = sharedPreferencesLoad.getString("load_ir_key_3","")
             Log.d("asdf load_lamp", "${load_lamp}")
 
             // 프로젝터1
-            val load_projector1 = sharedPreferences.getString("load_ir_key_4","")
+            val load_projector1 = sharedPreferencesLoad.getString("load_ir_key_4","")
             Log.d("asdf load_projector1", "${load_projector1}")
 
             // 프로젝터2
-            val load_projector2 = sharedPreferences.getString("load_ir_key_5","")
+            val load_projector2 = sharedPreferencesLoad.getString("load_ir_key_5","")
             Log.d("asdf load_projector2", "${load_projector2}")
-
-            // 에어컨
-            val load_aircon = sharedPreferences.getString("load_ir_key_6","")
-            Log.d("asdf load_aircon", "${load_aircon}")
-
 
 
             // load 버튼을 눌러 true로 변경되었고 gateway에서 가져온 값을 보여줬다면 값을 다시 false로 초기화해준다
@@ -468,8 +521,11 @@ class MainActivity3 : AppCompatActivity() {
 
         // 세이브 버튼
         binding2.btnSave.setOnClickListener {
+            val saveEditor : SharedPreferences.Editor = sharedPreferences3.edit()
+            saveEditor.putBoolean("firstMovement",false)
             isSave++
             save()
+            saveEditor.commit()
         }
 
         // 저장된 값을 불러오는 load 버튼
@@ -562,19 +618,19 @@ class MainActivity3 : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
         val editor : SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putInt("spinnerSelect1",spinnerSelect1)
+
         editor.putString("editdata1",editData1)
-        editor.putInt("spinnerSelect2",spinnerSelect2)
+
         editor.putString("editdata2",editData2)
-        editor.putInt("spinnerSelect3",spinnerSelect3)
+
         editor.putString("editdata3",editData3)
-        editor.putInt("spinnerSelect4",spinnerSelect4)
+
         editor.putString("editdata4",editData4)
-        editor.putInt("spinnerSelect5",spinnerSelect5)
+
         editor.putString("editdata5",editData5)
-        editor.putInt("spinnerSelect6",spinnerSelect6)
+
         editor.putString("editdata6",editData6)
-        editor.putInt("spinnerSelect7",spinnerSelect7)
+
         editor.putString("editdata7",editData7)
         editor.putString("editdata8",editData8)
 
@@ -629,11 +685,41 @@ class MainActivity3 : AppCompatActivity() {
     override fun onBackPressed() {
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
-        if(sharedPreferences.all.get("editdata1").toString() == binding2.editText1.text.toString() &&
+        val speakerCompanySpinner = binding2.spinner33.selectedItem.toString()
+        val speakerModelSpinner = binding2.spinner34.selectedItem.toString()
+        val lampCompanySpinner = binding2.spinner43.selectedItem.toString()
+        val lampModelSpinner = binding2.spinner44.selectedItem.toString()
+        val projectorCompanySpinner = binding2.spinner53.selectedItem.toString()
+        val projectorModelSpinner = binding2.spinner54.selectedItem.toString()
+        val projectorCompanySpinner2 = binding2.spinner63.selectedItem.toString()
+        val projectorModelSpinner2 = binding2.spinner64.selectedItem.toString()
+        val airconCompanySpinner = binding2.spinner73.selectedItem.toString()
+        val airconModelSpinner = binding2.spinner74.selectedItem.toString()
+
+        val savedSpeakerCompanySpinner = sharedPreferences.getString("spinnerData3_Company", "")
+        val savedSpeakerModelSpinner = sharedPreferences.getString("spinnerData3_Model", "")
+        val savedLampCompanySpinner = sharedPreferences.getString("spinnerData4_Company", "")
+        val savedLampModelSpinner = sharedPreferences.getString("spinnerData4_Model", "")
+        val savedProjectorCompanySpinner = sharedPreferences.getString("spinnerData5_Company", "")
+        val savedProjectorModelSpinner = sharedPreferences.getString("spinnerData5_Model", "")
+        val savedProjectorCompanySpinner2 = sharedPreferences.getString("spinnerData6_Company", "")
+        val savedProjectorModelSpinner2 = sharedPreferences.getString("spinnerData6_Model", "")
+        val savedAirconCompanySpinner = sharedPreferences.getString("spinnerData7_Company", "")
+        val savedAirconModelSpinner = sharedPreferences.getString("spinnerData7_Model", "")
+
+        Log.d("speakerCompanySpinner", "${speakerCompanySpinner}")
+        Log.d("savedSpeakerCompanySpinner", "$savedSpeakerCompanySpinner")
+
+        if (sharedPreferences.all.get("editdata1").toString() == binding2.editText1.text.toString() &&
             sharedPreferences.all.get("editdata2").toString() == binding2.editText2.text.toString() &&
             sharedPreferences.all.get("editdata5").toString() == binding2.editText5.text.toString() &&
             sharedPreferences.all.get("editdata6").toString() == binding2.editText6.text.toString() &&
-            sharedPreferences.all.get("editdata8").toString() == binding2.editText8.text.toString()) {
+            sharedPreferences.all.get("editdata8").toString() == binding2.editText8.text.toString() &&
+            speakerCompanySpinner == savedSpeakerCompanySpinner && speakerModelSpinner == savedSpeakerModelSpinner &&
+            lampCompanySpinner == savedLampCompanySpinner && lampModelSpinner == savedLampModelSpinner &&
+            projectorCompanySpinner == savedProjectorCompanySpinner && projectorModelSpinner == savedProjectorModelSpinner &&
+            projectorCompanySpinner2 == savedProjectorCompanySpinner2 && projectorModelSpinner2 == savedProjectorModelSpinner2 &&
+            airconCompanySpinner == savedAirconCompanySpinner && airconModelSpinner == savedAirconModelSpinner) {
             Log.d("asdf save","최근 저장 & 값 변화 없음")
             super.onBackPressed()
         } else {
@@ -649,7 +735,6 @@ class MainActivity3 : AppCompatActivity() {
                 dialog.cancel()
                 Log.d("asdf save dialog cancle", "cancel")
                 super.onBackPressed()
-                //isSave = 0
             })
             builder.show()
 //            Toast.makeText(this,"quit",Toast.LENGTH_SHORT).show()
@@ -707,6 +792,24 @@ class MainActivity3 : AppCompatActivity() {
             super.onActivityResult(requestCode, resultCode, data);
         }
         //super.onActivityResult()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val sharedPreferences3 = getSharedPreferences("appFirst", Context.MODE_PRIVATE)
+        val movement = sharedPreferences3.getBoolean("firstMovement", true)
+
+        if(movement != true) {
+            load()
+        } else {
+            binding2.spinner33.setSelection(1)
+            binding2.spinner43.setSelection(1)
+            binding2.spinner53.setSelection(1)
+            binding2.spinner63.setSelection(1)
+            binding2.spinner73.setSelection(1)
+        }
+
     }
 }
 
