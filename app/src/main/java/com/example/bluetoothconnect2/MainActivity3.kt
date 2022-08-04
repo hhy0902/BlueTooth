@@ -620,17 +620,11 @@ class MainActivity3 : AppCompatActivity() {
         val editor : SharedPreferences.Editor = sharedPreferences.edit()
 
         editor.putString("editdata1",editData1)
-
         editor.putString("editdata2",editData2)
-
         editor.putString("editdata3",editData3)
-
         editor.putString("editdata4",editData4)
-
         editor.putString("editdata5",editData5)
-
         editor.putString("editdata6",editData6)
-
         editor.putString("editdata7",editData7)
         editor.putString("editdata8",editData8)
 
@@ -765,21 +759,11 @@ class MainActivity3 : AppCompatActivity() {
                 Log.d("testt", "Scanned : ${result.contents}, format: ${result.formatName}")
 
                 when(qrButtonClickCheck) {
-                    "button1" -> {
-                        binding2.editText1.setText(result.contents)
-                    }
-                    "button2" -> {
-                        binding2.editText2.setText(result.contents)
-                    }
-                    "button5" -> {
-                        binding2.editText5.setText(result.contents)
-                    }
-                    "button6" -> {
-                        binding2.editText6.setText(result.contents)
-                    }
-                    "button8" -> {
-                        binding2.editText8.setText(result.contents)
-                    }
+                    "button1" -> binding2.editText1.setText(result.contents)
+                    "button2" -> binding2.editText2.setText(result.contents)
+                    "button5" -> binding2.editText5.setText(result.contents)
+                    "button6" -> binding2.editText6.setText(result.contents)
+                    "button8" -> binding2.editText8.setText(result.contents)
                 }
             }
             if(result.barcodeImagePath != null) {
