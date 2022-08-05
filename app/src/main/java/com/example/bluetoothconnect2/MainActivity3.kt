@@ -90,7 +90,9 @@ class MainActivity3 : AppCompatActivity() {
         // 메인 화면에서 로드하면 발생하는 기능
         val sharedPreferences2 = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
         val LoadToF = sharedPreferences2.getBoolean("btnLoadClick", false)
-        val sharedPreferences3 = getSharedPreferences("appFirst", Context.MODE_PRIVATE)
+
+        //val sharedPreferences3 = getSharedPreferences("appFirst", Context.MODE_PRIVATE)
+
         val sharedPreferences4 = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
         val sharedPreferencesLoad = getSharedPreferences("load$roomName", Context.MODE_PRIVATE)
@@ -521,7 +523,7 @@ class MainActivity3 : AppCompatActivity() {
 
         // 세이브 버튼
         binding2.btnSave.setOnClickListener {
-            val saveEditor : SharedPreferences.Editor = sharedPreferences3.edit()
+            val saveEditor : SharedPreferences.Editor = sharedPreferences4.edit()
             saveEditor.putBoolean("firstMovement",false)
             isSave++
             save()
@@ -781,8 +783,8 @@ class MainActivity3 : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val sharedPreferences3 = getSharedPreferences("appFirst", Context.MODE_PRIVATE)
-        val movement = sharedPreferences3.getBoolean("firstMovement", true)
+        val sharedPreferences4 = getSharedPreferences("$roomName", Context.MODE_PRIVATE)
+        val movement = sharedPreferences4.getBoolean("firstMovement", true)
 
         if(movement != true) {
             load()
