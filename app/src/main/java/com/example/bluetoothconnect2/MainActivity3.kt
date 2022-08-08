@@ -82,7 +82,7 @@ class MainActivity3 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding2.root)
 
-        val abcd = intent.getStringExtra("abcd")
+        val abcd = intent.getStringExtra("abcd") // 룸 sharedpreferences에 사용되는 중요한 변수
         val deviceId = intent.getStringExtra("deviceId")
         binding2.numberText.text = "Room $abcd"
         roomName = "$abcd"
@@ -93,14 +93,18 @@ class MainActivity3 : AppCompatActivity() {
 
         //val sharedPreferences3 = getSharedPreferences("appFirst", Context.MODE_PRIVATE)
 
+        // 메인 쉐어드프리퍼런스 액티비티2에서도 많이 사용 함
         val sharedPreferences4 = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
+        // 메인2에서 load누르고 난 뒤 사용되는 프리퍼런스
         val sharedPreferencesLoad = getSharedPreferences("load$roomName", Context.MODE_PRIVATE)
 
+        // irdbv2.json 가져오기
         val irdbString = assets.open("irdbV2.json").reader().readText()
         val irdb = JSONObject(irdbString)
         Log.d("asdf irdbString", irdb.toString())
 
+        // 각각 프로젝터, 조명, 에어컨, 스피커의 값들을 가져오는 부분
         val irdb_projector = irdb.getString("projector")
         Log.d("asdf irdb_projector", irdb_projector)
         val irdb_lighting = irdb.getString("lamp")
@@ -110,6 +114,7 @@ class MainActivity3 : AppCompatActivity() {
         val irdb_speaker = irdb.getString("speaker")
 
         // speaker ==========================================================================================================================================================
+        // 스피커 회사 종류 가죠오는 부분
         val irdb_speaker_key = JSONObject(irdb_speaker)
         val irdb_speaker_company_key_list = mutableListOf<String>()
         irdb_speaker_key.keys().forEach {
@@ -118,6 +123,7 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // projector ==========================================================================================================================================================
+        // 프로젝터 회사 종류 가져오는 부분
         val irdb_projector_key = JSONObject(irdb_projector)
         val irdb_projector_company_key_list = mutableListOf<String>()
         irdb_projector_key.keys().forEach {
@@ -126,6 +132,7 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // air_conditioner ==========================================================================================================================================================
+        // 에어컨 회사 종류 가죠오는 부분
         val irdb_aircon_key = JSONObject(irdb_air_conditioner)
         val irdb_aircon_company_key_list = mutableListOf<String>()
         irdb_aircon_key.keys().forEach {
@@ -134,6 +141,7 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // lighting ==========================================================================================================================================================
+        // 조명 회사 종류가죠오는 부분
         val irdb_lighting_key = JSONObject(irdb_lighting)
         val irdb_lighting_company_key_list = mutableListOf<String>()
         irdb_lighting_key.keys().forEach {
@@ -142,6 +150,7 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // 스피커 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
+        // 스피커 회사 리스트에 값 넣어주기
         val speakerCompanyList = mutableListOf<String>()
         speakerCompanyList.add("")
         for(i in 0 until irdb_speaker_company_key_list.size) {
@@ -149,6 +158,7 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // 프로젝터 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
+        // 프로젝터 회사 리스트에 값 넣어주기
         val projectorCompanyList = mutableListOf<String>()
         projectorCompanyList.add("")
         for(i in 0 until irdb_projector_company_key_list.size) {
@@ -156,6 +166,7 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // 에어컨 리스트에 값 넣기 이게 스피너로 들어감 ==========================================================================================================================================================
+        // 에어컨 회사 리스트에 값 넣어주기
         val airconCompanyList = mutableListOf<String>()
         airconCompanyList.add("")
         for(i in 0 until irdb_aircon_company_key_list.size) {
@@ -163,6 +174,7 @@ class MainActivity3 : AppCompatActivity() {
         }
 
         // 조명 리스트에 값 넣기 이게 스피너로 들어감  ==========================================================================================================================================================
+        // 조명 회사 리스트에 값 넣어주기
         val lightingCompanyList = mutableListOf<String>()
         lightingCompanyList.add("")
         for (i in 0 until irdb_lighting_company_key_list.size) {
@@ -181,6 +193,7 @@ class MainActivity3 : AppCompatActivity() {
                 speakerList.clear()
                 speakerList.add("")
 
+                // 위 스피너에서 선택한 값을 받아서 irdb_speaker_model_key를 추출하고, speakerList에 넣어줘서 종속성 탈출~
                 val irdb_speaker_company_key = irdb_speaker_key.getString("${binding2.spinner33.getItemAtPosition(p2)}")
                 val irdb_speaker_model_key = JSONObject(irdb_speaker_company_key)
                 irdb_speaker_model_key.keys().forEach {
@@ -190,6 +203,7 @@ class MainActivity3 : AppCompatActivity() {
 
                 // 스피커
                 val loadSpeakerList = mutableListOf<String>()
+                // 만약 메인2에서 load를 눌렀으면 동작하는 코드 load로 읽어온데이터를 저장하고 split으로 쪼개고 해당하는 값을 스피너에 넣어준다
                 if (LoadToF) {
                     val load_speaker = sharedPreferencesLoad.getString("load_ir_key_2", "")
                     load_speaker?.split("/")?.forEach {
@@ -197,6 +211,7 @@ class MainActivity3 : AppCompatActivity() {
                     }
 
                     // 회사
+                    // 해당되는 값 스피너에 넣어주기 회사니까 2
                     val loadSpeakerCompany = spinnerAdapter3_3.getPosition("${loadSpeakerList.get(2)}")
                     binding2.spinner33.setSelection(loadSpeakerCompany)
 
@@ -219,6 +234,7 @@ class MainActivity3 : AppCompatActivity() {
 
                 if (LoadToF) {
                     // 모델
+                    // 해당되는 값 스피너에 넣어주기 모델이니까 3
                     val loadAirconModel = spinnerAdapter3_4.getPosition("${loadSpeakerList.get(3)}")
                     binding2.spinner34.setSelection(loadAirconModel)
                 }
@@ -488,9 +504,6 @@ class MainActivity3 : AppCompatActivity() {
             val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
             binding2.editText8.setText(editTextValue8.toString())
 
-            // load_ir_key 가 없는 이유 : load_ir_key는 스트링이라 int로 값을 보여주는 spinner.setSelection으로
-            // 값을 보여줄 수 없어서 만들기 힘듬 이제 만들어야 함
-
 
             // 조명
             val load_lamp = sharedPreferencesLoad.getString("load_ir_key_3","")
@@ -535,6 +548,7 @@ class MainActivity3 : AppCompatActivity() {
             load()
         }
 
+        // qrcode 누르면 qrButtonClickCheck에 해당하는 값을 넣어주고 runQRcodeReader()를 실행해준다
         binding2.qrImage1.setOnClickListener {
             qrButtonClickCheck = "button1"
             runQRcodeReader()
@@ -561,15 +575,13 @@ class MainActivity3 : AppCompatActivity() {
 
     // 저장된 값을 불러온다
     fun load() {
+        // 각각의 roomName으로 저장된 값들을 불러온다
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
         val editTextValue = sharedPreferences.getString("editdata1", "")
         val editTextValue2 = sharedPreferences.getString("editdata2", "")
-        val editTextValue3 = sharedPreferences.getString("editdata3", "")
-        val editTextValue4 = sharedPreferences.getString("editdata4", "")
         val editTextValue5 = sharedPreferences.getString("editdata5", "")
         val editTextValue6 = sharedPreferences.getString("editdata6", "")
-        val editTextValue7 = sharedPreferences.getString("editdata7", "")
         val editTextValue8 = sharedPreferences.getString("editdata8", "")
 
         val spinnerValue3_3 = sharedPreferences.getInt("spinnerSelect3_Company", 0)
@@ -587,6 +599,7 @@ class MainActivity3 : AppCompatActivity() {
         val spinnerValue7_3 = sharedPreferences.getInt("spinnerSelect7_Company", 0)
         val spinnerValue7_4 = sharedPreferences.getInt("spinnerSelect7_Model", 0)
 
+        // 불러온 값들을 editText나 스피너
         binding2.editText1.setText(editTextValue.toString())
         binding2.editText2.setText(editTextValue2.toString())
         binding2.editText5.setText(editTextValue5.toString())

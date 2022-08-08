@@ -30,14 +30,14 @@ class MainActivity2 : AppCompatActivity() {
         ActivityMain2Binding.inflate(layoutInflater)
     }
 
-    var i = 1
-    var z = 0
+    var i = 1 // recyclerVIew +-에 사용되는 변수입니다.
+
     lateinit var roomList : MutableList<Room>
 
     var address = ""
     var name = ""
     var roomName = ""
-    val random = Random().nextInt(9)+1
+    val random = Random().nextInt(9)+1 // send명령어 보낼때 적어주는 id에 사용되는 변수입니다.
 
     var loadJsonString = ""
 
@@ -48,10 +48,8 @@ class MainActivity2 : AppCompatActivity() {
     companion object {
         var myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
         var bluetoothSocket: BluetoothSocket? = null
-        lateinit var progress: ProgressDialog
         lateinit var bluetoothAdapter: BluetoothAdapter
         var isConnected: Boolean = false
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -671,17 +669,6 @@ class MainActivity2 : AppCompatActivity() {
             else {
                 Toast.makeText(this,"연결이 필요합니다",Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    override fun onBackPressed() {
-        if (z == 0)
-            Toast.makeText(this,"한번 더 누르면 종료",Toast.LENGTH_SHORT).show()
-        z++
-        if(z >= 2) {
-            disconnect()
-            super.onBackPressed()
-            z = 0
         }
     }
 
