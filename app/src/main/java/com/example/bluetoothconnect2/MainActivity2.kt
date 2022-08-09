@@ -110,6 +110,7 @@ class MainActivity2 : AppCompatActivity() {
                 }
             }
 
+        // 룸 어댑터 연결
         val roomAdapter = RoomAdapter(this,roomList, startActivityLauncher, name)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = roomAdapter
@@ -152,20 +153,19 @@ class MainActivity2 : AppCompatActivity() {
 
             if (bluetoothSocket?.isConnected == true) {
 
-                // 룸1부터 10까지 초기화
+                // 룸1부터 10까지 초기화 추후 룸 개수가 늘어나면 이걸 늘리면 된다.
                 for (p in 1..10) {
                     val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
                     sendCommand(testDelete3)
                     receiveData()
-                    //Thread.sleep(200)
                 }
 
                 //irdb 초기화
                 val testDelete4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/irdb\"}],\"id\":\"qwerasd$random\"}"
                 sendCommand(testDelete4)
                 receiveData()
-                //Thread.sleep(200)
 
+                // 순서가 이상해진 device값들의 순서를 맞추기 위한 리스트
                 val numList = mutableListOf<Int>(0, 7, 3, 1, 9, 10, 6, 2)
                 //신버전 : 0=ir블래스터 더미 값, 1=조명, 2=터치스크린, 3=스피커, 6=에어컨, 7=pc, 9=프로젝터1, 10=프로젝터2
 
@@ -188,6 +188,7 @@ class MainActivity2 : AppCompatActivity() {
                     jsonrpcValue2.put("nid",sharedPreferences.all.get("editdata1").toString().toInt())
                     jsonrpcValue.put("blaster",jsonrpcValue2)
 
+                    // 들어가는 내용물이 블래스터 제외하면 7개 니까 언틸8을 사용함
                     for(z in 1 until 8) {
                         var jsonrpcUnitsValue2 = JSONObject()
                         var jsonrpcPlugValue = JSONObject()
@@ -195,6 +196,7 @@ class MainActivity2 : AppCompatActivity() {
                         // 1=pc, 2=스피커, 3=조명, 4=프로젝터1, 5=프로젝터2, 6=에어컨 7=터치스크린 추가하기
                         // 스피커 값 if 문에 들어가는거 변경해주기
 
+                        // 각 번호별로 해당하는 값들을 할당해 줌
                         if(z == 4 || z == 5) {
                             jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
                             jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)

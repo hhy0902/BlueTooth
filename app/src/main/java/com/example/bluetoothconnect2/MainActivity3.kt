@@ -537,6 +537,7 @@ class MainActivity3 : AppCompatActivity() {
         // 세이브 버튼
         binding2.btnSave.setOnClickListener {
             val saveEditor : SharedPreferences.Editor = sharedPreferences4.edit()
+            // 밑에서 사용할 firstMovement의 값을 save버튼 누르면 변경
             saveEditor.putBoolean("firstMovement",false)
             isSave++
             save()
@@ -689,7 +690,7 @@ class MainActivity3 : AppCompatActivity() {
 
     }
 
-    // 뒤로가기 버튼을 누르면 저장된 값과 현재 editText에 있는 값을 비교하여
+    // 뒤로가기 버튼을 누르면 쉐어드프리퍼런스에 저장된 값과 현재 editText, spinner에 있는 값을 비교하여
     // 만약 변화가 생겼을 경우 저장하겠냐고 하는 다이얼로그 생성 변화가 없으면 그대로 나가기
     override fun onBackPressed() {
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
@@ -752,6 +753,7 @@ class MainActivity3 : AppCompatActivity() {
 
     }
 
+    // qr코드 함수
     fun runQRcodeReader() {
         val integrator = IntentIntegrator(this)
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
@@ -762,6 +764,7 @@ class MainActivity3 : AppCompatActivity() {
         integrator.initiateScan()
     }
 
+    // qr코드 생성하는거
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
@@ -773,6 +776,7 @@ class MainActivity3 : AppCompatActivity() {
 
                 Log.d("testt", "Scanned : ${result.contents}, format: ${result.formatName}")
 
+                // when으로 위에서 qrButtonClickCheck에 할당한 값에 따라서 저장하도록 만듬
                 when(qrButtonClickCheck) {
                     "button1" -> binding2.editText1.setText(result.contents)
                     "button2" -> binding2.editText2.setText(result.contents)
@@ -793,6 +797,9 @@ class MainActivity3 : AppCompatActivity() {
         //super.onActivityResult()
     }
 
+    // 처음 실행하면 위에서 만든 speakerList에 값이 없어서 오류가 난다.
+    // 그래서 여기서 처음에는 setSelection으로 값을 설정해주고
+    // 저장버튼을 누르면 firstMovement 쉐어드 프리퍼런스가 바뀌면서 load함수로 저장된 값을 보여준다
     override fun onStart() {
         super.onStart()
 
