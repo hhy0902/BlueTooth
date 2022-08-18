@@ -24,6 +24,7 @@ import com.example.bluetoothconnect2.model.Room
 
 class MainActivity : AppCompatActivity() {
 
+    // 여기는 불루투스 연결된걸 확인하고 recyclerView로 보여주는 곳
     lateinit var bluetoothManager: BluetoothManager
     lateinit var bluetoothAdapter: BluetoothAdapter
     lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         requestNotificationPermissions()
 
+        // 여기에 블루투스 페어링 한 리스트가 담겨짐
         blueToothList = mutableListOf<BlueTooth>()
 
         activityResultLauncher =

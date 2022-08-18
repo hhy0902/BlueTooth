@@ -30,7 +30,7 @@ class MainActivity2 : AppCompatActivity() {
         ActivityMain2Binding.inflate(layoutInflater)
     }
 
-    var i = 1 // recyclerVIew +-에 사용되는 변수입니다.
+    var i = 1 // recyclerVIew room 개수 +-에 사용되는 변수입니다.
 
     lateinit var roomList : MutableList<Room>
 
@@ -579,7 +579,6 @@ class MainActivity2 : AppCompatActivity() {
             // 연결되었으면 실행
             if (bluetoothSocket?.isConnected == true) {
                 Toast.makeText(this, "load",Toast.LENGTH_SHORT).show()
-                //val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_1/units/1\"}, \"id\": \"ro33b7sz\"}"
 
                 // 방 개수만큼 blaster/node_id를 구하는 sendCommand로 명령어 보내고 receiveData로 불러오기
                 for(i in 1..roomList.size) {

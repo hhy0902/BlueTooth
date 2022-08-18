@@ -458,10 +458,28 @@ class MainActivity3 : AppCompatActivity() {
                             spinnerData7_Model = binding2.spinner74.getItemAtPosition(p2).toString()
                             spinnerSelect7_Model = p2
 
+                            // 메인 페이지에서 만약 load버튼을 눌렀으면 LoadToF가 true 아니면 false
+                            // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
                             if (LoadToF) {
                                 // 모델
                                 val loadAirconModel = spinnerAdapter7_4.getPosition("${loadAirconList.get(3)}")
                                 binding2.spinner74.setSelection(loadAirconModel)
+
+                                // 밑에서 함수로 만들어서 할려고 했는데 왜 그런지 모르겠지만 덮어써지지가 않아서 그냥 여기다 함
+                                // 쓰레드로 할까? 생각중
+                                val editTextValue1 = sharedPreferencesLoad.getString("load_blaster_$roomName", "")
+                                Log.d("asdf load_blaster", "${editTextValue1}")
+                                clearEdittext()
+                                binding2.editText1.setText(editTextValue1.toString())
+                                Log.d("asdf edittext1 = ", "${binding2.editText1.text}")
+                                val editTextValue2 = sharedPreferencesLoad.getString("load_nid_1", "")
+                                binding2.editText2.setText(editTextValue2.toString())
+                                val editTextValue5 = sharedPreferencesLoad.getString("load_nid_4", "")
+                                binding2.editText5.setText(editTextValue5.toString())
+                                val editTextValue6 = sharedPreferencesLoad.getString("load_nid_5", "")
+                                binding2.editText6.setText(editTextValue6.toString())
+                                val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
+                                binding2.editText8.setText(editTextValue8.toString())
                             }
                         }
 
@@ -476,62 +494,13 @@ class MainActivity3 : AppCompatActivity() {
             }
         }
 
-//        binding2.spinner1.setSelection(9)
-//        binding2.spinner2.setSelection(1)
-//        binding2.spinner3.setSelection(4)
-//        binding2.spinner4.setSelection(8)
-//        binding2.spinner5.setSelection(5)
-//        binding2.spinner6.setSelection(6)
-//        binding2.spinner7.setSelection(10)
-
 
         // 저장된 값을 불러와 화면에 뿌려주는 로드
         load()
 
-
-        // 메인 페이지에서 만약 load버튼을 눌렀으면 LoadToF가 true 아니면 false
-        // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
-        if (LoadToF) {
-
-            val editTextValue1 = sharedPreferencesLoad.getString("load_blaster_$roomName", "")
-            binding2.editText1.setText(editTextValue1.toString())
-            val editTextValue2 = sharedPreferencesLoad.getString("load_nid_1", "")
-            binding2.editText2.setText(editTextValue2.toString())
-            val editTextValue5 = sharedPreferencesLoad.getString("load_nid_4", "")
-            binding2.editText5.setText(editTextValue5.toString())
-            val editTextValue6 = sharedPreferencesLoad.getString("load_nid_5", "")
-            binding2.editText6.setText(editTextValue6.toString())
-            val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
-            binding2.editText8.setText(editTextValue8.toString())
-
-
-            // 조명
-            val load_lamp = sharedPreferencesLoad.getString("load_ir_key_3","")
-            Log.d("asdf load_lamp", "${load_lamp}")
-
-            // 프로젝터1
-            val load_projector1 = sharedPreferencesLoad.getString("load_ir_key_4","")
-            Log.d("asdf load_projector1", "${load_projector1}")
-
-            // 프로젝터2
-            val load_projector2 = sharedPreferencesLoad.getString("load_ir_key_5","")
-            Log.d("asdf load_projector2", "${load_projector2}")
-
-
-            // load 버튼을 눌러 true로 변경되었고 gateway에서 가져온 값을 보여줬다면 값을 다시 false로 초기화해준다
-            val editor : SharedPreferences.Editor = sharedPreferences2.edit()
-            editor.putBoolean("btnLoadClick",false)
-            editor.commit()
-
-        }
-
         // 클리어 버튼 에디트 텍스트 값을 초기화 해줌
         binding2.btnClear.setOnClickListener {
-            binding2.editText1.text = null
-            binding2.editText2.text = null
-            binding2.editText5.text = null
-            binding2.editText6.text = null
-            binding2.editText8.text = null
+            clearEdittext()
         }
 
         // 세이브 버튼
@@ -622,6 +591,46 @@ class MainActivity3 : AppCompatActivity() {
         binding2.spinner73.setSelection(spinnerValue7_3)
         binding2.spinner74.setSelection(spinnerValue7_4)
 
+        // 메인 화면에서 로드하면 발생하는 기능
+        val sharedPreferences2 = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
+        val LoadToF = sharedPreferences2.getBoolean("btnLoadClick", false)
+
+        // 메인2에서 load누르고 난 뒤 사용되는 프리퍼런스
+        val sharedPreferencesLoad = getSharedPreferences("load$roomName", Context.MODE_PRIVATE)
+
+        Log.d("asdf LoadToF", "${LoadToF}")
+
+        // 메인 페이지에서 만약 load버튼을 눌렀으면 LoadToF가 true 아니면 false
+        // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
+        if (LoadToF) {
+//            val editTextValue1 = sharedPreferencesLoad.getString("load_blaster_$roomName", "")
+//            Log.d("asdf load_blaster", "${editTextValue1}")
+//            clearEdittext()
+//            binding2.editText1.setText(editTextValue1.toString())
+//            Log.d("asdf edittext1 = ", "${binding2.editText1.text}")
+//            val editTextValue2 = sharedPreferencesLoad.getString("load_nid_1", "")
+//            binding2.editText2.setText(editTextValue2.toString())
+//            val editTextValue5 = sharedPreferencesLoad.getString("load_nid_4", "")
+//            binding2.editText5.setText(editTextValue5.toString())
+//            val editTextValue6 = sharedPreferencesLoad.getString("load_nid_5", "")
+//            binding2.editText6.setText(editTextValue6.toString())
+//            val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
+//            binding2.editText8.setText(editTextValue8.toString())
+
+            // load 버튼을 눌러 true로 변경되었고 gateway에서 가져온 값을 보여줬다면 값을 다시 false로 초기화해준다
+            val editor : SharedPreferences.Editor = sharedPreferences2.edit()
+            editor.putBoolean("btnLoadClick",false)
+            editor.commit()
+
+        }
+    }
+
+    fun clearEdittext() {
+        binding2.editText1.text = null
+        binding2.editText2.text = null
+        binding2.editText5.text = null
+        binding2.editText6.text = null
+        binding2.editText8.text = null
     }
 
     // 값을 쉐어드 프리퍼런스로 저장하는 함수
