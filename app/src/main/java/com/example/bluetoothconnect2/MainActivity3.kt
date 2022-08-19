@@ -448,6 +448,22 @@ class MainActivity3 : AppCompatActivity() {
                     // 회사
                     val loadAirconCompany = spinnerAdapter7_3.getPosition("${loadAirconList.get(2)}")
                     binding2.spinner73.setSelection(loadAirconCompany)
+
+                    // 밑에서 함수로 만들어서 할려고 했는데 왜 그런지 모르겠지만 덮어써지지가 않아서 그냥 여기다 함
+                    // 쓰레드로 할까? 생각중
+                    val editTextValue1 = sharedPreferencesLoad.getString("load_blaster_$roomName", "")
+                    Log.d("asdf load_blaster", "${editTextValue1}")
+                    //clearEdittext()
+                    binding2.editText1.setText(editTextValue1.toString())
+                    Log.d("asdf edittext1 = ", "${binding2.editText1.text}")
+                    val editTextValue2 = sharedPreferencesLoad.getString("load_nid_1", "")
+                    binding2.editText2.setText(editTextValue2.toString())
+                    val editTextValue5 = sharedPreferencesLoad.getString("load_nid_4", "")
+                    binding2.editText5.setText(editTextValue5.toString())
+                    val editTextValue6 = sharedPreferencesLoad.getString("load_nid_5", "")
+                    binding2.editText6.setText(editTextValue6.toString())
+                    val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
+                    binding2.editText8.setText(editTextValue8.toString())
                 }
 
                 val spinnerAdapter7_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, air_conditionerList)
@@ -465,21 +481,6 @@ class MainActivity3 : AppCompatActivity() {
                                 val loadAirconModel = spinnerAdapter7_4.getPosition("${loadAirconList.get(3)}")
                                 binding2.spinner74.setSelection(loadAirconModel)
 
-                                // 밑에서 함수로 만들어서 할려고 했는데 왜 그런지 모르겠지만 덮어써지지가 않아서 그냥 여기다 함
-                                // 쓰레드로 할까? 생각중
-                                val editTextValue1 = sharedPreferencesLoad.getString("load_blaster_$roomName", "")
-                                Log.d("asdf load_blaster", "${editTextValue1}")
-                                clearEdittext()
-                                binding2.editText1.setText(editTextValue1.toString())
-                                Log.d("asdf edittext1 = ", "${binding2.editText1.text}")
-                                val editTextValue2 = sharedPreferencesLoad.getString("load_nid_1", "")
-                                binding2.editText2.setText(editTextValue2.toString())
-                                val editTextValue5 = sharedPreferencesLoad.getString("load_nid_4", "")
-                                binding2.editText5.setText(editTextValue5.toString())
-                                val editTextValue6 = sharedPreferencesLoad.getString("load_nid_5", "")
-                                binding2.editText6.setText(editTextValue6.toString())
-                                val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
-                                binding2.editText8.setText(editTextValue8.toString())
                             }
                         }
 
