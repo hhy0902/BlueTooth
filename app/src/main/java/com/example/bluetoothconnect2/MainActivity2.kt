@@ -583,40 +583,50 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 방 개수만큼 blaster/node_id를 구하는 sendCommand로 명령어 보내고 receiveData로 불러오기
                 for(i in 1..roomList.size) {
-                    val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/blaster/nid\"}, \"id\": \"qwerasd$random\"}"
-                    sendCommand(loadJson)
-                    receiveData()
-                    val jsonObject = JSONObject(readMessage)
-                    Log.d("asdf jsonobject", "${jsonObject}")
-                    val result = jsonObject.get("result")
-                    Log.d("asdf room${i}_blaster", result.toString())
+                    try {
+                        val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/blaster/nid\"}, \"id\": \"qwerasd$random\"}"
+                        sendCommand(loadJson)
+                        receiveData()
+                        val jsonObject = JSONObject(readMessage)
+                        Log.d("asdf jsonobject", "${jsonObject}")
+                        val result = jsonObject.get("result")
+                        Log.d("asdf room${i}_blaster", result.toString())
 
-                    val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
-                    val editor : SharedPreferences.Editor = sharedPreferences.edit()
-                    editor.putString("load_blaster_$i",result.toString())
+                        val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
+                        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+                        editor.putString("load_blaster_$i",result.toString())
 
-                    editor.commit()
+                        editor.commit()
+                    } catch (e : Exception) {
+                        e.printStackTrace()
+                        //Toast.makeText(this,"app의 room개수와 gateWay의 room개수를 동일하게 만들어주세요",Toast.LENGTH_SHORT).show()
+                    }
+
                 }
 
                 // 2중 for문으로 룸 개수와 디바이스 개수만큼 반복해서 plug/nid를 찾는 명령어를 sendCommand로 보내고 receiveData응답을 받는다
                 for (i in 1..roomList.size) {
                     for (z in 1 until 8) {
                         if(z != 3 && z != 6 && z != 2) {
-                            val temp = numList[z]
-                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/nid\"}, \"id\": \"qwerasd$random\"}"
-                            sendCommand(loadJson)
-                            receiveData()
-                            val jsonObject = JSONObject(readMessage)
-                            //Log.d("asdf jsonobject", "${jsonObject}")
-                            val result = jsonObject.get("result")
-                            Log.d("asdf room${i}_nid$z", result.toString())
+                            try {
+                                val temp = numList[z]
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/nid\"}, \"id\": \"qwerasd$random\"}"
+                                sendCommand(loadJson)
+                                receiveData()
+                                val jsonObject = JSONObject(readMessage)
+                                //Log.d("asdf jsonobject", "${jsonObject}")
+                                val result = jsonObject.get("result")
+                                Log.d("asdf room${i}_nid$z", result.toString())
 
-                            val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
-                            val editor : SharedPreferences.Editor = sharedPreferences.edit()
-                            editor.putString("load_nid_$z",result.toString())
+                                val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
+                                val editor : SharedPreferences.Editor = sharedPreferences.edit()
+                                editor.putString("load_nid_$z",result.toString())
 
-                            editor.commit()
-
+                                editor.commit()
+                            } catch (e : Exception) {
+                                e.printStackTrace()
+                                //Toast.makeText(this,"app의 room개수와 gateWay의 room개수를 동일하게 만들어주세요",Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
@@ -625,15 +635,19 @@ class MainActivity2 : AppCompatActivity() {
                 for (i in 1..roomList.size) {
                     for (z in 1 until 8) {
                         if(z != 3 && z != 6 && z != 2) {
-                            val temp = numList[z]
-                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/use_switch\"}, \"id\": \"qwerasd$random\"}"
-                            sendCommand(loadJson)
-                            receiveData()
-                            val jsonObject = JSONObject(readMessage)
-                            //Log.d("asdf jsonobject2", "${jsonObject2}")
-                            val result = jsonObject.get("result")
-                            Log.d("asdf room${i}_use_switch$z", result.toString())
-
+                            try {
+                                val temp = numList[z]
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/use_switch\"}, \"id\": \"qwerasd$random\"}"
+                                sendCommand(loadJson)
+                                receiveData()
+                                val jsonObject = JSONObject(readMessage)
+                                //Log.d("asdf jsonobject2", "${jsonObject2}")
+                                val result = jsonObject.get("result")
+                                Log.d("asdf room${i}_use_switch$z", result.toString())
+                            } catch (e : Exception) {
+                                e.printStackTrace()
+                                //Toast.makeText(this,"app의 room개수와 gateWay의 room개수를 동일하게 만들어주세요",Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
@@ -642,21 +656,25 @@ class MainActivity2 : AppCompatActivity() {
                 for (i in 1..roomList.size) {
                     for (z in 1 until 8) {
                         if(z == 2 || z == 3 || z == 6 || z == 4 || z == 5) {
-                            val temp = numList[z]
-                            val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/blaster/ir_key\"}, \"id\": \"qwerasd$random\"}"
-                            sendCommand(loadJson)
-                            receiveData()
-                            val jsonObject = JSONObject(readMessage)
-                            //Log.d("asdf jsonobject2", "${jsonObject2}")
-                            val result = jsonObject.get("result")
-                            Log.d("asdf room${i}_ir_key_$z", result.toString())
+                            try {
+                                val temp = numList[z]
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/blaster/ir_key\"}, \"id\": \"qwerasd$random\"}"
+                                sendCommand(loadJson)
+                                receiveData()
+                                val jsonObject = JSONObject(readMessage)
+                                //Log.d("asdf jsonobject2", "${jsonObject2}")
+                                val result = jsonObject.get("result")
+                                Log.d("asdf room${i}_ir_key_$z", result.toString())
 
-                            val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
-                            val editor : SharedPreferences.Editor = sharedPreferences.edit()
-                            editor.putString("load${i}_ir_key_$z",result.toString()) // 넣어주는 값에 방 이름이 없어서 생긴 문제
+                                val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
+                                val editor : SharedPreferences.Editor = sharedPreferences.edit()
+                                editor.putString("load${i}_ir_key_$z",result.toString()) // 넣어주는 값에 방 이름이 없어서 생긴 문제
 
-                            editor.commit()
-
+                                editor.commit()
+                            } catch (e : Exception) {
+                                e.printStackTrace()
+                                //Toast.makeText(this,"app의 room개수와 gateWay의 room개수를 동일하게 만들어주세요",Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }

@@ -213,8 +213,12 @@ class MainActivity3 : AppCompatActivity() {
 
                     // 회사
                     // 해당되는 값 스피너에 넣어주기 회사니까 2
-                    val loadSpeakerCompany = spinnerAdapter3_3.getPosition("${loadSpeakerList.get(2)}")
-                    binding2.spinner33.setSelection(loadSpeakerCompany)
+                    try {
+                        val loadSpeakerCompany = spinnerAdapter3_3.getPosition("${loadSpeakerList.get(2)}")
+                        binding2.spinner33.setSelection(loadSpeakerCompany)
+                    } catch (e : Exception) {
+                        e.printStackTrace()
+                    }
 
                 }
 
@@ -236,8 +240,13 @@ class MainActivity3 : AppCompatActivity() {
                 if (LoadToF) {
                     // 모델
                     // 해당되는 값 스피너에 넣어주기 모델이니까 3
-                    val loadAirconModel = spinnerAdapter3_4.getPosition("${loadSpeakerList.get(3)}")
-                    binding2.spinner34.setSelection(loadAirconModel)
+                    try {
+                        val loadAirconModel = spinnerAdapter3_4.getPosition("${loadSpeakerList.get(3)}")
+                        binding2.spinner34.setSelection(loadAirconModel)
+                    } catch (e : Exception) {
+                        e.printStackTrace()
+                    }
+
                 }
 
             }
@@ -273,8 +282,13 @@ class MainActivity3 : AppCompatActivity() {
                     }
 
                     // 회사
-                    val loadLampCompany = spinnerAdapter4_3.getPosition("${loadLampList.get(2)}")
-                    binding2.spinner43.setSelection(loadLampCompany)
+                    try {
+                        val loadLampCompany = spinnerAdapter4_3.getPosition("${loadLampList.get(2)}")
+                        binding2.spinner43.setSelection(loadLampCompany)
+                    } catch (e : Exception) {
+                        e.printStackTrace()
+                    }
+
 
                 }
 
@@ -288,8 +302,13 @@ class MainActivity3 : AppCompatActivity() {
 
                             if (LoadToF) {
                                 // 모델
-                                val loadLampModel = spinnerAdapter4_4.getPosition("${loadLampList.get(3)}")
-                                binding2.spinner44.setSelection(loadLampModel)
+                                try {
+                                    val loadLampModel = spinnerAdapter4_4.getPosition("${loadLampList.get(3)}")
+                                    binding2.spinner44.setSelection(loadLampModel)
+                                } catch (e : Exception) {
+                                    e.printStackTrace()
+                                }
+
                             }
                         }
 
@@ -333,8 +352,12 @@ class MainActivity3 : AppCompatActivity() {
                     }
 
                     // 회사
-                    val loadProjectorCompany = spinnerAdapter5_3.getPosition("${loadProjectorList1.get(2)}")
-                    binding2.spinner53.setSelection(loadProjectorCompany)
+                    try {
+                        val loadProjectorCompany = spinnerAdapter5_3.getPosition("${loadProjectorList1.get(2)}")
+                        binding2.spinner53.setSelection(loadProjectorCompany)
+                    } catch (e : Exception) {
+                        e.printStackTrace()
+                    }
 
                 }
 
@@ -348,8 +371,13 @@ class MainActivity3 : AppCompatActivity() {
 
                             if (LoadToF) {
                                 // 모델
-                                val loadProjectorModel = spinnerAdapter5_4.getPosition("${loadProjectorList1.get(3)}")
-                                binding2.spinner54.setSelection(loadProjectorModel)
+                                try {
+                                    val loadProjectorModel = spinnerAdapter5_4.getPosition("${loadProjectorList1.get(3)}")
+                                    binding2.spinner54.setSelection(loadProjectorModel)
+                                } catch (e : Exception) {
+                                    e.printStackTrace()
+                                }
+
                             }
                         }
 
@@ -392,8 +420,12 @@ class MainActivity3 : AppCompatActivity() {
                     }
 
                     // 회사
-                    val loadProjectorCompany = spinnerAdapter6_3.getPosition("${loadProjectorList2.get(2)}")
-                    binding2.spinner63.setSelection(loadProjectorCompany)
+                    try {
+                        val loadProjectorCompany = spinnerAdapter6_3.getPosition("${loadProjectorList2.get(2)}")
+                        binding2.spinner63.setSelection(loadProjectorCompany)
+                    } catch (e : Exception) {
+
+                    }
 
                 }
 
@@ -407,8 +439,12 @@ class MainActivity3 : AppCompatActivity() {
 
                             if (LoadToF) {
                                 // 모델
-                                val loadProjectorModel = spinnerAdapter6_4.getPosition("${loadProjectorList2.get(3)}")
-                                binding2.spinner64.setSelection(loadProjectorModel)
+                                try {
+                                    val loadProjectorModel = spinnerAdapter6_4.getPosition("${loadProjectorList2.get(3)}")
+                                    binding2.spinner64.setSelection(loadProjectorModel)
+                                } catch (e : Exception) {
+                                }
+
                             }
                         }
 
@@ -451,8 +487,13 @@ class MainActivity3 : AppCompatActivity() {
                     }
 
                     // 회사
-                    val loadAirconCompany = spinnerAdapter7_3.getPosition("${loadAirconList.get(2)}")
-                    binding2.spinner73.setSelection(loadAirconCompany)
+                    try {
+                        val loadAirconCompany = spinnerAdapter7_3.getPosition("${loadAirconList.get(2)}")
+                        binding2.spinner73.setSelection(loadAirconCompany)
+                    } catch (e : Exception) {
+                        e.printStackTrace()
+                    }
+
 
                     // 밑에서 함수로 만들어서 할려고 했는데 왜 그런지 모르겠지만 덮어써지지가 않아서 그냥 여기다 함
                     // 쓰레드로 할까? 생각중
@@ -483,9 +524,12 @@ class MainActivity3 : AppCompatActivity() {
                             // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
                             if (LoadToF) {
                                 // 모델
-                                val loadAirconModel = spinnerAdapter7_4.getPosition("${loadAirconList.get(3)}")
-                                binding2.spinner74.setSelection(loadAirconModel)
-
+                                try {
+                                    val loadAirconModel = spinnerAdapter7_4.getPosition("${loadAirconList.get(3)}")
+                                    binding2.spinner74.setSelection(loadAirconModel)
+                                } catch (e : Exception) {
+                                    e.printStackTrace()
+                                }
                             }
                         }
 
