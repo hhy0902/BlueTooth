@@ -205,7 +205,8 @@ class MainActivity3 : AppCompatActivity() {
                 val loadSpeakerList = mutableListOf<String>()
                 // 만약 메인2에서 load를 눌렀으면 동작하는 코드 load로 읽어온데이터를 저장하고 split으로 쪼개고 해당하는 값을 스피너에 넣어준다
                 if (LoadToF) {
-                    val load_speaker = sharedPreferencesLoad.getString("load_ir_key_2", "")
+                    loadSpeakerList.clear()
+                    val load_speaker = sharedPreferencesLoad.getString("load${roomName}_ir_key_2", "")
                     load_speaker?.split("/")?.forEach {
                         loadSpeakerList.add(it)
                     }
@@ -265,7 +266,8 @@ class MainActivity3 : AppCompatActivity() {
                 // 조명
                 val loadLampList = mutableListOf<String>()
                 if (LoadToF) {
-                    val load_lamp = sharedPreferencesLoad.getString("load_ir_key_3", "")
+                    loadLampList.clear()
+                    val load_lamp = sharedPreferencesLoad.getString("load${roomName}_ir_key_3", "")
                     load_lamp?.split("/")?.forEach {
                         loadLampList.add(it)
                     }
@@ -324,7 +326,8 @@ class MainActivity3 : AppCompatActivity() {
                 // 프로젝터1
                 val loadProjectorList1 = mutableListOf<String>()
                 if (LoadToF) {
-                    val load_projector = sharedPreferencesLoad.getString("load_ir_key_4", "")
+                    loadProjectorList1.clear()
+                    val load_projector = sharedPreferencesLoad.getString("load${roomName}_ir_key_4", "")
                     load_projector?.split("/")?.forEach {
                         loadProjectorList1.add(it)
                     }
@@ -382,7 +385,8 @@ class MainActivity3 : AppCompatActivity() {
                 // 프로젝터2
                 val loadProjectorList2 = mutableListOf<String>()
                 if (LoadToF) {
-                    val load_projector = sharedPreferencesLoad.getString("load_ir_key_4", "")
+                    loadProjectorList2.clear()
+                    val load_projector = sharedPreferencesLoad.getString("load${roomName}_ir_key_5", "")
                     load_projector?.split("/")?.forEach {
                         loadProjectorList2.add(it)
                     }
@@ -440,7 +444,8 @@ class MainActivity3 : AppCompatActivity() {
                 // 에어컨
                 val loadAirconList = mutableListOf<String>()
                 if (LoadToF) {
-                    val load_aircon = sharedPreferencesLoad.getString("load_ir_key_6", "")
+                    loadAirconList.clear()
+                    val load_aircon = sharedPreferencesLoad.getString("load${roomName}_ir_key_6", "")
                     load_aircon?.split("/")?.forEach {
                         loadAirconList.add(it)
                     }

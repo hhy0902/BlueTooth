@@ -100,26 +100,6 @@
         app:srcCompat="@drawable/ic_baseline_delete_24" />
 
 
-    <TextView
-        android:id="@+id/dataText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="save data Value"
-        app:layout_constraintBottom_toBottomOf="@id/btn_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dataText2" />
-
-    <TextView
-        android:id="@+id/dataText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="save data Value"
-        app:layout_constraintBottom_toBottomOf="@id/dataText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

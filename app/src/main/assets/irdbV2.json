@@ -38,13 +38,16 @@
       }
     },
     "sony": {
-      "sonyModel": {
-        "type": "nec",
-        "bitlen": 28,
+      "vpl-phz10": {
+        "type": "sony",
+        "bitlen": 15,
         "data": {
-          "off": "88C00510",
-          "on": "88008080"
-        }
+          "off": "2F2A",
+          "on": "2E2A"
+        },
+        "repeat": 1,
+        "delay": 1000,
+        "delay_interval": 1000
       },
       "sonyModel2": {
         "type": "nec",
@@ -138,13 +141,16 @@
       }
     },
     "samsung": {
-      "samsungModel1": {
-        "type": "nec",
-        "bitlen": 28,
+      "default": {
+        "type": "samsung",
+        "bitlen": 168,
         "data": {
-          "off": "88C00510",
-          "on": "88008080"
-        }
+          "off": "02B20F000000C001D20F000000000102FF718011C0",
+          "on": "02920F000000F001D20F0000000001E2FE718011F0"
+        },
+        "repeat": 1,
+        "delay": 1000,
+        "delay_interval": 1000
       },
       "samsungModel2": {
         "type": "nec",

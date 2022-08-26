@@ -62,6 +62,7 @@ class MainActivity2 : AppCompatActivity() {
         binding.gateWayText.text = "$address $name"
 
         // 룸 추가한거 유지를 위해 ActivityResultLauncher 사용?
+        // activity for result 가 지원 중단당해서 이거 사용함
         val startActivityLauncher : ActivityResultLauncher<Intent> =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 when(it.resultCode) {
@@ -652,7 +653,7 @@ class MainActivity2 : AppCompatActivity() {
 
                             val sharedPreferences = getSharedPreferences("load$i", Context.MODE_PRIVATE)
                             val editor : SharedPreferences.Editor = sharedPreferences.edit()
-                            editor.putString("load_ir_key_$z",result.toString())
+                            editor.putString("load${i}_ir_key_$z",result.toString()) // 넣어주는 값에 방 이름이 없어서 생긴 문제
 
                             editor.commit()
 

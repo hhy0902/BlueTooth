@@ -58,8 +58,6 @@ class BlueAdapter(val context: Context, val blueToothList: MutableList<BlueTooth
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = blueToothList.get(position).name
         holder.id.text = blueToothList.get(position).id
-
-
     }
 
     override fun getItemCount(): Int {
