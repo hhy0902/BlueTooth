@@ -227,24 +227,29 @@ class MainActivity2 : AppCompatActivity() {
                     sharedPreferences = getSharedPreferences("$q", Context.MODE_PRIVATE)
                     for (i in 1 until 8) {
                         if (i != 3 && i != 6 && i !=2) {
-                            val jsonrpcObject_2 = JSONObject()
-                            val jsonrpcArray_2 = JSONArray()
-                            val jsonrpcArrayObject_2 = JSONObject()
+                            try {
+                                val jsonrpcObject_2 = JSONObject()
+                                val jsonrpcArray_2 = JSONArray()
+                                val jsonrpcArrayObject_2 = JSONObject()
+                                val temp = numList[i]
+                                jsonrpcObject_2.put("jsonrpc", "2.0")
+                                jsonrpcObject_2.put("method", "patch_gz")
+                                jsonrpcArrayObject_2.put("op", "add")
+                                jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/nid")
+                                jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i+1}").toString().toInt())
+                                jsonrpcArray_2.put(jsonrpcArrayObject_2)
+                                jsonrpcObject_2.put("params", jsonrpcArray_2)
+                                jsonrpcObject_2.put("id", "qwerasd$random")
+                                sendCommand(jsonrpcObject_2.toString())
+                                receiveData()
 
-                            val temp = numList[i]
-                            jsonrpcObject_2.put("jsonrpc", "2.0")
-                            jsonrpcObject_2.put("method", "patch_gz")
-                            jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/nid")
-                            jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i+1}").toString().toInt())
-                            jsonrpcArray_2.put(jsonrpcArrayObject_2)
-                            jsonrpcObject_2.put("params", jsonrpcArray_2)
-                            jsonrpcObject_2.put("id", "qwerasd$random")
-                            sendCommand(jsonrpcObject_2.toString())
-                            receiveData()
+                                //Thread.sleep(100)
+                                Log.d("asdf jsonrpcobject_node_id_${q}_$i", jsonrpcObject_2.toString())
+                            } catch (e : Exception) {
+                                e.printStackTrace()
+                                Log.d("asdf ${e.message}", "${e.message}")
+                            }
 
-                            //Thread.sleep(100)
-                            Log.d("asdf jsonrpcobject_node_id_${q}_$i", jsonrpcObject_2.toString())
                         }
                     }
                 }
@@ -432,115 +437,144 @@ class MainActivity2 : AppCompatActivity() {
 
                     // lighting ==========================================================================================================================================================
                     for(i in 1..roomList.size) {
-                        sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                        val spinnerData4_Company = sharedPreferences.getString("spinnerData4_Company", "")
-                        val spinnerData4_Model = sharedPreferences.getString("spinnerData4_Model", "")
+                        try {
+                            sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                        val tempLighting = JSONObject(irdb.getString("lamp").toString())
-                        val tempLightingData = JSONObject(tempLighting.getString("${spinnerData4_Company}"))
-                        val tempLightingModelData = tempLightingData.getString("${spinnerData4_Model}")
-                        Log.d("asdf tempLightingModelData", tempLightingModelData)
-                        // extractedDB 에다가 "lighting" + spinnerData4_Company + spinnerData4_Model, tempData 저
+                            val spinnerData4_Company = sharedPreferences.getString("spinnerData4_Company", "")
+                            val spinnerData4_Model = sharedPreferences.getString("spinnerData4_Model", "")
 
-                        val order_lighting_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lamp/${spinnerData4_Company}/${spinnerData4_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_lighting_address)
-                        receiveData()
-                        //Thread.sleep(100)
-                        Log.d("asdf order_lighting_deep_address", "${order_lighting_address}")
+                            val tempLighting = JSONObject(irdb.getString("lamp").toString())
+                            val tempLightingData = JSONObject(tempLighting.getString("${spinnerData4_Company}"))
+                            val tempLightingModelData = tempLightingData.getString("${spinnerData4_Model}")
+                            Log.d("asdf tempLightingModelData", tempLightingModelData)
+                            // extractedDB 에다가 "lighting" + spinnerData4_Company + spinnerData4_Model, tempData 저
 
-                        val order_lighting_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lamp/${spinnerData4_Company}/${spinnerData4_Model}\", \"value\": ${tempLightingModelData}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_lighting_value)
-                        receiveData()
-                        //Thread.sleep(100)
-                        Log.d("asdf order_lighting_value", "${order_lighting_value}")
+                            val order_lighting_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lamp/${spinnerData4_Company}/${spinnerData4_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_lighting_address)
+                            receiveData()
+                            //Thread.sleep(100)
+                            Log.d("asdf order_lighting_deep_address", "${order_lighting_address}")
+
+                            val order_lighting_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/lamp/${spinnerData4_Company}/${spinnerData4_Model}\", \"value\": ${tempLightingModelData}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_lighting_value)
+                            receiveData()
+                            //Thread.sleep(100)
+                            Log.d("asdf order_lighting_value", "${order_lighting_value}")
+                        } catch (e : Exception) {
+                            e.printStackTrace()
+                        }
+
                     }
 
                     // projector ==========================================================================================================================================================
                     for(i in 1..roomList.size) {
-                        sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                        val spinnerData5_Company = sharedPreferences.getString("spinnerData5_Company", "")
-                        val spinnerData5_Model = sharedPreferences.getString("spinnerData5_Model", "")
+                        try {
+                            sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                        val spinnerData6_Company = sharedPreferences.getString("spinnerData6_Company", "")
-                        val spinnerData6_Model = sharedPreferences.getString("spinnerData6_Model", "")
+                            val spinnerData5_Company = sharedPreferences.getString("spinnerData5_Company", "")
+                            val spinnerData5_Model = sharedPreferences.getString("spinnerData5_Model", "")
 
-                        val tempProjector = JSONObject(irdb.getString("projector").toString())
-                        val tempProjectorData = JSONObject(tempProjector.getString("${spinnerData5_Company}"))
-                        val tempProjectorModelData = tempProjectorData.getString("${spinnerData5_Model}")
+                            val spinnerData6_Company = sharedPreferences.getString("spinnerData6_Company", "")
+                            val spinnerData6_Model = sharedPreferences.getString("spinnerData6_Model", "")
 
-                        val tempProjectorData2 = JSONObject(tempProjector.getString("${spinnerData6_Company}"))
-                        val tempProjectorModelData2 = tempProjectorData2.getString("${spinnerData6_Model}")
+                            val tempProjector = JSONObject(irdb.getString("projector").toString())
+                            val tempProjectorData = JSONObject(tempProjector.getString("${spinnerData5_Company}"))
+                            val tempProjectorModelData = tempProjectorData.getString("${spinnerData5_Model}")
 
-                        val order_projector_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${spinnerData5_Company}/${spinnerData5_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_projector_address)
-                        receiveData()
-                        //Thread.sleep(100)
+                            val tempProjectorData2 = JSONObject(tempProjector.getString("${spinnerData6_Company}"))
+                            val tempProjectorModelData2 = tempProjectorData2.getString("${spinnerData6_Model}")
 
-                        val order_projector_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${spinnerData5_Company}/${spinnerData5_Model}\", \"value\": ${tempProjectorModelData}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_projector_value)
-                        receiveData()
-                        //Thread.sleep(100)
+                            val order_projector_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${spinnerData5_Company}/${spinnerData5_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_projector_address)
+                            receiveData()
+                            //Thread.sleep(100)
 
-                        val order_projector_address_2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${spinnerData6_Company}/${spinnerData6_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_projector_address_2)
-                        receiveData()
-                        //Thread.sleep(100)
+                            val order_projector_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${spinnerData5_Company}/${spinnerData5_Model}\", \"value\": ${tempProjectorModelData}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_projector_value)
+                            receiveData()
+                            //Thread.sleep(100)
 
-                        val order_projector_value_2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${spinnerData6_Company}/${spinnerData6_Model}\", \"value\": ${tempProjectorModelData2}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_projector_value_2)
-                        receiveData()
-                        //Thread.sleep(100)
+                            val order_projector_address_2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${spinnerData6_Company}/${spinnerData6_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_projector_address_2)
+                            receiveData()
+                            //Thread.sleep(100)
+
+                            val order_projector_value_2 = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/projector/${spinnerData6_Company}/${spinnerData6_Model}\", \"value\": ${tempProjectorModelData2}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_projector_value_2)
+                            receiveData()
+                            //Thread.sleep(100)
+                        } catch (e : Exception) {
+
+                        }
+
                     }
 
                     // aircon =========================================================================================================================================================
                     for(i in 1..roomList.size) {
-                        sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                        val spinnerData7_Company = sharedPreferences.getString("spinnerData7_Company", "")
-                        val spinnerData7_Model = sharedPreferences.getString("spinnerData7_Model", "")
+                        try {
+                            sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                        val tempAircon = JSONObject(irdb.getString("air_conditioner").toString())
-                        val tempAirconData = JSONObject(tempAircon.getString("${spinnerData7_Company}"))
-                        val tempAirconModelData = tempAirconData.getString("${spinnerData7_Model}")
+                            val spinnerData7_Company = sharedPreferences.getString("spinnerData7_Company", "")
+                            var spinnerData7_Model = sharedPreferences.getString("spinnerData7_Model", "")
 
-                        val order_aircon_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${spinnerData7_Company}/${spinnerData7_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_aircon_address)
-                        receiveData()
-                        //Thread.sleep(100)
+                            val tempAircon = JSONObject(irdb.getString("air_conditioner").toString())
+                            val tempAirconData = JSONObject(tempAircon.getString("${spinnerData7_Company}"))
+                            Log.d("asdf spinnerData7_Model","${spinnerData7_Model} rmsgkgkgkgkgk")
+                            Log.d("asdf spinnerData7_Model size","${spinnerData7_Model!!.length}")
+                            if (spinnerData7_Model.length == 0) {
+                                spinnerData7_Model = "noData"
+                            }
+                            Log.d("asdf spinnerData7_Model2","${spinnerData7_Model} rmsgkgkgkgkgk")
+                            val tempAirconModelData = tempAirconData.getString("${spinnerData7_Model}")
 
-                        val order_aircon_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${spinnerData7_Company}/${spinnerData7_Model}\", \"value\": ${tempAirconModelData}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_aircon_value)
-                        receiveData()
-                        //Thread.sleep(100)
+                            val order_aircon_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${spinnerData7_Company}/${spinnerData7_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_aircon_address)
+                            receiveData()
+                            //Thread.sleep(100)
+
+                            val order_aircon_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/air_conditioner/${spinnerData7_Company}/${spinnerData7_Model}\", \"value\": ${tempAirconModelData}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_aircon_value)
+                            receiveData()
+                            //Thread.sleep(100)
+                        } catch (e : Exception) {
+                            e.printStackTrace()
+                            // 스피너 값이 비어있으면 에러가 나서 try catch로 에러 안나게 만들어 줌
+                        }
+
                     }
 
                     // speaker ==========================================================================================================================================================
                     for(i in 1..roomList.size) {
-                        sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                        val spinnerData3_Company = sharedPreferences.getString("spinnerData3_Company", "")
-                        val spinnerData3_Model = sharedPreferences.getString("spinnerData3_Model", "")
+                        try {
+                            sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                        val tempSpeaker = JSONObject(irdb.getString("speaker").toString())
-                        val tempSpeakerData = JSONObject(tempSpeaker.getString("${spinnerData3_Company}"))
-                        val tempSpeakerModelData = tempSpeakerData.getString("${spinnerData3_Model}")
-                        Log.d("asdf tempSpeakerModelData", tempSpeakerModelData)
+                            val spinnerData3_Company = sharedPreferences.getString("spinnerData3_Company", "")
+                            val spinnerData3_Model = sharedPreferences.getString("spinnerData3_Model", "")
 
-                        val order_speaker_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/speaker/${spinnerData3_Company}/${spinnerData3_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_speaker_address)
-                        receiveData()
-                        //Thread.sleep(100)
-                        Log.d("asdf order_speaker_deep_address", "${order_speaker_address}")
+                            val tempSpeaker = JSONObject(irdb.getString("speaker").toString())
+                            val tempSpeakerData = JSONObject(tempSpeaker.getString("${spinnerData3_Company}"))
+                            val tempSpeakerModelData = tempSpeakerData.getString("${spinnerData3_Model}")
+                            Log.d("asdf tempSpeakerModelData", tempSpeakerModelData)
 
-                        val order_speaker_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/speaker/${spinnerData3_Company}/${spinnerData3_Model}\", \"value\": ${tempSpeakerModelData}}], \"id\": \"qwerasd$random\"}"
-                        sendCommand(order_speaker_value)
-                        receiveData()
-                        //Thread.sleep(100)
-                        Log.d("asdf order_speaker_value", "${order_speaker_value}")
+                            val order_speaker_address = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/speaker/${spinnerData3_Company}/${spinnerData3_Model}\", \"value\": {}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_speaker_address)
+                            receiveData()
+                            //Thread.sleep(100)
+                            Log.d("asdf order_speaker_deep_address", "${order_speaker_address}")
+
+                            val order_speaker_value = "{\"jsonrpc\": \"2.0\", \"method\": \"patch_gz\", \"params\": [{\"op\": \"add\", \"path\": \"/irdb/speaker/${spinnerData3_Company}/${spinnerData3_Model}\", \"value\": ${tempSpeakerModelData}}], \"id\": \"qwerasd$random\"}"
+                            sendCommand(order_speaker_value)
+                            receiveData()
+                            //Thread.sleep(100)
+                            Log.d("asdf order_speaker_value", "${order_speaker_value}")
+                        } catch (e : Exception) {
+
+                        }
                     }
-
                 }
 
                 val commit = "{\"jsonrpc\": \"2.0\", \"method\": \"commit_gz\", \"id\": \"qwerasd$random\"}"
