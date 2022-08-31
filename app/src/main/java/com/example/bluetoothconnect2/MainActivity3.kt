@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -90,6 +91,42 @@ class MainActivity3 : AppCompatActivity() {
         // 메인 화면에서 로드하면 발생하는 기능
         val sharedPreferences2 = getSharedPreferences("LoadToF", Context.MODE_PRIVATE)
         val LoadToF = sharedPreferences2.getBoolean("btnLoadClick", false)
+
+        if (LoadToF) {
+            Toast.makeText(this,"load mode 입니다.",Toast.LENGTH_SHORT).show()
+//            binding2.editText1.setClickable(false)
+//            binding2.editText1.setFocusable(false)
+//            binding2.editText2.setClickable(false)
+//            binding2.editText2.setFocusable(false)
+//            binding2.editText5.setClickable(false)
+//            binding2.editText5.setFocusable(false)
+//            binding2.editText6.setClickable(false)
+//            binding2.editText6.setFocusable(false)
+//            binding2.editText8.setClickable(false)
+//            binding2.editText8.setFocusable(false)
+//
+//            binding2.spinner33.isClickable = false
+//            binding2.spinner33.isEnabled = false
+//            binding2.spinner34.isClickable = false
+//            binding2.spinner34.isEnabled = false
+//            binding2.spinner43.isClickable = false
+//            binding2.spinner43.isEnabled = false
+//            binding2.spinner44.isClickable = false
+//            binding2.spinner44.isEnabled = false
+//            binding2.spinner53.isClickable = false
+//            binding2.spinner53.isEnabled = false
+//            binding2.spinner54.isClickable = false
+//            binding2.spinner54.isEnabled = false
+//            binding2.spinner63.isClickable = false
+//            binding2.spinner63.isEnabled = false
+//            binding2.spinner64.isClickable = false
+//            binding2.spinner64.isEnabled = false
+//            binding2.spinner73.isClickable = false
+//            binding2.spinner73.isEnabled = false
+//            binding2.spinner74.isClickable = false
+//            binding2.spinner74.isEnabled = false
+
+        }
 
         //val sharedPreferences3 = getSharedPreferences("appFirst", Context.MODE_PRIVATE)
 
@@ -181,6 +218,27 @@ class MainActivity3 : AppCompatActivity() {
             lightingCompanyList.add(irdb_lighting_company_key_list.get(i))
         }
 
+        if(LoadToF) {
+            Thread {
+                // 밑에서 함수로 만들어서 할려고 했는데 왜 그런지 모르겠지만 덮어써지지가 않아서 그냥 여기다 함
+                // 쓰레드로 할까? 생각중
+                val editTextValue1 = sharedPreferencesLoad.getString("load_blaster_$roomName", "")
+                runOnUiThread {
+                    Log.d("asdf load_blaster", "${editTextValue1}")
+                    binding2.editText1.setText(editTextValue1.toString())
+                    Log.d("asdf edittext1 = ", "${binding2.editText1.text}")
+                    val editTextValue2 = sharedPreferencesLoad.getString("load_nid_1", "")
+                    binding2.editText2.setText(editTextValue2.toString())
+                    val editTextValue5 = sharedPreferencesLoad.getString("load_nid_4", "")
+                    binding2.editText5.setText(editTextValue5.toString())
+                    val editTextValue6 = sharedPreferencesLoad.getString("load_nid_5", "")
+                    binding2.editText6.setText(editTextValue6.toString())
+                    val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
+                    binding2.editText8.setText(editTextValue8.toString())
+                }
+            }.start()
+        }
+
         // 스피너 설정
         val speakerList = mutableListOf<String>()
         val spinnerAdapter3_3 = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, speakerCompanyList)
@@ -193,64 +251,64 @@ class MainActivity3 : AppCompatActivity() {
                 speakerList.clear()
                 speakerList.add("")
 
-                // 위 스피너에서 선택한 값을 받아서 irdb_speaker_model_key를 추출하고, speakerList에 넣어줘서 종속성 탈출~
-                val irdb_speaker_company_key = irdb_speaker_key.getString("${binding2.spinner33.getItemAtPosition(p2)}")
-                val irdb_speaker_model_key = JSONObject(irdb_speaker_company_key)
-                irdb_speaker_model_key.keys().forEach {
-                    Log.d("asdf speakerList", "${it}")
-                    speakerList.add(it.toString())
-                }
-
-                // 스피커
-                val loadSpeakerList = mutableListOf<String>()
-                // 만약 메인2에서 load를 눌렀으면 동작하는 코드 load로 읽어온데이터를 저장하고 split으로 쪼개고 해당하는 값을 스피너에 넣어준다
-                if (LoadToF) {
-                    loadSpeakerList.clear()
-                    val load_speaker = sharedPreferencesLoad.getString("load${roomName}_ir_key_2", "")
-                    load_speaker?.split("/")?.forEach {
-                        loadSpeakerList.add(it)
+                try {
+                    // 위 스피너에서 선택한 값을 받아서 irdb_speaker_model_key를 추출하고, speakerList에 넣어줘서 종속성 탈출~
+                    val irdb_speaker_company_key = irdb_speaker_key.getString("${binding2.spinner33.getItemAtPosition(p2)}")
+                    val irdb_speaker_model_key = JSONObject(irdb_speaker_company_key)
+                    irdb_speaker_model_key.keys().forEach {
+                        Log.d("asdf speakerList", "${it}")
+                        speakerList.add(it.toString())
                     }
 
-                    // 회사
-                    // 해당되는 값 스피너에 넣어주기 회사니까 2
-                    try {
+                    // 스피커
+                    val loadSpeakerList = mutableListOf<String>()
+                    // 만약 메인2에서 load를 눌렀으면 동작하는 코드 load로 읽어온데이터를 저장하고 split으로 쪼개고 해당하는 값을 스피너에 넣어준다
+                    if (LoadToF) {
+                        loadSpeakerList.clear()
+                        val load_speaker = sharedPreferencesLoad.getString("load${roomName}_ir_key_2", "")
+                        load_speaker?.split("/")?.forEach {
+                            loadSpeakerList.add(it)
+                        }
+
+                        // 회사
+                        // 해당되는 값 스피너에 넣어주기 회사니까 2
                         val loadSpeakerCompany = spinnerAdapter3_3.getPosition("${loadSpeakerList.get(2)}")
                         binding2.spinner33.setSelection(loadSpeakerCompany)
-                    } catch (e : Exception) {
-                        e.printStackTrace()
+
                     }
 
-                }
+                    val spinnerAdapter3_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, speakerList)
+                    binding2.spinner34.adapter = spinnerAdapter3_4
+                    binding2.spinner34.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                                spinnerData3_Model = binding2.spinner34.getItemAtPosition(p2).toString()
+                                spinnerSelect3_Model = p2
 
-                val spinnerAdapter3_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, speakerList)
-                binding2.spinner34.adapter = spinnerAdapter3_4
-                binding2.spinner34.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            spinnerData3_Model = binding2.spinner34.getItemAtPosition(p2).toString()
-                            spinnerSelect3_Model = p2
+                                if (LoadToF) {
+                                    // 모델
+                                    // 해당되는 값 스피너에 넣어주기 모델이니까 3
+
+                                    val loadAirconModel = spinnerAdapter3_4.getPosition("${loadSpeakerList.get(3)}")
+                                    binding2.spinner34.setSelection(loadAirconModel)
+
+                                }
+                            }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+                            }
                         }
+                    val spinnerSelect3_Model = sharedPreferences4.getInt("spinnerSelect3_Model", 0)
+                    binding2.spinner34.setSelection(spinnerSelect3_Model)
 
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                        }
-                    }
-                val spinnerSelect3_Model = sharedPreferences4.getInt("spinnerSelect3_Model", 0)
-                binding2.spinner34.setSelection(spinnerSelect3_Model)
-
-                if (LoadToF) {
-                    // 모델
-                    // 해당되는 값 스피너에 넣어주기 모델이니까 3
-                    try {
-                        val loadAirconModel = spinnerAdapter3_4.getPosition("${loadSpeakerList.get(3)}")
-                        binding2.spinner34.setSelection(loadAirconModel)
-                    } catch (e : Exception) {
-                        e.printStackTrace()
-                    }
-
+                } catch (e : Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this@MainActivity3,"speaker 값 없음",Toast.LENGTH_SHORT).show()
                 }
 
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
+
             }
         }
 
@@ -265,58 +323,57 @@ class MainActivity3 : AppCompatActivity() {
                 lampList.clear()
                 lampList.add("")
 
-                val irdb_lighting_company_key = irdb_lighting_key.getString("${binding2.spinner43.getItemAtPosition(p2)}")
-                val irdb_lighting_model_key = JSONObject(irdb_lighting_company_key)
-                irdb_lighting_model_key.keys().forEach {
-                    Log.d("asdf lampList", "${it}")
-                    lampList.add(it)
-                }
+                try {
 
-                // 조명
-                val loadLampList = mutableListOf<String>()
-                if (LoadToF) {
-                    loadLampList.clear()
-                    val load_lamp = sharedPreferencesLoad.getString("load${roomName}_ir_key_3", "")
-                    load_lamp?.split("/")?.forEach {
-                        loadLampList.add(it)
+                    val irdb_lighting_company_key = irdb_lighting_key.getString("${binding2.spinner43.getItemAtPosition(p2)}")
+                    val irdb_lighting_model_key = JSONObject(irdb_lighting_company_key)
+                    irdb_lighting_model_key.keys().forEach {
+                        Log.d("asdf lampList", "${it}")
+                        lampList.add(it)
                     }
 
-                    // 회사
-                    try {
+                    // 조명
+                    val loadLampList = mutableListOf<String>()
+                    if (LoadToF) {
+                        loadLampList.clear()
+                        val load_lamp = sharedPreferencesLoad.getString("load${roomName}_ir_key_3", "")
+                        load_lamp?.split("/")?.forEach {
+                            loadLampList.add(it)
+                        }
+
+                        // 회사
                         val loadLampCompany = spinnerAdapter4_3.getPosition("${loadLampList.get(2)}")
                         binding2.spinner43.setSelection(loadLampCompany)
-                    } catch (e : Exception) {
-                        e.printStackTrace()
+
                     }
 
+                    val spinnerAdapter4_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, lampList)
+                    binding2.spinner44.adapter = spinnerAdapter4_4
+                    binding2.spinner44.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                                spinnerData4_Model = binding2.spinner44.getItemAtPosition(p2).toString()
+                                spinnerSelect4_Model = p2
 
-                }
+                                if (LoadToF) {
+                                    // 모델
 
-                val spinnerAdapter4_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, lampList)
-                binding2.spinner44.adapter = spinnerAdapter4_4
-                binding2.spinner44.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            spinnerData4_Model = binding2.spinner44.getItemAtPosition(p2).toString()
-                            spinnerSelect4_Model = p2
-
-                            if (LoadToF) {
-                                // 모델
-                                try {
                                     val loadLampModel = spinnerAdapter4_4.getPosition("${loadLampList.get(3)}")
                                     binding2.spinner44.setSelection(loadLampModel)
-                                } catch (e : Exception) {
-                                    e.printStackTrace()
-                                }
 
+                                }
+                            }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
                             }
                         }
+                    val spinnerSelect4_Model = sharedPreferences4.getInt("spinnerSelect4_Model", 0)
+                    binding2.spinner44.setSelection(spinnerSelect4_Model)
 
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                        }
-                    }
-                val spinnerSelect4_Model = sharedPreferences4.getInt("spinnerSelect4_Model", 0)
-                binding2.spinner44.setSelection(spinnerSelect4_Model)
+                } catch (e : Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this@MainActivity3,"lamp 값 없음",Toast.LENGTH_SHORT).show()
+                }
 
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -335,57 +392,56 @@ class MainActivity3 : AppCompatActivity() {
                 projectorList.clear()
                 projectorList.add("")
 
-                val irdb_projector_company_key = irdb_projector_key.getString("${binding2.spinner53.getItemAtPosition(p2)}")
-                val irdb_projector_model_key = JSONObject(irdb_projector_company_key)
-                irdb_projector_model_key.keys().forEach {
-                    Log.d("asdf projectorList", "${it}")
-                    projectorList.add(it)
-                }
+                try {
 
-                // 프로젝터1
-                val loadProjectorList1 = mutableListOf<String>()
-                if (LoadToF) {
-                    loadProjectorList1.clear()
-                    val load_projector = sharedPreferencesLoad.getString("load${roomName}_ir_key_4", "")
-                    load_projector?.split("/")?.forEach {
-                        loadProjectorList1.add(it)
+                    val irdb_projector_company_key = irdb_projector_key.getString("${binding2.spinner53.getItemAtPosition(p2)}")
+                    val irdb_projector_model_key = JSONObject(irdb_projector_company_key)
+                    irdb_projector_model_key.keys().forEach {
+                        Log.d("asdf projectorList", "${it}")
+                        projectorList.add(it)
                     }
 
-                    // 회사
-                    try {
+                    // 프로젝터1
+                    val loadProjectorList1 = mutableListOf<String>()
+                    if (LoadToF) {
+                        loadProjectorList1.clear()
+                        val load_projector = sharedPreferencesLoad.getString("load${roomName}_ir_key_4", "")
+                        load_projector?.split("/")?.forEach {
+                            loadProjectorList1.add(it)
+                        }
+
+                        // 회사
                         val loadProjectorCompany = spinnerAdapter5_3.getPosition("${loadProjectorList1.get(2)}")
                         binding2.spinner53.setSelection(loadProjectorCompany)
-                    } catch (e : Exception) {
-                        e.printStackTrace()
+
                     }
 
-                }
+                    val spinnerAdapter5_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorList)
+                    binding2.spinner54.adapter = spinnerAdapter5_4
+                    binding2.spinner54.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                                spinnerData5_Model = binding2.spinner54.getItemAtPosition(p2).toString()
+                                spinnerSelect5_Model = p2
 
-                val spinnerAdapter5_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorList)
-                binding2.spinner54.adapter = spinnerAdapter5_4
-                binding2.spinner54.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            spinnerData5_Model = binding2.spinner54.getItemAtPosition(p2).toString()
-                            spinnerSelect5_Model = p2
-
-                            if (LoadToF) {
-                                // 모델
-                                try {
+                                if (LoadToF) {
+                                    // 모델
                                     val loadProjectorModel = spinnerAdapter5_4.getPosition("${loadProjectorList1.get(3)}")
                                     binding2.spinner54.setSelection(loadProjectorModel)
-                                } catch (e : Exception) {
-                                    e.printStackTrace()
+
                                 }
+                            }
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
 
                             }
                         }
+                    val spinnerSelect5_Model = sharedPreferences4.getInt("spinnerSelect5_Model", 0)
+                    binding2.spinner54.setSelection(spinnerSelect5_Model)
 
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                        }
-                    }
-                val spinnerSelect5_Model = sharedPreferences4.getInt("spinnerSelect5_Model", 0)
-                binding2.spinner54.setSelection(spinnerSelect5_Model)
+                } catch (e : Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this@MainActivity3,"projector1 값 없음",Toast.LENGTH_SHORT).show()
+                }
 
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -403,56 +459,56 @@ class MainActivity3 : AppCompatActivity() {
                 projectorList2.clear()
                 projectorList2.add("")
 
-                val irdb_projector2_company_key = irdb_projector_key.getString("${binding2.spinner63.getItemAtPosition(p2)}")
-                val irdb_projector2_model_key = JSONObject(irdb_projector2_company_key)
-                irdb_projector2_model_key.keys().forEach {
-                    Log.d("asdf projectorList2", "${it}")
-                    projectorList2.add(it)
-                }
+                try {
 
-                // 프로젝터2
-                val loadProjectorList2 = mutableListOf<String>()
-                if (LoadToF) {
-                    loadProjectorList2.clear()
-                    val load_projector = sharedPreferencesLoad.getString("load${roomName}_ir_key_5", "")
-                    load_projector?.split("/")?.forEach {
-                        loadProjectorList2.add(it)
+                    val irdb_projector2_company_key = irdb_projector_key.getString("${binding2.spinner63.getItemAtPosition(p2)}")
+                    val irdb_projector2_model_key = JSONObject(irdb_projector2_company_key)
+                    irdb_projector2_model_key.keys().forEach {
+                        Log.d("asdf projectorList2", "${it}")
+                        projectorList2.add(it)
                     }
 
-                    // 회사
-                    try {
+                    // 프로젝터2
+                    val loadProjectorList2 = mutableListOf<String>()
+                    if (LoadToF) {
+                        loadProjectorList2.clear()
+                        val load_projector = sharedPreferencesLoad.getString("load${roomName}_ir_key_5", "")
+                        load_projector?.split("/")?.forEach {
+                            loadProjectorList2.add(it)
+                        }
+
+                        // 회사
                         val loadProjectorCompany = spinnerAdapter6_3.getPosition("${loadProjectorList2.get(2)}")
                         binding2.spinner63.setSelection(loadProjectorCompany)
-                    } catch (e : Exception) {
 
                     }
 
-                }
+                    val spinnerAdapter6_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorList2)
+                    binding2.spinner64.adapter = spinnerAdapter6_4
+                    binding2.spinner64.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                                spinnerData6_Model = binding2.spinner64.getItemAtPosition(p2).toString()
+                                spinnerSelect6_Model = p2
 
-                val spinnerAdapter6_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, projectorList2)
-                binding2.spinner64.adapter = spinnerAdapter6_4
-                binding2.spinner64.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            spinnerData6_Model = binding2.spinner64.getItemAtPosition(p2).toString()
-                            spinnerSelect6_Model = p2
-
-                            if (LoadToF) {
-                                // 모델
-                                try {
+                                if (LoadToF) {
+                                    // 모델
                                     val loadProjectorModel = spinnerAdapter6_4.getPosition("${loadProjectorList2.get(3)}")
                                     binding2.spinner64.setSelection(loadProjectorModel)
-                                } catch (e : Exception) {
-                                }
 
+                                }
+                            }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
                             }
                         }
+                    val spinnerSelect6_Model = sharedPreferences4.getInt("spinnerSelect6_Model", 0)
+                    binding2.spinner64.setSelection(spinnerSelect6_Model)
 
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                        }
-                    }
-                val spinnerSelect6_Model = sharedPreferences4.getInt("spinnerSelect6_Model", 0)
-                binding2.spinner64.setSelection(spinnerSelect6_Model)
+                } catch (e : Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this@MainActivity3,"projector2 값 없음",Toast.LENGTH_SHORT).show()
+                }
 
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -470,78 +526,66 @@ class MainActivity3 : AppCompatActivity() {
                 air_conditionerList.clear()
                 air_conditionerList.add("")
 
-                val irdb_air_conditioner_company_key = irdb_aircon_key.getString("${binding2.spinner73.getItemAtPosition(p2)}")
-                val irdb_air_conditioner_model_key = JSONObject(irdb_air_conditioner_company_key)
-                irdb_air_conditioner_model_key.keys().forEach {
-                    Log.d("asdf air_conditionerList", "${it}")
-                    air_conditionerList.add(it)
-                }
 
-                // 에어컨
-                val loadAirconList = mutableListOf<String>()
-                if (LoadToF) {
-                    loadAirconList.clear()
-                    val load_aircon = sharedPreferencesLoad.getString("load${roomName}_ir_key_6", "")
-                    load_aircon?.split("/")?.forEach {
-                        loadAirconList.add(it)
+                try {
+                    // 소장님 오류난다고 한 부분
+                    val irdb_air_conditioner_company_key = irdb_aircon_key.getString("${binding2.spinner73.getItemAtPosition(p2)}")
+                    val irdb_air_conditioner_model_key = JSONObject(irdb_air_conditioner_company_key)
+                    irdb_air_conditioner_model_key.keys().forEach {
+                        //Log.d("asdf air_conditionerList", "${it}")
+                        air_conditionerList.add(it)
                     }
 
-                    // 회사
-                    try {
+                    // 에어컨
+                    val loadAirconList = mutableListOf<String>()
+                    if (LoadToF) {
+                        loadAirconList.clear()
+                        val load_aircon = sharedPreferencesLoad.getString("load${roomName}_ir_key_6", "")
+                        load_aircon?.split("/")?.forEach {
+                            loadAirconList.add(it)
+                        }
+
+                        // 회사
                         val loadAirconCompany = spinnerAdapter7_3.getPosition("${loadAirconList.get(2)}")
                         binding2.spinner73.setSelection(loadAirconCompany)
-                    } catch (e : Exception) {
-                        e.printStackTrace()
+
                     }
 
+                    val spinnerAdapter7_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, air_conditionerList)
+                    binding2.spinner74.adapter = spinnerAdapter7_4
+                    binding2.spinner74.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                                spinnerData7_Model = binding2.spinner74.getItemAtPosition(p2).toString()
+                                spinnerSelect7_Model = p2
 
-                    // 밑에서 함수로 만들어서 할려고 했는데 왜 그런지 모르겠지만 덮어써지지가 않아서 그냥 여기다 함
-                    // 쓰레드로 할까? 생각중
-                    val editTextValue1 = sharedPreferencesLoad.getString("load_blaster_$roomName", "")
-                    Log.d("asdf load_blaster", "${editTextValue1}")
-                    //clearEdittext()
-                    binding2.editText1.setText(editTextValue1.toString())
-                    Log.d("asdf edittext1 = ", "${binding2.editText1.text}")
-                    val editTextValue2 = sharedPreferencesLoad.getString("load_nid_1", "")
-                    binding2.editText2.setText(editTextValue2.toString())
-                    val editTextValue5 = sharedPreferencesLoad.getString("load_nid_4", "")
-                    binding2.editText5.setText(editTextValue5.toString())
-                    val editTextValue6 = sharedPreferencesLoad.getString("load_nid_5", "")
-                    binding2.editText6.setText(editTextValue6.toString())
-                    val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
-                    binding2.editText8.setText(editTextValue8.toString())
-                }
-
-                val spinnerAdapter7_4 = ArrayAdapter(this@MainActivity3,R.layout.support_simple_spinner_dropdown_item, air_conditionerList)
-                binding2.spinner74.adapter = spinnerAdapter7_4
-                binding2.spinner74.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            spinnerData7_Model = binding2.spinner74.getItemAtPosition(p2).toString()
-                            spinnerSelect7_Model = p2
-
-                            // 메인 페이지에서 만약 load버튼을 눌렀으면 LoadToF가 true 아니면 false
-                            // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
-                            if (LoadToF) {
-                                // 모델
-                                try {
+                                // 메인 페이지에서 만약 load버튼을 눌렀으면 LoadToF가 true 아니면 false
+                                // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
+                                if (LoadToF) {
+                                    // 모델
                                     val loadAirconModel = spinnerAdapter7_4.getPosition("${loadAirconList.get(3)}")
                                     binding2.spinner74.setSelection(loadAirconModel)
-                                } catch (e : Exception) {
-                                    e.printStackTrace()
+                                    Log.d("asdf aircon model spinner","load mode aircon")
                                 }
                             }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+                            }
+
                         }
 
-                        override fun onNothingSelected(p0: AdapterView<*>?) {
-                        }
-                    }
-                val spinnerSelect7_Model = sharedPreferences4.getInt("spinnerSelect7_Model", 0)
-                binding2.spinner74.setSelection(spinnerSelect7_Model)
+                    val spinnerSelect7_Model = sharedPreferences4.getInt("spinnerSelect7_Model", 0)
+                    binding2.spinner74.setSelection(spinnerSelect7_Model)
 
+                } catch (e : Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this@MainActivity3,"aircon 값 없음",Toast.LENGTH_SHORT).show()
+                }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
+
             }
+
         }
 
 
@@ -589,7 +633,6 @@ class MainActivity3 : AppCompatActivity() {
             qrButtonClickCheck = "button8"
             runQRcodeReader()
         }
-
 
     }
 
@@ -653,19 +696,6 @@ class MainActivity3 : AppCompatActivity() {
         // 메인 페이지에서 만약 load버튼을 눌렀으면 LoadToF가 true 아니면 false
         // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
         if (LoadToF) {
-//            val editTextValue1 = sharedPreferencesLoad.getString("load_blaster_$roomName", "")
-//            Log.d("asdf load_blaster", "${editTextValue1}")
-//            clearEdittext()
-//            binding2.editText1.setText(editTextValue1.toString())
-//            Log.d("asdf edittext1 = ", "${binding2.editText1.text}")
-//            val editTextValue2 = sharedPreferencesLoad.getString("load_nid_1", "")
-//            binding2.editText2.setText(editTextValue2.toString())
-//            val editTextValue5 = sharedPreferencesLoad.getString("load_nid_4", "")
-//            binding2.editText5.setText(editTextValue5.toString())
-//            val editTextValue6 = sharedPreferencesLoad.getString("load_nid_5", "")
-//            binding2.editText6.setText(editTextValue6.toString())
-//            val editTextValue8 = sharedPreferencesLoad.getString("load_nid_7", "")
-//            binding2.editText8.setText(editTextValue8.toString())
 
             // load 버튼을 눌러 true로 변경되었고 gateway에서 가져온 값을 보여줬다면 값을 다시 false로 초기화해준다
             val editor : SharedPreferences.Editor = sharedPreferences2.edit()
@@ -673,6 +703,8 @@ class MainActivity3 : AppCompatActivity() {
             editor.commit()
 
         }
+
+
     }
 
     fun clearEdittext() {
@@ -754,62 +786,68 @@ class MainActivity3 : AppCompatActivity() {
     override fun onBackPressed() {
         val sharedPreferences = getSharedPreferences(roomName, Context.MODE_PRIVATE)
 
-        val speakerCompanySpinner = binding2.spinner33.selectedItem.toString()
-        val speakerModelSpinner = binding2.spinner34.selectedItem.toString()
-        val lampCompanySpinner = binding2.spinner43.selectedItem.toString()
-        val lampModelSpinner = binding2.spinner44.selectedItem.toString()
-        val projectorCompanySpinner = binding2.spinner53.selectedItem.toString()
-        val projectorModelSpinner = binding2.spinner54.selectedItem.toString()
-        val projectorCompanySpinner2 = binding2.spinner63.selectedItem.toString()
-        val projectorModelSpinner2 = binding2.spinner64.selectedItem.toString()
-        val airconCompanySpinner = binding2.spinner73.selectedItem.toString()
-        val airconModelSpinner = binding2.spinner74.selectedItem.toString()
+        try {
 
-        val savedSpeakerCompanySpinner = sharedPreferences.getString("spinnerData3_Company", "")
-        val savedSpeakerModelSpinner = sharedPreferences.getString("spinnerData3_Model", "")
-        val savedLampCompanySpinner = sharedPreferences.getString("spinnerData4_Company", "")
-        val savedLampModelSpinner = sharedPreferences.getString("spinnerData4_Model", "")
-        val savedProjectorCompanySpinner = sharedPreferences.getString("spinnerData5_Company", "")
-        val savedProjectorModelSpinner = sharedPreferences.getString("spinnerData5_Model", "")
-        val savedProjectorCompanySpinner2 = sharedPreferences.getString("spinnerData6_Company", "")
-        val savedProjectorModelSpinner2 = sharedPreferences.getString("spinnerData6_Model", "")
-        val savedAirconCompanySpinner = sharedPreferences.getString("spinnerData7_Company", "")
-        val savedAirconModelSpinner = sharedPreferences.getString("spinnerData7_Model", "")
+            val speakerCompanySpinner = binding2.spinner33.selectedItem.toString()
+            val speakerModelSpinner = binding2.spinner34.selectedItem.toString()
+            val lampCompanySpinner = binding2.spinner43.selectedItem.toString()
+            val lampModelSpinner = binding2.spinner44.selectedItem.toString()
+            val projectorCompanySpinner = binding2.spinner53.selectedItem.toString()
+            val projectorModelSpinner = binding2.spinner54.selectedItem.toString()
+            val projectorCompanySpinner2 = binding2.spinner63.selectedItem.toString()
+            val projectorModelSpinner2 = binding2.spinner64.selectedItem.toString()
+            val airconCompanySpinner = binding2.spinner73.selectedItem.toString()
+            val airconModelSpinner = binding2.spinner74.selectedItem.toString()
 
-        Log.d("speakerCompanySpinner", "${speakerCompanySpinner}")
-        Log.d("savedSpeakerCompanySpinner", "$savedSpeakerCompanySpinner")
+            val savedSpeakerCompanySpinner = sharedPreferences.getString("spinnerData3_Company", "")
+            val savedSpeakerModelSpinner = sharedPreferences.getString("spinnerData3_Model", "")
+            val savedLampCompanySpinner = sharedPreferences.getString("spinnerData4_Company", "")
+            val savedLampModelSpinner = sharedPreferences.getString("spinnerData4_Model", "")
+            val savedProjectorCompanySpinner = sharedPreferences.getString("spinnerData5_Company", "")
+            val savedProjectorModelSpinner = sharedPreferences.getString("spinnerData5_Model", "")
+            val savedProjectorCompanySpinner2 = sharedPreferences.getString("spinnerData6_Company", "")
+            val savedProjectorModelSpinner2 = sharedPreferences.getString("spinnerData6_Model", "")
+            val savedAirconCompanySpinner = sharedPreferences.getString("spinnerData7_Company", "")
+            val savedAirconModelSpinner = sharedPreferences.getString("spinnerData7_Model", "")
 
-        if (sharedPreferences.all.get("editdata1").toString() == binding2.editText1.text.toString() &&
-            sharedPreferences.all.get("editdata2").toString() == binding2.editText2.text.toString() &&
-            sharedPreferences.all.get("editdata5").toString() == binding2.editText5.text.toString() &&
-            sharedPreferences.all.get("editdata6").toString() == binding2.editText6.text.toString() &&
-            sharedPreferences.all.get("editdata8").toString() == binding2.editText8.text.toString() &&
-            speakerCompanySpinner == savedSpeakerCompanySpinner && speakerModelSpinner == savedSpeakerModelSpinner &&
-            lampCompanySpinner == savedLampCompanySpinner && lampModelSpinner == savedLampModelSpinner &&
-            projectorCompanySpinner == savedProjectorCompanySpinner && projectorModelSpinner == savedProjectorModelSpinner &&
-            projectorCompanySpinner2 == savedProjectorCompanySpinner2 && projectorModelSpinner2 == savedProjectorModelSpinner2 &&
-            airconCompanySpinner == savedAirconCompanySpinner && airconModelSpinner == savedAirconModelSpinner) {
-            Log.d("asdf save","최근 저장 & 값 변화 없음")
-            super.onBackPressed()
-        } else {
-            Log.d("asdf save2","값 변화 생김")
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("notice")
-            builder.setMessage("저장하시겠습니까?")
-            builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                save()
-                Log.d("asdf save dialog cancle", "save")
-            })
-            builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
-                dialog.cancel()
-                Log.d("asdf save dialog cancle", "cancel")
+            Log.d("speakerCompanySpinner", "${speakerCompanySpinner}")
+            Log.d("savedSpeakerCompanySpinner", "$savedSpeakerCompanySpinner")
+
+            if (sharedPreferences.all.get("editdata1").toString() == binding2.editText1.text.toString() &&
+                sharedPreferences.all.get("editdata2").toString() == binding2.editText2.text.toString() &&
+                sharedPreferences.all.get("editdata5").toString() == binding2.editText5.text.toString() &&
+                sharedPreferences.all.get("editdata6").toString() == binding2.editText6.text.toString() &&
+                sharedPreferences.all.get("editdata8").toString() == binding2.editText8.text.toString() &&
+                speakerCompanySpinner == savedSpeakerCompanySpinner && speakerModelSpinner == savedSpeakerModelSpinner &&
+                lampCompanySpinner == savedLampCompanySpinner && lampModelSpinner == savedLampModelSpinner &&
+                projectorCompanySpinner == savedProjectorCompanySpinner && projectorModelSpinner == savedProjectorModelSpinner &&
+                projectorCompanySpinner2 == savedProjectorCompanySpinner2 && projectorModelSpinner2 == savedProjectorModelSpinner2 &&
+                airconCompanySpinner == savedAirconCompanySpinner && airconModelSpinner == savedAirconModelSpinner) {
+                Log.d("asdf save","최근 저장 & 값 변화 없음")
                 super.onBackPressed()
-            })
-            builder.show()
+            } else {
+                Log.d("asdf save2","값 변화 생김")
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("notice")
+                builder.setMessage("저장하시겠습니까?")
+                builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                    save()
+                    Log.d("asdf save dialog cancle", "save")
+                })
+                builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.cancel()
+                    Log.d("asdf save dialog cancle", "cancel")
+                    super.onBackPressed()
+                })
+                builder.show()
 //            Toast.makeText(this,"quit",Toast.LENGTH_SHORT).show()
 //            super.onBackPressed()
+            }
+        } catch (e : Exception) {
+            e.printStackTrace()
+            Toast.makeText(this,"저장할 값이 없습니다.",Toast.LENGTH_SHORT).show()
+            super.onBackPressed()
         }
-
     }
 
     // qr코드 함수
