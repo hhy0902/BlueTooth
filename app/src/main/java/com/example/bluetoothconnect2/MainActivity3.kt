@@ -532,7 +532,7 @@ class MainActivity3 : AppCompatActivity() {
                     val irdb_air_conditioner_company_key = irdb_aircon_key.getString("${binding2.spinner73.getItemAtPosition(p2)}")
                     val irdb_air_conditioner_model_key = JSONObject(irdb_air_conditioner_company_key)
                     irdb_air_conditioner_model_key.keys().forEach {
-                        //Log.d("asdf air_conditionerList", "${it}")
+                        Log.d("asdf air_conditionerList", "${it}")
                         air_conditionerList.add(it)
                     }
 
@@ -540,12 +540,15 @@ class MainActivity3 : AppCompatActivity() {
                     val loadAirconList = mutableListOf<String>()
                     if (LoadToF) {
                         loadAirconList.clear()
+
                         val load_aircon = sharedPreferencesLoad.getString("load${roomName}_ir_key_6", "")
                         load_aircon?.split("/")?.forEach {
                             loadAirconList.add(it)
+                            Log.d("asdf loadAirconList", "${it}")
                         }
 
                         // 회사
+                        Log.d("asdf aircon model spinner73", "load mode aircon")
                         val loadAirconCompany = spinnerAdapter7_3.getPosition("${loadAirconList.get(2)}")
                         binding2.spinner73.setSelection(loadAirconCompany)
 
@@ -559,14 +562,6 @@ class MainActivity3 : AppCompatActivity() {
                                 spinnerData7_Model = binding2.spinner74.getItemAtPosition(p2).toString()
                                 spinnerSelect7_Model = p2
 
-                                // 메인 페이지에서 만약 load버튼을 눌렀으면 LoadToF가 true 아니면 false
-                                // 만약 true면 gateway에서 가져온 값을 보여주고 false면 기존에 저장된 값을 보여준다
-                                if (LoadToF) {
-                                    // 모델
-                                    val loadAirconModel = spinnerAdapter7_4.getPosition("${loadAirconList.get(3)}")
-                                    binding2.spinner74.setSelection(loadAirconModel)
-                                    Log.d("asdf aircon model spinner","load mode aircon")
-                                }
                             }
 
                             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -574,13 +569,25 @@ class MainActivity3 : AppCompatActivity() {
 
                         }
 
-                    val spinnerSelect7_Model = sharedPreferences4.getInt("spinnerSelect7_Model", 0)
-                    binding2.spinner74.setSelection(spinnerSelect7_Model)
+                    if (LoadToF) {
+                        // 모델
+                        Log.d("asdf aircon model spinner74", "load mode aircon")
+                        Log.d("asdf aircon model value", "${loadAirconList.get(3)}")
+                        val loadAirconModel = spinnerAdapter7_4.getPosition("${loadAirconList.get(3)}")
+                        binding2.spinner74.setSelection(loadAirconModel)
+
+                    } else {
+                        Log.d("asdf load mode 아님 aircon", "no load mode aircon")
+                        val spinnerSelect7_Model = sharedPreferences4.getInt("spinnerSelect7_Model", 0)
+                        binding2.spinner74.setSelection(spinnerSelect7_Model)
+                    }
 
                 } catch (e : Exception) {
                     e.printStackTrace()
                     Toast.makeText(this@MainActivity3,"aircon 값 없음",Toast.LENGTH_SHORT).show()
                 }
+
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
