@@ -42,8 +42,12 @@ class MainActivity2 : AppCompatActivity() {
     var loadJsonString = ""
 
     lateinit var readMessage : String
+    var readMessageGatewayClear = ""
 
     lateinit var sharedPreferences : SharedPreferences
+    lateinit var gatewayClearSharedPreferences : SharedPreferences
+
+    var gateWayRoomNumber = 0
 
     companion object {
         var myUUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
@@ -154,17 +158,70 @@ class MainActivity2 : AppCompatActivity() {
 
             if (bluetoothSocket?.isConnected == true) {
 
+//                val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"\"}],\"id\":\"qwerasd$random\"}"
+//                sendCommand(testDelete3)
+//                receiveData()
+//                val sharedPreferencesGateway = getSharedPreferences("gatewayClear", Context.MODE_PRIVATE)
+//                val totalValue = sharedPreferencesGateway.getString("readMessageGatewayClear", "")
+//
+//                val bufferMessage = StringBuffer()
+//                val gatewayRoomSizeList = mutableListOf<String>()
+//
+//                try {
+//                    // gateWay 방 개수구하기 test
+//                    val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"\"}, \"id\": \"qwerasd$random\"}"
+//                    sendCommand(loadJson)
+//                    receiveDataGatewayClear()
+//                    Log.d("asdf message size","${readMessage.length}")
+//                    bufferMessage.append(readMessage)
+//
+//                    for(i in 1..20) {
+//                        if (readMessage.length >= 990) {
+//                            receiveDataGatewayClear()
+//                            Log.d("asdf message${i+1} size", "${readMessage.length}")
+//                            bufferMessage.append(readMessage)
+//                        }
+//                    }
+//
+//                    Log.d("asdf testMessage stringbuffer", "${bufferMessage.toString()}")
+//
+//                    val testJsonObject = JSONObject(JSONObject(bufferMessage.toString()).get("result").toString()).keys()
+//
+//                    testJsonObject.forEach {
+//                        Log.d("asdf testJsonObject key","${it}")
+//                        gatewayRoomSizeList.add("${it}")
+//                    }
+
+//                   Log.d("asdf gatewayRoomSize", "${gatewayRoomSizeList.size}")
+//
+//                } catch (e : Exception) {
+//                    e.printStackTrace()
+//                    Toast.makeText(this,"gateWay data가 이상합니다.",Toast.LENGTH_SHORT).show()
+//                }
+//
+
+
+
                 // 룸1부터 10까지 초기화 추후 룸 개수가 늘어나면 이걸 늘리면 된다.
+
                 for (p in 1..10) {
                     val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
                     sendCommand(testDelete3)
                     receiveData()
                 }
 
+//                for (p in 1..gatewayRoomSizeList.size-1) {
+//                    val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
+//                    sendCommand(testDelete3)
+//                    receiveData()
+//                }
+
                 //irdb 초기화
                 val testDelete4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/irdb\"}],\"id\":\"qwerasd$random\"}"
                 sendCommand(testDelete4)
+                Log.d("asdf irdb clear","irdb clear")
                 receiveData()
+                Log.d("asdf irdb clear after ","irdb clear")
 
                 // 순서가 이상해진 device값들의 순서를 맞추기 위한 리스트
                 val numList = mutableListOf<Int>(0, 7, 3, 1, 9, 10, 6, 2)
@@ -300,7 +357,7 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
                             jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/soft_turnoff")
-                            jsonrpcArrayObject_2.put("value", "true")
+                            jsonrpcArrayObject_2.put("value", true)
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
                             jsonrpcObject_2.put("params", jsonrpcArray_2)
                             jsonrpcObject_2.put("id", "qwerasd$random")
@@ -729,7 +786,6 @@ class MainActivity2 : AppCompatActivity() {
     // 보낸 값의 응답을 받는 함수다 inputStream을 이용해 응답을 받는다?
     private fun receiveData() {
         try {
-
             val buffer = ByteArray(1024)
             var bytes = bluetoothSocket!!.inputStream.read(buffer)
             readMessage = String(buffer, 0, bytes)
@@ -740,7 +796,31 @@ class MainActivity2 : AppCompatActivity() {
             e.printStackTrace()
             Log.d("asdf receiveData", "No receiveData")
         }
+    }
 
+    private fun receiveDataGatewayClear() {
+        try {
+            val buffer = ByteArray(1024)
+            var bytes = bluetoothSocket!!.inputStream.read(buffer)
+            readMessage = String(buffer, 0, bytes)
+            //loadJsonString = loadJsonString + readMessage
+            Log.d("asdf receiveDataGatewayClear", "${readMessage}")
+            Log.d("asdf receiveDataGatewayClear size", "${readMessage.length}")
+
+//            val testMessage = StringBuffer()
+//            testMessage.append(readMessage)
+
+//            Log.d("asdf testMessage stringbuffer", "${testMessage.toString()}")
+            val sharedPreferences = getSharedPreferences("gatewayClear", Context.MODE_PRIVATE)
+            val editor : SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("readMessageGatewayClear","${readMessage}")
+
+            editor.commit()
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Log.d("asdf receiveData", "No receiveData")
+        }
     }
 
     // 블루투스로 값을 보내는 함수 outputStream을 이용한다 용량이 작아서 큰거는 나눠서 보내야 한다
