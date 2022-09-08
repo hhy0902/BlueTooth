@@ -251,10 +251,10 @@ class MainActivity2 : AppCompatActivity() {
 
                         // 각 번호별로 해당하는 값들을 할당해 줌
                         if(z == 4 || z == 5) {
-                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+                            jsonrpcUnitsValue2.put("pl", jsonrpcPlugValue)
                             jsonrpcUnitsValue2.put("bl", jsonrpcPlugValue)
                         } else if(z == 1 || z == 7)   {
-                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+                            jsonrpcUnitsValue2.put("pl", jsonrpcPlugValue)
                         } else if(z == 6 || z == 3 || z == 2 ) {
                             jsonrpcUnitsValue2.put("bl", jsonrpcPlugValue)
                         }
@@ -287,7 +287,7 @@ class MainActivity2 : AppCompatActivity() {
                                 jsonrpcObject_2.put("jsonrpc", "2.0")
                                 jsonrpcObject_2.put("method", "patch_gz")
                                 jsonrpcArrayObject_2.put("op", "add")
-                                jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/nid")
+                                jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/nid")
                                 jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i+1}").toString().toInt())
                                 jsonrpcArray_2.put(jsonrpcArrayObject_2)
                                 jsonrpcObject_2.put("params", jsonrpcArray_2)
@@ -318,7 +318,7 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/use_switch")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/use_switch")
 
                             if (i == 1) {
                                 jsonrpcArrayObject_2.put("value", true)
@@ -351,7 +351,7 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/soft_turnoff")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/soft_turnoff")
                             jsonrpcArrayObject_2.put("value", true)
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
                             jsonrpcObject_2.put("params", jsonrpcArray_2)
@@ -696,7 +696,7 @@ class MainActivity2 : AppCompatActivity() {
                         if(z != 3 && z != 6 && z != 2) {
                             try {
                                 val temp = numList[z]
-                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/nid\"}, \"id\": \"qwerasd$random\"}"
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/pl/nid\"}, \"id\": \"qwerasd$random\"}"
                                 sendCommand(loadJson)
                                 receiveData()
                                 val jsonObject = JSONObject(readMessage)
@@ -723,7 +723,7 @@ class MainActivity2 : AppCompatActivity() {
                         if(z != 3 && z != 6 && z != 2) {
                             try {
                                 val temp = numList[z]
-                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/use_switch\"}, \"id\": \"qwerasd$random\"}"
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/pl/use_switch\"}, \"id\": \"qwerasd$random\"}"
                                 sendCommand(loadJson)
                                 receiveData()
                                 val jsonObject = JSONObject(readMessage)
