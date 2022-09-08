@@ -318,7 +318,7 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/use_switch")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/u_s")
 
                             if (i == 1) {
                                 jsonrpcArrayObject_2.put("value", true)
@@ -351,7 +351,7 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/soft_turnoff")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/s_t")
                             jsonrpcArrayObject_2.put("value", true)
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
                             jsonrpcObject_2.put("params", jsonrpcArray_2)
@@ -379,7 +379,7 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/bl/ir_key")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/bl/ir")
                             jsonrpcArrayObject_2.put("value", "/${sharedPreferences.all.get("spinnerData${i+1}_Device")}/${sharedPreferences.all.get("spinnerData${i+1}_Company")}/${sharedPreferences.all.get("spinnerData${i+1}_Model")}")
                             //jsonrpcArrayObject_2.put("value", "projector/maxell/mp-eu5002")
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
@@ -723,7 +723,7 @@ class MainActivity2 : AppCompatActivity() {
                         if(z != 3 && z != 6 && z != 2) {
                             try {
                                 val temp = numList[z]
-                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/pl/use_switch\"}, \"id\": \"qwerasd$random\"}"
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/pl/u_s\"}, \"id\": \"qwerasd$random\"}"
                                 sendCommand(loadJson)
                                 receiveData()
                                 val jsonObject = JSONObject(readMessage)
@@ -744,7 +744,7 @@ class MainActivity2 : AppCompatActivity() {
                         if(z == 2 || z == 3 || z == 6 || z == 4 || z == 5) {
                             try {
                                 val temp = numList[z]
-                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/bl/ir_key\"}, \"id\": \"qwerasd$random\"}"
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/bl/ir\"}, \"id\": \"qwerasd$random\"}"
                                 sendCommand(loadJson)
                                 receiveData()
                                 val jsonObject = JSONObject(readMessage)
