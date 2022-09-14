@@ -189,7 +189,7 @@ class MainActivity2 : AppCompatActivity() {
                         gatewayRoomSizeList.add("${it}")
                     }
 
-                   Log.d("asdf gatewayRoomSize", "${gatewayRoomSizeList.size}")
+                    Log.d("asdf gatewayRoomSize", "${gatewayRoomSizeList.size}")
 
                 } catch (e : Exception) {
                     e.printStackTrace()
@@ -199,17 +199,17 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 룸1부터 10까지 초기화 추후 룸 개수가 늘어나면 이걸 늘리면 된다.
 
-//                for (p in 1..10) {
-//                    val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
-//                    sendCommand(testDelete3)
-//                    receiveData()
-//                }
-
-                for (p in 1..gatewayRoomSizeList.size-1) {
+                for (p in 1..20) {
                     val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
                     sendCommand(testDelete3)
                     receiveData()
                 }
+
+//                for (p in 1..gatewayRoomSizeList.size-1) {
+//                    val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
+//                    sendCommand(testDelete3)
+//                    receiveData()
+//                }
 
                 //irdb 초기화
                 val testDelete4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/irdb\"}],\"id\":\"qwerasd$random\"}"
@@ -239,7 +239,7 @@ class MainActivity2 : AppCompatActivity() {
                     jsonrpcArrayObject.put("op","add")
                     jsonrpcArrayObject.put("path","/room_$i")
                     jsonrpcValue2.put("nid",sharedPreferences.all.get("editdata1").toString().toInt())
-                    jsonrpcValue.put("bl",jsonrpcValue2)
+                    jsonrpcValue.put("blaster",jsonrpcValue2)
 
                     // 들어가는 내용물이 블래스터 제외하면 7개 니까 언틸8을 사용함
                     for(z in 1 until 8) {
@@ -251,12 +251,12 @@ class MainActivity2 : AppCompatActivity() {
 
                         // 각 번호별로 해당하는 값들을 할당해 줌
                         if(z == 4 || z == 5) {
-                            jsonrpcUnitsValue2.put("pl", jsonrpcPlugValue)
-                            jsonrpcUnitsValue2.put("bl", jsonrpcPlugValue)
+                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
                         } else if(z == 1 || z == 7)   {
-                            jsonrpcUnitsValue2.put("pl", jsonrpcPlugValue)
+                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
                         } else if(z == 6 || z == 3 || z == 2 ) {
-                            jsonrpcUnitsValue2.put("bl", jsonrpcPlugValue)
+                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
                         }
                         val temp = numList[z]
                         jsonrpcUnitsValue.put("$temp", jsonrpcUnitsValue2)
@@ -287,7 +287,7 @@ class MainActivity2 : AppCompatActivity() {
                                 jsonrpcObject_2.put("jsonrpc", "2.0")
                                 jsonrpcObject_2.put("method", "patch_gz")
                                 jsonrpcArrayObject_2.put("op", "add")
-                                jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/nid")
+                                jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/nid")
                                 jsonrpcArrayObject_2.put("value", sharedPreferences.all.get("editdata${i+1}").toString().toInt())
                                 jsonrpcArray_2.put(jsonrpcArrayObject_2)
                                 jsonrpcObject_2.put("params", jsonrpcArray_2)
@@ -318,7 +318,7 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/u_s")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/use_switch")
 
                             if (i == 1) {
                                 jsonrpcArrayObject_2.put("value", true)
@@ -351,7 +351,7 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/pl/s_t")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/plug/soft_turnoff")
                             jsonrpcArrayObject_2.put("value", true)
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
                             jsonrpcObject_2.put("params", jsonrpcArray_2)
@@ -379,7 +379,7 @@ class MainActivity2 : AppCompatActivity() {
                             jsonrpcObject_2.put("jsonrpc", "2.0")
                             jsonrpcObject_2.put("method", "patch_gz")
                             jsonrpcArrayObject_2.put("op", "add")
-                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/bl/ir")
+                            jsonrpcArrayObject_2.put("path", "/room_$q/units/$temp/blaster/ir_key")
                             jsonrpcArrayObject_2.put("value", "/${sharedPreferences.all.get("spinnerData${i+1}_Device")}/${sharedPreferences.all.get("spinnerData${i+1}_Company")}/${sharedPreferences.all.get("spinnerData${i+1}_Model")}")
                             //jsonrpcArrayObject_2.put("value", "projector/maxell/mp-eu5002")
                             jsonrpcArray_2.put(jsonrpcArrayObject_2)
@@ -670,7 +670,7 @@ class MainActivity2 : AppCompatActivity() {
                 // 방 개수만큼 blaster/node_id를 구하는 sendCommand로 명령어 보내고 receiveData로 불러오기
                 for(i in 1..roomList.size) {
                     try {
-                        val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/bl/nid\"}, \"id\": \"qwerasd$random\"}"
+                        val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/blaster/nid\"}, \"id\": \"qwerasd$random\"}"
                         sendCommand(loadJson)
                         receiveData()
                         val jsonObject = JSONObject(readMessage)
@@ -696,7 +696,7 @@ class MainActivity2 : AppCompatActivity() {
                         if(z != 3 && z != 6 && z != 2) {
                             try {
                                 val temp = numList[z]
-                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/pl/nid\"}, \"id\": \"qwerasd$random\"}"
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/nid\"}, \"id\": \"qwerasd$random\"}"
                                 sendCommand(loadJson)
                                 receiveData()
                                 val jsonObject = JSONObject(readMessage)
@@ -723,7 +723,7 @@ class MainActivity2 : AppCompatActivity() {
                         if(z != 3 && z != 6 && z != 2) {
                             try {
                                 val temp = numList[z]
-                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/pl/u_s\"}, \"id\": \"qwerasd$random\"}"
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/plug/use_switch\"}, \"id\": \"qwerasd$random\"}"
                                 sendCommand(loadJson)
                                 receiveData()
                                 val jsonObject = JSONObject(readMessage)
@@ -744,7 +744,7 @@ class MainActivity2 : AppCompatActivity() {
                         if(z == 2 || z == 3 || z == 6 || z == 4 || z == 5) {
                             try {
                                 val temp = numList[z]
-                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/bl/ir\"}, \"id\": \"qwerasd$random\"}"
+                                val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i/units/$temp/blaster/ir_key\"}, \"id\": \"qwerasd$random\"}"
                                 sendCommand(loadJson)
                                 receiveData()
                                 val jsonObject = JSONObject(readMessage)
