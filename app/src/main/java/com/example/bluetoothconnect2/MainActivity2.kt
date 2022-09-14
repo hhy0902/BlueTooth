@@ -199,17 +199,17 @@ class MainActivity2 : AppCompatActivity() {
 
                 // 룸1부터 10까지 초기화 추후 룸 개수가 늘어나면 이걸 늘리면 된다.
 
-//                for (p in 1..10) {
-//                    val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
-//                    sendCommand(testDelete3)
-//                    receiveData()
-//                }
-
-                for (p in 1..gatewayRoomSizeList.size-1) {
+                for (p in 1..20) {
                     val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
                     sendCommand(testDelete3)
                     receiveData()
                 }
+
+//                for (p in 1..gatewayRoomSizeList.size-1) {
+//                    val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
+//                    sendCommand(testDelete3)
+//                    receiveData()
+//                }
 
                 //irdb 초기화
                 val testDelete4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/irdb\"}],\"id\":\"qwerasd$random\"}"
