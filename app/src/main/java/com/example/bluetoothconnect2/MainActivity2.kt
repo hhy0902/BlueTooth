@@ -39,10 +39,7 @@ class MainActivity2 : AppCompatActivity() {
     var roomName = ""
     val random = Random().nextInt(9)+1 // send명령어 보낼때 적어주는 id에 사용되는 변수입니다.
 
-    var loadJsonString = ""
-
     lateinit var readMessage : String
-    var readMessageGatewayClear = ""
 
     lateinit var sharedPreferences : SharedPreferences
     lateinit var gatewayClearSharedPreferences : SharedPreferences
@@ -166,30 +163,20 @@ class MainActivity2 : AppCompatActivity() {
 
                 try {
                     // gateWay 방 개수구하기 test
-                    val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"\"}, \"id\": \"qwerasd$random\"}"
-                    sendCommand(loadJson)
-                    receiveDataGatewayClear()
-                    Log.d("asdf message size","${readMessage.length}")
-                    bufferMessage.append(readMessage)
+                    gateWayRoomNumber = 0
 
-                    for(i in 1..20) {
-                        if (readMessage.length >= 990) {
-                            receiveDataGatewayClear()
-                            Log.d("asdf message${i+1} size", "${readMessage.length}")
-                            bufferMessage.append(readMessage)
+                    for (i in 1..20) {
+                        val loadJson : String = "{\"jsonrpc\": \"2.0\", \"method\": \"get_gz\", \"params\": {\"path\": \"/room_$i\"}, \"id\": \"qwerasd$random\"}"
+                        sendCommand(loadJson)
+                        receiveDataGatewayClear()
+                        Log.d("asdf message size","${readMessage.length}")
+                        if (readMessage.length != 65) {
+                            //bufferMessage.append(readMessage)
+                            gateWayRoomNumber = gateWayRoomNumber + 1
                         }
                     }
 
-                    Log.d("asdf testMessage stringbuffer", "${bufferMessage.toString()}")
-
-                    val testJsonObject = JSONObject(JSONObject(bufferMessage.toString()).get("result").toString()).keys()
-
-                    testJsonObject.forEach {
-                        Log.d("asdf testJsonObject key","${it}")
-                        gatewayRoomSizeList.add("${it}")
-                    }
-
-                    Log.d("asdf gatewayRoomSize", "${gatewayRoomSizeList.size}")
+                    Log.d("asdf gateWayRoomNumber","${gateWayRoomNumber}")
 
                 } catch (e : Exception) {
                     e.printStackTrace()
@@ -198,18 +185,17 @@ class MainActivity2 : AppCompatActivity() {
 
 
                 // 룸1부터 10까지 초기화 추후 룸 개수가 늘어나면 이걸 늘리면 된다.
-
-                for (p in 1..20) {
-                    val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
-                    sendCommand(testDelete3)
-                    receiveData()
-                }
-
-//                for (p in 1..gatewayRoomSizeList.size-1) {
+//                for (p in 1..20) {
 //                    val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
 //                    sendCommand(testDelete3)
 //                    receiveData()
 //                }
+
+                for (p in 1..gateWayRoomNumber) {
+                    val testDelete3 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/room_$p\"}],\"id\":\"qwerasd$random\"}"
+                    sendCommand(testDelete3)
+                    receiveData()
+                }
 
                 //irdb 초기화
                 val testDelete4 = "{\"jsonrpc\":\"2.0\",\"method\":\"patch_gz\",\"params\":[{\"op\":\"remove\",\"path\":\"/irdb\"}],\"id\":\"qwerasd$random\"}"
