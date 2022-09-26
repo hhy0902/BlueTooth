@@ -28,7 +28,7 @@ class MainActivity3 : AppCompatActivity() {
 
     var roomName = ""
 
-    var spinnerData3_Device : String = "sp"
+    var spinnerData3_Device : String = "speaker"
     var spinnerData3_Company : String = ""
     var spinnerData3_Model : String = ""
 
@@ -36,15 +36,15 @@ class MainActivity3 : AppCompatActivity() {
     var spinnerData4_Company : String = ""
     var spinnerData4_Model : String = ""
 
-    var spinnerData5_Device : String = "pj"
+    var spinnerData5_Device : String = "projector"
     var spinnerData5_Company : String = ""
     var spinnerData5_Model : String = ""
 
-    var spinnerData6_Device : String = "pj"
+    var spinnerData6_Device : String = "projector"
     var spinnerData6_Company : String = ""
     var spinnerData6_Model : String = ""
 
-    var spinnerData7_Device : String = "a_c"
+    var spinnerData7_Device : String = "air_conditioner"
     var spinnerData7_Company : String = ""
     var spinnerData7_Model : String = ""
 

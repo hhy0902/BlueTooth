@@ -155,12 +155,6 @@ class MainActivity2 : AppCompatActivity() {
 
             if (bluetoothSocket?.isConnected == true) {
 
-                val sharedPreferencesGateway = getSharedPreferences("gatewayClear", Context.MODE_PRIVATE)
-                val totalValue = sharedPreferencesGateway.getString("readMessageGatewayClear", "")
-
-                val bufferMessage = StringBuffer()
-                val gatewayRoomSizeList = mutableListOf<String>()
-
                 try {
                     // gateWay 방 개수구하기 test
                     gateWayRoomNumber = 0
@@ -619,7 +613,13 @@ class MainActivity2 : AppCompatActivity() {
                 sendCommand(commit)
                 receiveData()
 
-                Toast.makeText(this,"commit 완료",Toast.LENGTH_SHORT).show()
+                if (readMessage.length == 65) {
+                    Toast.makeText(this,"gateWay에러 발생 gateWay를 초기화 해주세요",Toast.LENGTH_SHORT).show()
+                    Log.d("asdf gateway reset plz","gateway reset plz")
+                } else {
+                    Toast.makeText(this,"commit 완료",Toast.LENGTH_SHORT).show()
+                    Log.d("asdf commit complete", "commit complete")
+                }
 
                 Toast.makeText(this,"전송 완료",Toast.LENGTH_SHORT).show()
             }
@@ -628,11 +628,40 @@ class MainActivity2 : AppCompatActivity() {
             }
         }
 
+        binding.btnReset.setOnClickListener {
+            val reset = "{\"jsonrpc\": \"2.0\", \"method\": \"reset\", \"id\": \"qwerasd$random\"}"
+            if (bluetoothSocket?.isConnected == true) {
+
+                sendCommand(reset)
+                receiveData()
+
+                bluetoothSocket!!.close()
+                Log.d("asdf 3", "끊기")
+                Thread {
+                    runOnUiThread {
+                        Toast.makeText(this, "gateWay를 초기화 하는 중 입니다. 잠시후 다시 연결을 시도해 주세요", Toast.LENGTH_SHORT).show()
+                        binding.checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
+                        binding.gateWayText.text = null
+                    }
+                }.start()
+            } else {
+                Toast.makeText(this,"연결이 필요합니다",Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
         // 연결버튼 누르면 연결 페이지로 이동 / 만약 이미 연결되어 있으면 기존 연결 끊
         binding.btnConnect.setOnClickListener {
             if (bluetoothSocket?.isConnected == true) {
                 bluetoothSocket!!.close()
                 Log.d("asdf 3", "끊기")
+                Thread {
+                    runOnUiThread {
+                        Toast.makeText(this, "연결 끊기", Toast.LENGTH_SHORT).show()
+                        binding.checkLed.setImageResource(R.drawable.ic_baseline_circle_red_24)
+                        binding.gateWayText.text = null
+                    }
+                }.start()
             }
 
             val intent = Intent(this, MainActivity::class.java)

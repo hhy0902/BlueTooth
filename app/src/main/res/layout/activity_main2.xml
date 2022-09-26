@@ -29,7 +29,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_load"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_margin="5dp"
         android:text="load"
@@ -40,7 +40,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_margin="5dp"
         android:text="save"
@@ -50,12 +50,23 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_connect"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_margin="5dp"
         android:text="connect"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@id/btn_reset"
         app:layout_constraintStart_toEndOf="@id/btn_save"
+        app:layout_constraintTop_toBottomOf="@id/gateWayText" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_reset"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:text="reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_connect"
         app:layout_constraintTop_toBottomOf="@id/gateWayText" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -98,7 +109,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_delete"
         app:srcCompat="@drawable/ic_baseline_delete_24" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
