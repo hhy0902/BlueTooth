@@ -186,10 +186,10 @@
         "type": "winia",
         "bitlen": 144,
         "data": {
-          "off": "B335564800AF4CCAFFB7FF7FB3357F4800EFD7",
-          "on": "B3356648008F4CCAFFB7FF7FB3357F4800EFD7",
-          "woff": "B335596800944CCAFFF7FFFFB3357FE800FFD7",
-          "won": "B335696800A44CCAFFF7FFFFB3357FE800FFD7"
+          "off": "B335564800AF4CCAFFF7FFFFB3357FE800FFD7",
+          "on": "B3356648008F4CCAFFF7FFFFB3357FE800FFD7",
+          "woff": "B335596800944CCAFFB7FFFBB335796800F4D7",
+          "won": "B335696800A44CCAFFB7FFFBB335796800F4D7"
         },
         "repeat": 1,
         "delay": 1000,
@@ -203,32 +203,10 @@
           "on": "B3356648008F4CCAFFB7FF7FB3357F4800EFD7",
           "woff": "B335596800944CCAFFF7FFFFB3357FE800FFD7",
           "won": "B335696800A44CCAFFF7FFFFB3357FE800FFD7"
-        }
-      }
-    },
-    "winia": {
-      "default": {
-        "type": "winia",
-        "bitlen": 144,
-        "data": {
-          "off": "B335564800AF4CCAFFB7FF7FB3357F4800EFD7",
-          "on": "B3356648008F4CCAFFB7FF7FB3357F4800EFD7",
-          "woff": "B335596800944CCAFFF7FFFFB3357FE800FFD7",
-          "won": "B335696800A44CCAFFF7FFFFB3357FE800FFD7"
         },
         "repeat": 1,
         "delay": 1000,
         "delay_interval": 1000
-      },
-      "winiaTestModel2": {
-        "type": "winia",
-        "bitlen": 144,
-        "data": {
-          "off": "B335564800AF4CCAFFB7FF7FB3357F4800EFD7",
-          "on": "B3356648008F4CCAFFB7FF7FB3357F4800EFD7",
-          "woff": "B335596800944CCAFFF7FFFFB3357FE800FFD7",
-          "won": "B335696800A44CCAFFF7FFFFB3357FE800FFD7"
-        }
       }
     },
     "carrier": {
@@ -236,10 +214,10 @@
         "type": "carrier",
         "bitlen": 96,
         "data": {
-          "off": "B335A6A84CCA5957FFF7FFFFB3",
-          "on": "B335A6A04CCA595FFFF7FFFFB3",
-          "woff": "B335A9384CCA56C7FFF7FFFFB3",
-          "won": "B335A9304CCA56CFFFF7FFFFB3"
+          "off": "B335A6A84CCA5957FF35BFA900",
+          "on": "B335A6A04CCA595FFF35BFA900",
+          "woff": "B335A9384CCA56C7FF35BFF900",
+          "won": "B335A9304CCA56CFFF35BFF900"
         },
         "repeat": 1,
         "delay": 1000,
@@ -249,10 +227,10 @@
         "type": "carrier",
         "bitlen": 96,
         "data": {
-          "off": "B335A6A84CCA5957FFF7FFFFB3",
-          "on": "B335A6A04CCA595FFFF7FFFFB3",
-          "woff": "B335A9384CCA56C7FFF7FFFFB3",
-          "won": "B335A9304CCA56CFFFF7FFFFB3"
+          "off": "B335A6A84CCA5957FF35BFA900",
+          "on": "B335A6A04CCA595FFF35BFA900",
+          "woff": "B335A9384CCA56C7FF35BFF900",
+          "won": "B335A9304CCA56CFFF35BFF900"
         },
         "repeat": 1,
         "delay": 1000,

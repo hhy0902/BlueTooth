@@ -205,53 +205,60 @@ class MainActivity2 : AppCompatActivity() {
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 룸 틀만 만들어서 보내줌
                 // 틀이랑 내용물 같이 보내기?
                 for(i in 1..roomList.size) {
-                    sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                    val jsonrpcObject = JSONObject()
-                    val jsonrpcArray = JSONArray()
-                    val jsonrpcArrayObject = JSONObject()
-                    val jsonrpcValue = JSONObject()
-                    val jsonrpcValue2 = JSONObject()
-                    val jsonrpcUnitsValue = JSONObject()
+                    try {
+                        sharedPreferences = getSharedPreferences("$i", Context.MODE_PRIVATE)
 
-                    jsonrpcObject.put("jsonrpc","2.0")
-                    jsonrpcObject.put("method","patch_gz")
-                    jsonrpcArrayObject.put("op","add")
-                    jsonrpcArrayObject.put("path","/room_$i")
-                    jsonrpcValue2.put("nid",sharedPreferences.all.get("editdata1").toString().toInt())
-                    jsonrpcValue.put("blaster",jsonrpcValue2)
+                        val jsonrpcObject = JSONObject()
+                        val jsonrpcArray = JSONArray()
+                        val jsonrpcArrayObject = JSONObject()
+                        val jsonrpcValue = JSONObject()
+                        val jsonrpcValue2 = JSONObject()
+                        val jsonrpcUnitsValue = JSONObject()
 
-                    // 들어가는 내용물이 블래스터 제외하면 7개 니까 언틸8을 사용함
-                    for(z in 1 until 8) {
-                        var jsonrpcUnitsValue2 = JSONObject()
-                        var jsonrpcPlugValue = JSONObject()
+                        jsonrpcObject.put("jsonrpc","2.0")
+                        jsonrpcObject.put("method","patch_gz")
+                        jsonrpcArrayObject.put("op","add")
+                        jsonrpcArrayObject.put("path","/room_$i")
+                        jsonrpcValue2.put("nid",sharedPreferences.all.get("editdata1").toString().toInt())
+                        jsonrpcValue.put("blaster",jsonrpcValue2)
 
-                        // 1=pc, 2=스피커, 3=조명, 4=프로젝터1, 5=프로젝터2, 6=에어컨 7=터치스크린 추가하기
-                        // 스피커 값 if 문에 들어가는거 변경해주기
+                        // 들어가는 내용물이 블래스터 제외하면 7개 니까 언틸8을 사용함
+                        for(z in 1 until 8) {
+                            var jsonrpcUnitsValue2 = JSONObject()
+                            var jsonrpcPlugValue = JSONObject()
 
-                        // 각 번호별로 해당하는 값들을 할당해 줌
-                        if(z == 4 || z == 5) {
-                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
-                        } else if(z == 1 || z == 7)   {
-                            jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
-                        } else if(z == 6 || z == 3 || z == 2 ) {
-                            jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+                            // 1=pc, 2=스피커, 3=조명, 4=프로젝터1, 5=프로젝터2, 6=에어컨 7=터치스크린 추가하기
+                            // 스피커 값 if 문에 들어가는거 변경해주기
+
+                            // 각 번호별로 해당하는 값들을 할당해 줌
+                            if(z == 4 || z == 5) {
+                                jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+                                jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+                            } else if(z == 1 || z == 7)   {
+                                jsonrpcUnitsValue2.put("plug", jsonrpcPlugValue)
+                            } else if(z == 6 || z == 3 || z == 2 ) {
+                                jsonrpcUnitsValue2.put("blaster", jsonrpcPlugValue)
+                            }
+                            val temp = numList[z]
+                            jsonrpcUnitsValue.put("$temp", jsonrpcUnitsValue2)
                         }
-                        val temp = numList[z]
-                        jsonrpcUnitsValue.put("$temp", jsonrpcUnitsValue2)
+
+                        jsonrpcValue.put("units", jsonrpcUnitsValue)
+                        jsonrpcArrayObject.put("value",jsonrpcValue)
+                        jsonrpcArray.put(jsonrpcArrayObject)
+                        jsonrpcObject.put("params",jsonrpcArray)
+                        jsonrpcObject.put("id","qwerasd$random")
+
+                        sendCommand(jsonrpcObject.toString())
+                        receiveData()
+                        Log.d("asdf jsonrpcobject", jsonrpcObject.toString())
+                        //Thread.sleep(200)
+                    } catch (e : Exception) {
+                        e.printStackTrace()
+                        Toast.makeText(this, "값을 제대로 입력했는지 확인해주세요",Toast.LENGTH_SHORT).show()
                     }
 
-                    jsonrpcValue.put("units", jsonrpcUnitsValue)
-                    jsonrpcArrayObject.put("value",jsonrpcValue)
-                    jsonrpcArray.put(jsonrpcArrayObject)
-                    jsonrpcObject.put("params",jsonrpcArray)
-                    jsonrpcObject.put("id","qwerasd$random")
-
-                    sendCommand(jsonrpcObject.toString())
-                    receiveData()
-                    Log.d("asdf jsonrpcobject", jsonrpcObject.toString())
-                    //Thread.sleep(200)
                 }
 
                 // sendCommand로 데이터 보내는데 블루투스 용량 때문에 나눠서 보냄 여기는 plug/nid만 만들어서 보내줌
@@ -863,71 +870,15 @@ class MainActivity2 : AppCompatActivity() {
 
     // 모든 룸에 있는 데이터를 지워주는 함수다
     private fun roomAllClear() {
-        val sharedPreferences = getSharedPreferences("1",Context.MODE_PRIVATE)
-        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        for(i in 1..20) {
+            val sharedPreferences = getSharedPreferences("${i}",Context.MODE_PRIVATE)
+            val editor : SharedPreferences.Editor = sharedPreferences.edit()
 
-        val sharedPreferences2 = getSharedPreferences("2",Context.MODE_PRIVATE)
-        val editor2 : SharedPreferences.Editor = sharedPreferences2.edit()
+            editor.clear()
+            editor.commit()
+        }
+        Toast.makeText(this,"데이터가 삭제되었습니다.",Toast.LENGTH_SHORT).show()
 
-        val sharedPreferences3 = getSharedPreferences("3",Context.MODE_PRIVATE)
-        val editor3 : SharedPreferences.Editor = sharedPreferences3.edit()
-
-        val sharedPreferences4 = getSharedPreferences("4",Context.MODE_PRIVATE)
-        val editor4 : SharedPreferences.Editor = sharedPreferences4.edit()
-
-        val sharedPreferences5 = getSharedPreferences("5",Context.MODE_PRIVATE)
-        val editor5 : SharedPreferences.Editor = sharedPreferences5.edit()
-
-        val sharedPreferences6 = getSharedPreferences("6",Context.MODE_PRIVATE)
-        val editor6 : SharedPreferences.Editor = sharedPreferences6.edit()
-
-        val sharedPreferences7 = getSharedPreferences("7",Context.MODE_PRIVATE)
-        val editor7 : SharedPreferences.Editor = sharedPreferences7.edit()
-
-        val sharedPreferences8 = getSharedPreferences("8",Context.MODE_PRIVATE)
-        val editor8 : SharedPreferences.Editor = sharedPreferences8.edit()
-
-        val sharedPreferences9 = getSharedPreferences("9",Context.MODE_PRIVATE)
-        val editor9 : SharedPreferences.Editor = sharedPreferences9.edit()
-
-        val sharedPreferences10 = getSharedPreferences("10",Context.MODE_PRIVATE)
-        val editor10 : SharedPreferences.Editor = sharedPreferences10.edit()
-
-        val sharedPreferences11 = getSharedPreferences("11",Context.MODE_PRIVATE)
-        val editor11 : SharedPreferences.Editor = sharedPreferences11.edit()
-
-        val sharedPreferences12 = getSharedPreferences("12",Context.MODE_PRIVATE)
-        val editor12 : SharedPreferences.Editor = sharedPreferences12.edit()
-
-        val sharedPreferences13 = getSharedPreferences("13",Context.MODE_PRIVATE)
-        val editor13 : SharedPreferences.Editor = sharedPreferences13.edit()
-
-        editor.clear()
-        editor.commit()
-        editor2.clear()
-        editor2.commit()
-        editor3.clear()
-        editor3.commit()
-        editor4.clear()
-        editor4.commit()
-        editor5.clear()
-        editor5.commit()
-        editor6.clear()
-        editor6.commit()
-        editor7.clear()
-        editor7.commit()
-        editor8.clear()
-        editor8.commit()
-        editor9.clear()
-        editor9.commit()
-        editor10.clear()
-        editor10.commit()
-        editor11.clear()
-        editor11.commit()
-        editor12.clear()
-        editor12.commit()
-        editor13.clear()
-        editor13.commit()
     }
 
 }
