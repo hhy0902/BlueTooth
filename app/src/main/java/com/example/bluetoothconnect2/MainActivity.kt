@@ -1,6 +1,7 @@
 package com.example.bluetoothconnect2
 
 import android.Manifest
+import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
@@ -19,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bluetoothconnect2.adapter.BlueAdapter
+import com.example.bluetoothconnect2.adapter.BlueListAdapter
 import com.example.bluetoothconnect2.model.BlueTooth
 import com.example.bluetoothconnect2.model.Room
 
@@ -32,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var pairedDevice: Set<BluetoothDevice>
 
     lateinit var blueToothList : MutableList<BlueTooth>
+
+    lateinit var blueListAdapter : BlueListAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,11 +64,31 @@ class MainActivity : AppCompatActivity() {
 
         pairedDevice = bluetoothAdapter!!.bondedDevices
 
-        val blueAdapter = BlueAdapter(this,blueToothList)
-        findViewById<RecyclerView>(R.id.mainRecyclerView).layoutManager = LinearLayoutManager(this)
-        findViewById<RecyclerView>(R.id.mainRecyclerView).adapter = blueAdapter
+        /*
+        기존에 사용하던 BlueAdapter를 BlueListAdapter로 교체함
+        만약 오류가 난다면 밑에 주석을 풀고 BlueListAdapter를 주석으로 처리하기
+        */
 
-        blueAdapter.blueToothList.clear()
+//        val blueAdapter = BlueAdapter(this,blueToothList)
+//        findViewById<RecyclerView>(R.id.mainRecyclerView).layoutManager = LinearLayoutManager(this)
+//        findViewById<RecyclerView>(R.id.mainRecyclerView).adapter = blueAdapter
+//        blueAdapter.blueToothList.clear()
+
+        blueListAdapter = BlueListAdapter(blueListClick = {
+            val intent = Intent(this, MainActivity2::class.java)
+            intent.putExtra("Device_address", it.id)
+            intent.putExtra("Device_name", it.name)
+            //itemView.context.startActivity(intent)
+
+            setResult(RESULT_OK, intent)
+            Toast.makeText(this,"연결 중",Toast.LENGTH_SHORT).show()
+            finish()
+        })
+        findViewById<RecyclerView>(R.id.mainRecyclerView).layoutManager = LinearLayoutManager(this)
+        findViewById<RecyclerView>(R.id.mainRecyclerView).adapter = blueListAdapter
+        blueListAdapter.submitList(blueToothList)
+
+
 
         if (!pairedDevice.isEmpty() /*&& blueToothList.size == 0*/) {
             pairedDevice.forEach {
